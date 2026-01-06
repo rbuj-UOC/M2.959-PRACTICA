@@ -1,5 +1,7 @@
 # Recollida selectiva
 
+[![Deploy to GitHub Pages](https://github.com/rbuj-UOC/M2.959-PRACTICA/actions/workflows/deploy.yml/badge.svg)](https://github.com/rbuj-UOC/M2.959-PRACTICA/actions/workflows/deploy.yml)
+
 ## Web scraper
 
 ### Creació d'un entorn virtual amb venv
