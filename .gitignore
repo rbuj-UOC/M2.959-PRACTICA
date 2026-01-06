@@ -359,6 +359,7 @@ __marimo__/
 preprocessing.html
 preprocessing.log
 preprocessing.pdf
+.conda/
 
 # History files
 .Rhistory
