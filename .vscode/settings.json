@@ -1,5 +1,32 @@
 {
     "cSpell.language": "ca,en",
+    "cSpell.words": [
+        "IDESCAT"
+    ],
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.markdownlint": "always",
+        "source.fixAll.shellcheck": "explicit"
+    },
+    "editor.rulers": [
+        80
+    ],
+    // The shfmt fullpath, example:
+    //   - [mac] /opt/homebrew/bin/shfmt
+    //   - [linux] /usr/local/bin/shfmt
+    //   - [windows] C:/bin/shfmt.exe
+    // download from https://github.com/mvdan/sh/releases
+    "shellformat.path": "/opt/homebrew/bin/shfmt",
+    "shellformat.effectLanguages": [
+        "shellscript"
+    ],
+    "[json]": {
+        "editor.formatOnSave": true
+    },
+    "[markdown]": {
+        "editor.defaultFormatter": "DavidAnson.vscode-markdownlint",
+        "editor.formatOnSave": true
+    },
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter",
         "editor.formatOnSave": true,
@@ -12,7 +39,7 @@
             "source.fixAll": "explicit"
         }
     },
-    "cSpell.words": [
-        "IDESCAT"
-    ]
+    "[shellscript]": {
+        "editor.formatOnSave": true,
+    },
 }

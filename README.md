@@ -25,3 +25,8 @@ source .venv/bin/activate
 ```sh
 (.venv) $ python3 scraper.py
 ```
+
+## Preprocessament de les dades
+
+El fitxer preprocessing.Rmd preprocessa les dades i genera el conjunt de dates
+[recollida-selectiva-comarques-2006-2021.csv](./data/recollida-selectiva-comarques-2006-2021.csv).

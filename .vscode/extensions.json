@@ -1,18 +1,20 @@
 {
-	// See https://go.microsoft.com/fwlink/?LinkId=827846 to learn about workspace recommendations.
-	// Extension identifier format: ${publisher}.${name}. Example: vscode.csharp
-
-	// List of extensions which should be recommended for users of this workspace.
-	"recommendations": [
+    // See https://go.microsoft.com/fwlink/?LinkId=827846 to learn about workspace recommendations.
+    // Extension identifier format: ${publisher}.${name}. Example: vscode.csharp
+    // List of extensions which should be recommended for users of this workspace.
+    "recommendations": [
         "ms-python.python",
         "streetsidesoftware.code-spell-checker",
         "streetsidesoftware.code-spell-checker-catalan",
         "editorconfig.editorconfig",
         "ms-python.pylint",
-        "ms-python.black-formatter"		
-	],
-	// List of extensions recommended by VS Code that should not be recommended for users of this workspace.
-	"unwantedRecommendations": [
-		
-	]
+        "ms-python.black-formatter",
+        "DavidAnson.vscode-markdownlint",
+        "REditorSupport.r",
+        "timonwong.shellcheck",
+        // v7.2.8: Downgrading to v7.2.5 resolves the issue about "There is no formatter for 'shellscript' files installed."
+        "foxundermoon.shell-format"
+    ],
+    // List of extensions recommended by VS Code that should not be recommended for users of this workspace.
+    "unwantedRecommendations": []
 }

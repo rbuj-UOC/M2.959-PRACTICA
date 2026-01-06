@@ -1,0 +1,309 @@
+---
+title: Anàlisi de Dades
+author: "Robert Buj"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+    warning = FALSE, error = FALSE, message = FALSE,
+    # cache = TRUE, # Activa la memòria cau
+    # cache.lazy = FALSE, # Desactiva la càrrega diferida de la memòria cau
+    # Opcions per a les figures
+    fig.align = "center"
+)
+# carrega les biblioteques necessàries
+suppressPackageStartupMessages({
+    library(dplyr)
+    library(ggplot2)
+    library(data.table)
+})
+```
+
+```{r}
+# Entra en la carpeta data i executa l'script per fusionar els fitxers de
+# recollida selectiva
+setwd("data")
+system("bash t6997com.sh")
+setwd("..")
+```
+
+```{r load-data}
+# Carrega el dataset
+recollida_ds <- fread(
+    "data/t6997com.csv",
+    sep = ";", # Separador de columnes
+    dec = ",", # Separador decimal
+    data.table = FALSE # Retorna data.frame per compatibilitat
+)
+# canvia el nom de la Comarca "Aran" a "Vall d'Aran"
+recollida_ds <- recollida_ds |>
+    mutate(Nom = ifelse(Nom == "Aran" | Nom == "Val d'Aran", "Vall d'Aran", Nom))
+# canvia el nom de la columna `Nom` a `Comarca`
+colnames(recollida_ds)[colnames(recollida_ds) == "Nom"] <- "Comarca"
+# canvia el nom de la columna `Total` a `Total recollida`
+colnames(recollida_ds)[colnames(recollida_ds) == "Total"] <- "Total recollida"
+# Elimina la columna `Codi`
+recollida_ds <- recollida_ds |> select(-Codi)
+# Resum estadistic del dataset
+summary(recollida_ds)
+```
+
+Carrega el fitxer amb les divisions administratives de Catalunya:
+
+```{r, read-boundaries}
+# Carrega el dataset de les divisions administratives
+boundaries_ds <- fread(
+    "data/divisions-administratives-v2r1-caps-municipi-20250730.csv",
+    sep = ";", # Separador de columnes
+    dec = ".", # Separador decimal
+    data.table = FALSE # Retorna data.frame per compatibilitat
+)
+# canvia el nom de la comarca "Val d'Aran" a "Vall d'Aran"
+boundaries_ds <- boundaries_ds |>
+    mutate(Comarca = ifelse(Comarca == "Val d'Aran" | Comarca == "Aran", "Vall d'Aran", Comarca))
+# Selecciona les columnes rellevants i elimina les files duplicades
+cols <- c("Comarca", "Província", "Longitud", "Latitud")
+boundaries_ds <- boundaries_ds |>
+    select(all_of(cols)) |>
+    group_by(`Comarca`) |>
+    slice(1) |>
+    ungroup()
+boundaries_ds <- boundaries_ds |> distinct()
+# Resum estadistic del dataset
+summary(boundaries_ds)
+```
+
+Fusionar amb el dataset dels residus de les comarques amb les divisions
+administratives:
+
+```{r}
+merged_ds <- recollida_ds |>
+    left_join(boundaries_ds, by = c("Comarca" = "Comarca")) |>
+    # Reordena les columnes
+    select(Any, Comarca, Província, Longitud, Latitud, everything())
+# Resum estadistic del dataset fusionat
+summary(merged_ds)
+```
+
+```{r}
+# Entra en la carpeta data i executa l'script per fusionar els fitxers de
+# densitat de població
+setwd("data")
+system("bash t15227.sh")
+setwd("..")
+```
+
+Carrega el dataset amb la Superfície km2 de població per comarca:
+
+```{r, read-area}
+# Carrega el dataset de densitat de població
+area_ds <- fread(
+    "data/t15227.csv",
+    sep = ";", # Separador de columnes
+    dec = ",", # Separador decimal
+    na.strings = c("", ".."), # Valors que representen NA
+    data.table = FALSE # Retorna data.frame per compatibilitat
+)
+# canvia el nom de la comarca "Val d'Aran" a "Vall d'Aran"
+area_ds <- area_ds |>
+    mutate(Comarca = ifelse(Comarca == "Val d'Aran" | Comarca == "Aran", "Vall d'Aran", Comarca)) |>
+    # Selecciona les columnes rellevants
+    select(Any, Comarca, `Superfície km2`) |>
+    group_by(Comarca, Any) |>
+    slice(1) |>
+    ungroup()
+# resum estadistic del dataset
+summary(area_ds)
+```
+
+Fusionar el dataset dels residus amb el de densitat de població:
+
+```{r}
+final_ds <- merged_ds |>
+    left_join(area_ds, by = c("Comarca" = "Comarca", "Any" = "Any")) |>
+    filter(Any >= 2006 & Any <= 2022) |>
+    # Reordena les columnes
+    select(
+        Any, Comarca, Província, Longitud, Latitud, `Superfície km2`,
+        everything()
+    ) |>
+    arrange(Any, Comarca)
+# Resum estadistic del dataset final
+summary(final_ds)
+```
+
+
+```{r}
+# Entra a la carpeta data i executa l'script per fusionar els fitxers de
+# densitat de població
+setwd("data")
+system("bash t15233.sh")
+setwd("..")
+```
+
+Carrega el fitxer de densitat Total de població per comarca (Total):
+
+```{r, read-density-total}
+# Carrega el dataset de densitat de població
+density_ds <- fread(
+    "data/t15233-T.csv",
+    sep = ";", # Separador de columnes
+    dec = ",", # Separador decimal
+    na.strings = c("", ".."), # Valors que representen NA
+    data.table = FALSE # Retorna data.frame per compatibilitat
+)
+# canvia el nom de la comarca "Val d'Aran" a "Vall d'Aran"
+density_ds <- density_ds |>
+    mutate(Comarca = ifelse(Comarca == "Val d'Aran" | Comarca == "Aran", "Vall d'Aran", Comarca))
+# resum estadistic del dataset
+summary(density_ds)
+# Files que tenen NA a la columna Població
+density_ds[is.na(density_ds$Població), ]
+# Fusiona la densitat de població al dataset final
+final_ds <- final_ds |>
+    left_join(
+        density_ds,
+        by = c("Comarca" = "Comarca", "Any" = "Any")
+    )
+# Resum estadistic del dataset final
+summary(final_ds)
+```
+
+Carrega el fitxer de densitat de població femenina per comarca (Total):
+
+```{r, read-density-female}
+# Carrega el dataset de densitat de població
+density_ds <- fread(
+    "data/t15233-D.csv",
+    sep = ";", # Separador de columnes
+    dec = ",", # Separador decimal
+    na.strings = c("", ".."), # Valors que representen NA
+    data.table = FALSE # Retorna data.frame per compatibilitat
+)
+# canvia el nom de la comarca "Val d'Aran" a "Vall d'Aran"
+density_ds <- density_ds |>
+    mutate(Comarca = ifelse(Comarca == "Val d'Aran" | Comarca == "Aran", "Vall d'Aran", Comarca))
+# resum estadistic del dataset
+summary(density_ds)
+# Files que tenen NA a la columna Població
+density_ds[is.na(density_ds$Població), ]
+# Fusiona la densitat de població al dataset final
+final_ds <- final_ds |>
+    left_join(
+        density_ds,
+        by = c("Comarca" = "Comarca", "Any" = "Any")
+    )
+# Resum estadistic del dataset final
+summary(final_ds)
+```
+
+Carrega el fitxer de densitat de població masculina per comarca (Total):
+
+```{r, read-density-male}
+# Carrega el dataset de densitat de població
+density_ds <- fread(
+    "data/t15233-H.csv",
+    sep = ";", # Separador de columnes
+    dec = ",", # Separador decimal
+    na.strings = c("", ".."), # Valors que representen NA
+    data.table = FALSE # Retorna data.frame per compatibilitat
+)
+# canvia el nom de la comarca "Val d'Aran" a "Vall d'Aran"
+density_ds <- density_ds |>
+    mutate(Comarca = ifelse(Comarca == "Val d'Aran" | Comarca == "Aran", "Vall d'Aran", Comarca))
+# resum estadistic del dataset
+summary(density_ds)
+# Files que tenen NA a la columna Població
+density_ds[is.na(density_ds$Població), ]
+# Fusiona la densitat de població al dataset final
+final_ds <- final_ds |>
+    left_join(
+        density_ds,
+        by = c("Comarca" = "Comarca", "Any" = "Any")
+    )
+# Resum estadistic del dataset final
+summary(final_ds)
+```
+
+```{r}
+# Canvia el nom de les columnes de densitat de població
+colnames(final_ds)[colnames(final_ds) == "Dona Sum"] <- "Població.x"
+colnames(final_ds)[colnames(final_ds) == "Dona 0-15"] <- "Població.x 0-15"
+colnames(final_ds)[colnames(final_ds) == "Dona 16-24"] <- "Població.x 16-24"
+colnames(final_ds)[colnames(final_ds) == "Dona 25-44"] <- "Població.x 25-44"
+colnames(final_ds)[colnames(final_ds) == "Dona 45-64"] <- "Població.x 45-64"
+colnames(final_ds)[colnames(final_ds) == "Dona 65 i més"] <- "Població.x 64+"
+
+colnames(final_ds)[colnames(final_ds) == "Home Sum"] <- "Població.y"
+colnames(final_ds)[colnames(final_ds) == "Home 0-15"] <- "Població.y 0-15"
+colnames(final_ds)[colnames(final_ds) == "Home 16-24"] <- "Població.y 16-24"
+colnames(final_ds)[colnames(final_ds) == "Home 25-44"] <- "Població.y 25-44"
+colnames(final_ds)[colnames(final_ds) == "Home 45-64"] <- "Població.y 45-64"
+colnames(final_ds)[colnames(final_ds) == "Home 65 i més"] <- "Població.y 64+"
+
+colnames(final_ds)[colnames(final_ds) == "Total Sum"] <- "Població"
+colnames(final_ds)[colnames(final_ds) == "Total 0-15"] <- "Població 0-15"
+colnames(final_ds)[colnames(final_ds) == "Total 16-24"] <- "Població 16-24"
+colnames(final_ds)[colnames(final_ds) == "Total 25-44"] <- "Població 25-44"
+colnames(final_ds)[colnames(final_ds) == "Total 45-64"] <- "Població 45-64"
+colnames(final_ds)[colnames(final_ds) == "Total 65 i més"] <- "Població 64+"
+
+
+# Calcula les densitats de població
+final_ds <- final_ds |>
+    mutate(
+        `Densitat població femenina` = `Població.x` / `Superfície km2`,
+        `Densitat població 0-15 femenina` = `Població.x 0-15` / `Superfície km2`,
+        `Densitat població 16-24 femenina` = `Població.x 16-24` / `Superfície km2`,
+        `Densitat població 25-44 femenina` = `Població.x 25-44` / `Superfície km2`,
+        `Densitat població 45-64 femenina` = `Població.x 45-64` / `Superfície km2`,
+        `Densitat població 64+ femenina` = `Població.x 64+` / `Superfície km2`,
+        `Densitat població masculina` = `Població.y` / `Superfície km2`,
+        `Densitat població 0-15 masculina` = `Població.y 0-15` / `Superfície km2`,
+        `Densitat població 16-24 masculina` = `Població.y 16-24` / `Superfície km2`,
+        `Densitat població 25-44 masculina` = `Població.y 25-44` / `Superfície km2`,
+        `Densitat població 45-64 masculina` = `Població.y 45-64` / `Superfície km2`,
+        `Densitat població 64+ masculina` = `Població.y 64+` / `Superfície km2`,
+        `Densitat població` = `Població` / `Superfície km2`,
+        `Densitat població 0-15` = `Població 0-15` / `Superfície km2`,
+        `Densitat població 16-24` = `Població 16-24` / `Superfície km2`,
+        `Densitat població 25-44` = `Població 25-44` / `Superfície km2`,
+        `Densitat població 45-64` = `Població 45-64` / `Superfície km2`,
+        `Densitat població 64+` = `Població 64+` / `Superfície km2`
+    ) |>
+    select(
+        Any, Comarca, Província, Longitud, Latitud, `Superfície km2`,
+        `Població.x`, `Població.y`, `Població`,
+        `Població.x 0-15`, `Població.y 0-15`, `Població 0-15`,
+        `Població.x 16-24`, `Població.y 16-24`, `Població 16-24`,
+        `Població.x 25-44`, `Població.y 25-44`, `Població 25-44`,
+        `Població.x 45-64`, `Població.y 45-64`, `Població 45-64`,
+        `Població.x 64+`, `Població.y 64+`, `Població 64+`,
+        everything()
+    )
+```
+
+Desa el dataset final en format CSV:
+
+```{r, save-final-ds}
+fwrite(
+    final_ds |>
+        arrange(Any, Comarca) |>
+        select(
+            Any, Comarca, Província, Longitud, Latitud, `Superfície km2`,
+            everything()
+        ),
+    "data/recollida-selectiva-comarques-2006-2021.csv",
+    sep = ",",
+    dec = ".",
+    verbose = FALSE
+)
+# Elimina els fitxer temporals
+file.remove("data/t6997com.csv")
+file.remove("data/t15227.csv")
+file.remove("data/t15233-T.csv")
+file.remove("data/t15233-D.csv")
+file.remove("data/t15233-H.csv")
+```
