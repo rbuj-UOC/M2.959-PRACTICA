@@ -356,6 +356,10 @@ __marimo__/
 
 # R specific ignores
 
+preprocessing.html
+preprocessing.log
+preprocessing.pdf
+
 # History files
 .Rhistory
 .Rapp.history
