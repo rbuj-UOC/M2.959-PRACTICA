@@ -30,3 +30,23 @@ source .venv/bin/activate
 
 El fitxer preprocessing.Rmd preprocessa les dades i genera el conjunt de dates
 [recollida-selectiva-comarques-2006-2021.csv](./data/recollida-selectiva-comarques-2006-2021.csv).
+
+## Pàgina web
+
+### Construcció de la pàgina
+
+```sh
+npm run build
+```
+
+### Execució del servidor local
+
+```sh
+npm run start
+```
+
+### Execució en mode depuració
+
+```sh
+npm run dev
+```

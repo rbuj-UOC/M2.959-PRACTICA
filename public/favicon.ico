@@ -1,0 +1,555 @@
+
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  
+  
+  <!-- Google Tag Manager -->
+  <script defer="defer" type="text/javascript" src="https://rum.hlx.page/.rum/@adobe/helix-rum-js@%5E2/dist/rum-standalone.js" data-routing="program=56146,environment=412726,tier=publish"></script>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KK9DCJ');</script>
+  <!-- End Google Tag Manager -->
+  
+
+  
+  
+    <!-- Youtube API -->
+    <script type="text/javascript">
+      // load the Youtube JS api and get going
+      const j = document.createElement("script"),
+              f = document.getElementsByTagName("script")[0];
+      j.src = "//www.youtube.com/iframe_api";
+      j.async = true;
+      f.parentNode.insertBefore(j, f);
+    </script>
+    <!-- End Youtube API -->
+  
+
+    
+  <meta charset="UTF-8"/>
+  <title>404</title>
+
+  
+
+
+
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "url": "https://www.uoc.edu",
+        "logo": "https://www.uoc.edu/content/dam/uoc-common/logo.png"
+    }
+</script>
+
+  
+
+
+
+
+<meta property="og:url"/>
+<meta property="og:title" content="404"/>
+<meta property="og:type" content="website"/>
+
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:site" content="@UOCuniversitat"/>
+<meta name="twitter:creator" content="@UOCuniversitat"/>
+
+  
+  
+  <meta name="template" content="404-template"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="robots" content="noindex, nofollow"/>
+  
+    
+    
+    <meta property="cq:wcmmode" content="disabled"/>
+
+    <meta name="section"/>
+    <meta name="headland" content="404"/>
+    <meta name="sub-headland" content=""/>
+    <meta name="page-type" content="404-template"/>
+
+
+  
+  
+
+
+  
+
+    
+    
+
+
+
+
+
+<link rel="icon" type="image/png" href="/etc.clientlibs/uoc-common/clientlibs/clientlib-site/resources/images/favicons/favicon-16x16.png" sizes="16x16"/>
+<link rel="icon" type="image/png" href="/etc.clientlibs/uoc-common/clientlibs/clientlib-site/resources/images/favicons/favicon-32x32.png" sizes="32x32"/>
+<link rel="icon" type="image/png" href="/etc.clientlibs/uoc-common/clientlibs/clientlib-site/resources/images/favicons/favicon-96x96.png" sizes="96x96"/>
+
+
+<link rel="icon" type="image/png" href="/etc.clientlibs/uoc-common/clientlibs/clientlib-site/resources/images/favicons/android-icon-192x192.png" sizes="192x192"/>
+
+
+<link rel="apple-touch-icon" type="image/png" href="/etc.clientlibs/uoc-common/clientlibs/clientlib-site/resources/images/favicons/apple-icon-57x57.png" sizes="57x57"/>
+<link rel="apple-touch-icon" type="image/png" href="/etc.clientlibs/uoc-common/clientlibs/clientlib-site/resources/images/favicons/apple-icon-60x60.png" sizes="60x60"/>
+<link rel="apple-touch-icon" type="image/png" href="/etc.clientlibs/uoc-common/clientlibs/clientlib-site/resources/images/favicons/apple-icon-72x72.png" sizes="72x72"/>
+<link rel="apple-touch-icon" type="image/png" href="/etc.clientlibs/uoc-common/clientlibs/clientlib-site/resources/images/favicons/apple-icon-76x76.png" sizes="76x76"/>
+<link rel="apple-touch-icon" type="image/png" href="/etc.clientlibs/uoc-common/clientlibs/clientlib-site/resources/images/favicons/apple-icon-114x114.png" sizes="114x114"/>
+<link rel="apple-touch-icon" type="image/png" href="/etc.clientlibs/uoc-common/clientlibs/clientlib-site/resources/images/favicons/apple-icon-120x120.png" sizes="120x120"/>
+<link rel="apple-touch-icon" type="image/png" href="/etc.clientlibs/uoc-common/clientlibs/clientlib-site/resources/images/favicons/apple-icon-144x144.png" sizes="144x144"/>
+<link rel="apple-touch-icon" type="image/png" href="/etc.clientlibs/uoc-common/clientlibs/clientlib-site/resources/images/favicons/apple-icon-152x152.png" sizes="152x152"/>
+<link rel="apple-touch-icon" type="image/png" href="/etc.clientlibs/uoc-common/clientlibs/clientlib-site/resources/images/favicons/apple-icon-180x180.png" sizes="180x180"/>
+<link rel="apple-touch-icon" sizes="180x180" href="/etc.clientlibs/uoc-common/clientlibs/clientlib-site/resources/images/favicons/apple-touch-icon.png"/>
+
+
+<link rel="mask-icon" href="/etc.clientlibs/uoc-common/clientlibs/clientlib-site/resources/images/favicons/safari-pinned-tab.svg" color="#5bbad5"/>
+<link rel="shortcut icon" href="/etc.clientlibs/uoc-common/clientlibs/clientlib-site/resources/images/favicons/favicon.ico"/>
+
+  
+  
+  
+  
+
+  
+
+  
+    <script src="/etc.clientlibs/uoc-common/clientlibs/clientlib-dependencies.lc-d41d8cd98f00b204e9800998ecf8427e-lc.min.js"></script>
+
+
+  
+    <link rel="stylesheet" href="/etc.clientlibs/uoc-common/clientlibs/clientlib-dependencies.lc-d41d8cd98f00b204e9800998ecf8427e-lc.min.css" type="text/css">
+<link rel="stylesheet" href="/etc.clientlibs/uoc-common/clientlibs/clientlib-site.lc-0b8c3374ac03ea77e12efdc1fa8f4534-lc.min.css" type="text/css">
+
+
+  
+  
+    <script async src="/etc.clientlibs/core/wcm/components/commons/datalayer/v1/clientlibs/core.wcm.components.commons.datalayer.v1.lc-70264651675213ed7f7cc5a02a00f621-lc.min.js"></script>
+
+
+
+  
+  
+</head>
+<body id="error404-eb289c7021" data-cmp-data-layer-enabled>
+
+  
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KK9DCJ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  
+
+<script>
+    window.adobeDataLayer = window.adobeDataLayer || [];
+    adobeDataLayer.push({
+        page: JSON.parse("{\x22error404\u002Deb289c7021\x22:{\x22@type\x22:\x22uoc\u002Dcommon\/components\/page\/error404\x22,\x22repo:modifyDate\x22:\x222024\u002D10\u002D30T14:06:10Z\x22,\x22dc:title\x22:\x22404\x22,\x22xdm:template\x22:\x22\/conf\/uoc\u002Dcommon\/settings\/wcm\/templates\/404\u002Dtemplate\x22,\x22xdm:language\x22:\x22en\x22,\x22xdm:tags\x22:[],\x22repo:path\x22:\x22\/content\/uoc\u002Dcommon\/errors\/404.html\x22}}"),
+        event:'cmp:show',
+        eventInfo: {
+            path: 'page.error404\u002Deb289c7021'
+        }
+    });
+</script>
+
+
+    
+
+
+
+
+    
+
+     
+     
+        <header class="experiencefragment-header experiencefragment">
+<div id="experiencefragment-d263301b4e" class="cmp-experiencefragment cmp-experiencefragment--header">
+
+
+    
+</div>
+
+    
+</header>
+
+     
+
+     
+        <main id="main-contents" class="root container responsivegrid error404 base page basicpage ot-main-content-container ot-main-content-container--home">
+            
+	
+		
+		
+    
+    <div id="container-22a74b0f1f" class="cmp-container">
+        
+        <div class="container responsivegrid uoc-common-container">
+	
+		
+		
+    
+    <div id="container-80ffcc7119" class="cmp-container">
+        
+        <div class="container responsivegrid uoc-common-container">
+	
+		
+		
+    
+    <div id="container-6c54e2ebc3" class="cmp-container">
+        
+        <div class="404 uoc-common-module">
+
+
+<div class="uoc-error404">
+    <h1 class="uoc-error404__title">
+        
+        
+	<svg class="svg-icon " aria-hidden="true">
+		
+		<use xlink:href="#error-server"></use>
+	</svg>
+
+        Error #404
+    </h1>
+
+    <div class="uoc-error404__img-wrapper">
+        
+	
+	
+	<div data-asset-id="72110df1-366e-4ac4-9938-7608fff4b680" id="image-a9f6d534f3" data-cmp-data-layer="{&#34;image-a9f6d534f3&#34;:{&#34;@type&#34;:&#34;uoc-common/components/common/image&#34;,&#34;repo:modifyDate&#34;:&#34;2024-10-30T14:06:10Z&#34;,&#34;image&#34;:{&#34;repo:id&#34;:&#34;72110df1-366e-4ac4-9938-7608fff4b680&#34;,&#34;repo:modifyDate&#34;:&#34;2024-10-30T14:07:51Z&#34;,&#34;@type&#34;:&#34;image/jpeg&#34;,&#34;repo:path&#34;:&#34;/content/dam/uoc-common/error-404.jpg&#34;,&#34;xdm:tags&#34;:[&#34;properties:orientation/landscape&#34;],&#34;xdm:smartTags&#34;:{&#34;typography&#34;:0.893,&#34;registration plate&#34;:0.831,&#34;textbook&#34;:0.871,&#34;brochure&#34;:0.923,&#34;conference&#34;:0.85,&#34;military organization&#34;:0.814,&#34;election&#34;:0.8,&#34;business photography&#34;:0.934,&#34;catalog&#34;:0.839,&#34;university&#34;:0.831,&#34;certificate&#34;:0.857,&#34;booklet&#34;:0.868,&#34;file folder&#34;:0.837,&#34;tuition&#34;:0.901,&#34;payment card&#34;:0.806,&#34;title&#34;:0.813,&#34;mousepad&#34;:0.796,&#34;publication&#34;:0.946,&#34;folio&#34;:0.835,&#34;diploma&#34;:0.821,&#34;leaflet&#34;:0.883,&#34;binder&#34;:0.797,&#34;business card&#34;:0.834,&#34;file binder&#34;:0.819}}}}" class="cmp-image" itemscope itemtype="http://schema.org/ImageObject">
+
+    
+        
+            <img srcset="/content/uoc-common/errors/404/_jcr_content/root/container/container/_404/image.coreimg.82.576.jpeg/1730297271305/error-404.jpeg 576w,/content/uoc-common/errors/404/_jcr_content/root/container/container/_404/image.coreimg.82.768.jpeg/1730297271305/error-404.jpeg 768w,/content/uoc-common/errors/404/_jcr_content/root/container/container/_404/image.coreimg.82.1024.jpeg/1730297271305/error-404.jpeg 1024w,/content/uoc-common/errors/404/_jcr_content/root/container/container/_404/image.coreimg.82.1366.jpeg/1730297271305/error-404.jpeg 1366w,/content/uoc-common/errors/404/_jcr_content/root/container/container/_404/image.coreimg.82.1600.jpeg/1730297271305/error-404.jpeg 1600w,/content/uoc-common/errors/404/_jcr_content/root/container/container/_404/image.coreimg.82.1920.jpeg/1730297271305/error-404.jpeg 1920w" src="/content/uoc-common/errors/404/_jcr_content/root/container/container/_404/image.coreimg.jpeg/1730297271305/error-404.jpeg" loading="lazy" class="img-fluid" itemprop="contentUrl" width="2045" height="1151" alt="404 image"/>
+        
+        
+    
+
+    
+    
+</div>
+
+    
+
+
+	
+	
+
+    </div>
+
+    
+
+	<ul class="uoc-error404__cards-wrapper">
+		
+			<li class=" uoc-1-col-container">
+				
+	
+		
+		
+    
+    <div id="container-b71efc6cd9" class="cmp-container">
+        
+        <div class="uoccard bg-secondary uoc-common-module">
+
+
+	
+	<div class="uoc-card uoc-card--image-top " data-uoc-card>
+		<div class="uoc-card__image-container">
+			
+	
+	
+	
+	
+	
+	
+		
+
+    
+
+
+	
+	
+	
+
+		</div>
+		<div class="uoc-card__content">
+			<div class="uoc-card__top">
+				
+				
+					<h3 class="uoc-card__title ">
+						
+						Ui!
+					</h3>
+				
+				
+				<div class="uoc-card__body"><p>No es troba la pàgina.<br />
+Què pots fer?</p>
+<p>Visita la <a href="https://www.uoc.edu/ca">pàgina d&#39;inici</a> de la UOC</p>
+</div>
+			</div>
+			<div class="uoc-card__footer">
+				
+				
+				
+				
+			</div>
+			
+				
+	<svg class="svg-icon uoc-card__mobile" aria-hidden="true">
+		
+		<use xlink:href="#arrow-right"></use>
+	</svg>
+
+			
+		</div>
+	</div>
+
+
+
+
+	
+    
+
+
+</div>
+
+        
+    </div>
+
+	
+
+
+			</li>
+		
+			<li class=" uoc-2-col-container">
+				
+	
+		
+		
+    
+    <div id="container-3e37ef824d" class="cmp-container">
+        
+        <div class="uoccard bg-secondary uoc-common-module">
+
+
+	
+	<div class="uoc-card uoc-card--image-top " data-uoc-card>
+		<div class="uoc-card__image-container">
+			
+	
+	
+	
+	
+	
+	
+		
+
+    
+
+
+	
+	
+	
+
+		</div>
+		<div class="uoc-card__content">
+			<div class="uoc-card__top">
+				
+				
+					<h3 class="uoc-card__title ">
+						
+						Uy!
+					</h3>
+				
+				
+				<div class="uoc-card__body"><p>No se encuentra la página.<br />
+¿Qué puedes hacer?</p>
+<p>Visita la <a href="https://www.uoc.edu/es">página de inicio</a> de la UOC</p>
+</div>
+			</div>
+			<div class="uoc-card__footer">
+				
+				
+				
+				
+			</div>
+			
+				
+	<svg class="svg-icon uoc-card__mobile" aria-hidden="true">
+		
+		<use xlink:href="#arrow-right"></use>
+	</svg>
+
+			
+		</div>
+	</div>
+
+
+
+
+	
+    
+
+
+</div>
+
+        
+    </div>
+
+	
+
+
+			</li>
+		
+			<li class=" uoc-3-col-container">
+				
+	
+		
+		
+    
+    <div id="container-afc2fe97c9" class="cmp-container">
+        
+        <div class="uoccard bg-secondary uoc-common-module">
+
+
+	
+	<div class="uoc-card uoc-card--image-top " data-uoc-card>
+		<div class="uoc-card__image-container">
+			
+	
+	
+	
+	
+	
+	
+		
+
+    
+
+
+	
+	
+	
+
+		</div>
+		<div class="uoc-card__content">
+			<div class="uoc-card__top">
+				
+				
+					<h1 class="uoc-card__title ">
+						
+						Whoops!
+					</h1>
+				
+				
+				<div class="uoc-card__body"><p>Page not found.<br />
+What can you do?</p>
+<p>Visit the UOC <a href="https://www.uoc.edu/en">home page</a></p>
+</div>
+			</div>
+			<div class="uoc-card__footer">
+				
+				
+				
+				
+			</div>
+			
+				
+	<svg class="svg-icon uoc-card__mobile" aria-hidden="true">
+		
+		<use xlink:href="#arrow-right"></use>
+	</svg>
+
+			
+		</div>
+	</div>
+
+
+
+
+	
+    
+
+
+</div>
+
+        
+    </div>
+
+	
+
+
+			</li>
+		
+	</ul>
+
+
+
+
+	
+    
+
+
+</div>
+
+
+</div>
+
+        
+    </div>
+
+	
+
+</div>
+
+        
+    </div>
+
+	
+
+</div>
+
+        
+    </div>
+
+	
+
+
+        </main>
+     
+     
+
+
+
+    
+    
+    <script src="/etc.clientlibs/uoc-common/clientlibs/clientlib-site.lc-245122730898a6f109dc4d9a10fc3901-lc.min.js"></script>
+
+
+    
+
+    
+    
+<script src="/etc.clientlibs/core/wcm/components/commons/site/clientlibs/container.lc-0a6aff292f5cc42142779cde92054524-lc.min.js"></script>
+<script src="/etc.clientlibs/uoc-common/clientlibs/clientlib-base.lc-fe5592022f1bcbd26a7ffc9436d48542-lc.min.js"></script>
+
+
+
+
+
+
+    
+
+    
+
+    
+    
+
+
+</body>
+</html>
