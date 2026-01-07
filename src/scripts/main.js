@@ -25,8 +25,12 @@ Promise.all([
         provincia: d['Província'],
         tones_recollida_no_selectiva: +d['Recollida no selectiva'],
         tones_recollida_selectiva: +d['Recollida selectiva'],
-        tones_recollida_total: +d['Total recollida'],
-    }));
+    }))
+        .map(d => ({
+            ...d,
+            // calcula les tones totals de recollida
+            tones_recollida_total: d.tones_recollida_selectiva + d.tones_recollida_no_selectiva
+        }));
 
     // Descartar valors no disponibles en càlculs específics
     const safe = (arr, accessor) => arr.filter(d => Number.isFinite(accessor(d)));

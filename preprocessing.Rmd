@@ -42,10 +42,8 @@ recollida_ds <- recollida_ds |>
     mutate(Nom = ifelse(Nom == "Aran" | Nom == "Val d'Aran", "Vall d'Aran", Nom))
 # canvia el nom de la columna `Nom` a `Comarca`
 colnames(recollida_ds)[colnames(recollida_ds) == "Nom"] <- "Comarca"
-# canvia el nom de la columna `Total` a `Total recollida`
-colnames(recollida_ds)[colnames(recollida_ds) == "Total"] <- "Total recollida"
-# Elimina la columna `Codi`
-recollida_ds <- recollida_ds |> select(-Codi)
+# Elimina la columna `Codi` i la columna `Total`
+recollida_ds <- recollida_ds |> select(-Codi, -Total)
 # Resum estadistic del dataset
 summary(recollida_ds)
 ```
