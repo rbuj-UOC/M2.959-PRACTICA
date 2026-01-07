@@ -161,6 +161,7 @@ export function createOverviewPieChart(data) {
             .attr('text-anchor', 'middle')
             .style('font-size', '18px')
             .style('font-weight', 'bold')
+            .style('fill', '#73000a')
             .text(title);
 
         // Subtítol amb info del període
