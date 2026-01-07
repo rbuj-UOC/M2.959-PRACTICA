@@ -258,7 +258,7 @@ def main():
 
     # Directori on desar els fitxers
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    download_dir = os.path.join(current_dir, "data")
+    download_dir = os.path.join(current_dir, "dataset")
 
     # Assegurar que el directori existeix
     os.makedirs(download_dir, exist_ok=True)

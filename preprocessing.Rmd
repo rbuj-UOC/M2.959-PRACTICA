@@ -22,9 +22,9 @@ suppressPackageStartupMessages({
 ```
 
 ```{r}
-# Entra en la carpeta data i executa l'script per fusionar els fitxers de
+# Entra en la carpeta dataset i executa l'script per fusionar els fitxers de
 # recollida selectiva
-setwd("data")
+setwd("dataset")
 system("bash t6997com.sh")
 setwd("..")
 ```
@@ -32,7 +32,7 @@ setwd("..")
 ```{r load-data}
 # Carrega el dataset
 recollida_ds <- fread(
-    "data/t6997com.csv",
+    "dataset/t6997com.csv",
     sep = ";", # Separador de columnes
     dec = ",", # Separador decimal
     data.table = FALSE # Retorna data.frame per compatibilitat
@@ -55,7 +55,7 @@ Carrega el fitxer amb les divisions administratives de Catalunya:
 ```{r, read-boundaries}
 # Carrega el dataset de les divisions administratives
 boundaries_ds <- fread(
-    "data/divisions-administratives-v2r1-caps-municipi-20250730.csv",
+    "dataset/divisions-administratives-v2r1-caps-municipi-20250730.csv",
     sep = ";", # Separador de columnes
     dec = ".", # Separador decimal
     data.table = FALSE # Retorna data.frame per compatibilitat
@@ -88,9 +88,9 @@ summary(merged_ds)
 ```
 
 ```{r}
-# Entra en la carpeta data i executa l'script per fusionar els fitxers de
+# Entra en la carpeta dataset i executa l'script per fusionar els fitxers de
 # densitat de població
-setwd("data")
+setwd("dataset")
 system("bash t15227.sh")
 setwd("..")
 ```
@@ -100,7 +100,7 @@ Carrega el dataset amb la Superfície km2 de població per comarca:
 ```{r, read-area}
 # Carrega el dataset de densitat de població
 area_ds <- fread(
-    "data/t15227.csv",
+    "dataset/t15227.csv",
     sep = ";", # Separador de columnes
     dec = ",", # Separador decimal
     na.strings = c("", ".."), # Valors que representen NA
@@ -136,9 +136,9 @@ summary(final_ds)
 
 
 ```{r}
-# Entra a la carpeta data i executa l'script per fusionar els fitxers de
+# Entra a la carpeta dataset i executa l'script per fusionar els fitxers de
 # densitat de població
-setwd("data")
+setwd("dataset")
 system("bash t15233.sh")
 setwd("..")
 ```
@@ -148,7 +148,7 @@ Carrega el fitxer de densitat Total de població per comarca (Total):
 ```{r, read-density-total}
 # Carrega el dataset de densitat de població
 density_ds <- fread(
-    "data/t15233-T.csv",
+    "dataset/t15233-T.csv",
     sep = ";", # Separador de columnes
     dec = ",", # Separador decimal
     na.strings = c("", ".."), # Valors que representen NA
@@ -176,7 +176,7 @@ Carrega el fitxer de densitat de població femenina per comarca (Total):
 ```{r, read-density-female}
 # Carrega el dataset de densitat de població
 density_ds <- fread(
-    "data/t15233-D.csv",
+    "dataset/t15233-D.csv",
     sep = ";", # Separador de columnes
     dec = ",", # Separador decimal
     na.strings = c("", ".."), # Valors que representen NA
@@ -204,7 +204,7 @@ Carrega el fitxer de densitat de població masculina per comarca (Total):
 ```{r, read-density-male}
 # Carrega el dataset de densitat de població
 density_ds <- fread(
-    "data/t15233-H.csv",
+    "dataset/t15233-H.csv",
     sep = ";", # Separador de columnes
     dec = ",", # Separador decimal
     na.strings = c("", ".."), # Valors que representen NA
@@ -301,9 +301,9 @@ fwrite(
     verbose = FALSE
 )
 # Elimina els fitxer temporals
-file.remove("data/t6997com.csv")
-file.remove("data/t15227.csv")
-file.remove("data/t15233-T.csv")
-file.remove("data/t15233-D.csv")
-file.remove("data/t15233-H.csv")
+file.remove("dataset/t6997com.csv")
+file.remove("dataset/t15227.csv")
+file.remove("dataset/t15233-T.csv")
+file.remove("dataset/t15233-D.csv")
+file.remove("dataset/t15233-H.csv")
 ```
