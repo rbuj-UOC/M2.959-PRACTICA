@@ -91,6 +91,7 @@ export function createOverviewPieChart(data) {
         const pie = d3.pie().value(d => d.value).sort(null);
         const arc = d3.arc().innerRadius(0).outerRadius(radius);
         const labelArc = d3.arc().innerRadius(radius * 0.65).outerRadius(radius * 0.65);
+        const topThreeLabels = new Set(pieData.slice(0, 3).map(d => d.label));
 
         const arcs = g.selectAll('arc')
             .data(pie(pieData))
@@ -123,9 +124,24 @@ export function createOverviewPieChart(data) {
                 return `${d.data.label}: ${formatNumber(d.data.value)} tones (${formatNumber(pct)}%)`;
             });
 
-        // Etiquetes de percentatge (només per sectors grans)
-        if (pieData.length <= 10) {
-            arcs.append('text')
+        // Etiquetes de percentatge: només top 3 en mètriques de comarques; totes en comparativa
+        if (metric === 'comparativa') {
+            if (pieData.length <= 10) {
+                arcs.append('text')
+                    .attr('transform', d => `translate(${labelArc.centroid(d)})`)
+                    .attr('text-anchor', 'middle')
+                    .style('font-size', '14px')
+                    .style('fill', '#fff')
+                    .style('font-weight', 'bold')
+                    .style('text-shadow', '1px 1px 2px rgba(0,0,0,0.8)')
+                    .text(d => {
+                        const pct = (d.data.value / d3.sum(pieData, p => p.value)) * 100;
+                        return `${formatNumber(pct)}%`;
+                    });
+            }
+        } else {
+            arcs.filter(d => topThreeLabels.has(d.data.label))
+                .append('text')
                 .attr('transform', d => `translate(${labelArc.centroid(d)})`)
                 .attr('text-anchor', 'middle')
                 .style('font-size', '14px')
@@ -134,7 +150,7 @@ export function createOverviewPieChart(data) {
                 .style('text-shadow', '1px 1px 2px rgba(0,0,0,0.8)')
                 .text(d => {
                     const pct = (d.data.value / d3.sum(pieData, p => p.value)) * 100;
-                    return pct > 3 ? `${formatNumber(pct)}%` : '';
+                    return `${formatNumber(pct)}%`;
                 });
         }
 
@@ -160,7 +176,6 @@ export function createOverviewPieChart(data) {
 
         // Etiquetes externes per les 3 comarques amb més valor (només per mètriques de comarques)
         const labelOuterArc = d3.arc().innerRadius(radius * 1.05).outerRadius(radius * 1.05);
-        const topThreeLabels = new Set(pieData.slice(0, 3).map(d => d.label));
 
         if (metric !== 'comparativa') {
             arcs.filter(d => topThreeLabels.has(d.data.label))
@@ -203,16 +218,6 @@ export function createOverviewPieChart(data) {
                         .style('font-size', '11px')
                         .style('fill', '#333');
                 });
-
-                if (pieData.length > maxLegendItems) {
-                    legend.append('text')
-                        .attr('x', 22)
-                        .attr('y', maxLegendItems * 22 + 12)
-                        .text(`... i ${pieData.length - maxLegendItems} més`)
-                        .style('font-size', '11px')
-                        .style('fill', '#666')
-                        .style('font-style', 'italic');
-                }
             }
         }
     }
