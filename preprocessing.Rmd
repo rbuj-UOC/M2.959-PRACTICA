@@ -245,7 +245,6 @@ fwrite(
 # Elimina els fitxer temporals
 file.remove("dataset/t6997com.csv")
 file.remove("dataset/t15227.csv")
-file.remove("dataset/t15233-T.csv")
 file.remove("dataset/t15233-D.csv")
 file.remove("dataset/t15233-H.csv")
 ```

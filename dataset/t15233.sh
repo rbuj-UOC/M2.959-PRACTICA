@@ -9,8 +9,7 @@ rm -f "$script_name".csv
 headings=("Comarca;Total 0-15;Total 16-24;Total 25-44;Total 45-64;Total 65 i més;Total Sum;Any" "Comarca;Home 0-15;Home 16-24;Home 25-44;Home 45-64;Home 65 i més;Home Sum;Any" "Comarca;Dona 0-15;Dona 16-24;Dona 25-44;Dona 45-64;Dona 65 i més;Dona Sum;Any")
 file_name=$(basename "$0" .csv)
 files=("${script_name}-T.csv" "${script_name}-H.csv" "${script_name}-D.csv")
-# Crea fitxers buits amb les capçaleres corresponents
-echo "${headings[0]}" >"${files[0]}"
+# Crea fitxers buits amb les capçaleres corresponents per a homes i dones
 echo "${headings[1]}" >"${files[1]}"
 echo "${headings[2]}" >"${files[2]}"
 for file in "$script_name"2*.csv; do
@@ -25,7 +24,11 @@ for file in "$script_name"2*.csv; do
         fi
         if ((chunk % 2 == 0)); then
             file_id=$((chunk / 2))
-            echo "$line;$year" >>"${files[$((file_id - 1))]}"
+            file_id=$((file_id - 1))
+            # homes o dones, descarta el total
+            if ((file_id > 0)); then
+                echo "$line;$year" >>"${files[$file_id]}"
+            fi
         fi
     done
 done
