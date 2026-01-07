@@ -6,11 +6,16 @@ import { initSlideNavigation } from './slides.js';
 import * as d3 from 'd3';
 import { createOverviewPieChart } from './charts/overview-pie.js';
 
+// Prefix base per a desplegament a GitHub Pages
+const BASE_URL = window.location.origin.includes('rbuj-uoc.github.io')
+    ? 'https://rbuj-uoc.github.io/M2.959-PRACTICA'
+    : '';
+
 console.log('Aplicació iniciada');
 
 // Carregar les dades
 Promise.all([
-    d3.csv('/data/recollida-selectiva-comarques-2006-2021.csv'),
+    d3.csv(`${BASE_URL}/data/recollida-selectiva-comarques-2006-2021.csv`),
 ]).then(([csvData, geojson]) => {
 
     const data = csvData.map(d => ({
