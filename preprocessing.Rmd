@@ -249,28 +249,8 @@ colnames(final_ds)[colnames(final_ds) == "Total 45-64"] <- "Població 45-64"
 colnames(final_ds)[colnames(final_ds) == "Total 65 i més"] <- "Població 64+"
 
 
-# Calcula les densitats de població
+# Ordena les columnes del dataset final
 final_ds <- final_ds |>
-    mutate(
-        `Densitat població femenina` = `Població.x` / `Superfície km2`,
-        `Densitat població 0-15 femenina` = `Població.x 0-15` / `Superfície km2`,
-        `Densitat població 16-24 femenina` = `Població.x 16-24` / `Superfície km2`,
-        `Densitat població 25-44 femenina` = `Població.x 25-44` / `Superfície km2`,
-        `Densitat població 45-64 femenina` = `Població.x 45-64` / `Superfície km2`,
-        `Densitat població 64+ femenina` = `Població.x 64+` / `Superfície km2`,
-        `Densitat població masculina` = `Població.y` / `Superfície km2`,
-        `Densitat població 0-15 masculina` = `Població.y 0-15` / `Superfície km2`,
-        `Densitat població 16-24 masculina` = `Població.y 16-24` / `Superfície km2`,
-        `Densitat població 25-44 masculina` = `Població.y 25-44` / `Superfície km2`,
-        `Densitat població 45-64 masculina` = `Població.y 45-64` / `Superfície km2`,
-        `Densitat població 64+ masculina` = `Població.y 64+` / `Superfície km2`,
-        `Densitat població` = `Població` / `Superfície km2`,
-        `Densitat població 0-15` = `Població 0-15` / `Superfície km2`,
-        `Densitat població 16-24` = `Població 16-24` / `Superfície km2`,
-        `Densitat població 25-44` = `Població 25-44` / `Superfície km2`,
-        `Densitat població 45-64` = `Població 45-64` / `Superfície km2`,
-        `Densitat població 64+` = `Població 64+` / `Superfície km2`
-    ) |>
     select(
         Any, Comarca, Província, Longitud, Latitud, `Superfície km2`,
         `Població.x`, `Població.y`, `Població`,
