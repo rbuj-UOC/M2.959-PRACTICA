@@ -25,7 +25,7 @@
         <!-- Slide 1 -->
         <div class="slide active" data-slide="1">
             <div class="slide-content">
-                <div class="summary-content">
+                <div class="text-content">
                     <h2>Visió general</h2>
                     <p>La societat catalana ha fet un gran esforç per adoptar la recollida selectiva de residus en els
                         últims anys, esperant reduir l'impacte ambiental i fomentar el reciclatge. En aquest esforç
@@ -34,62 +34,72 @@
                     <p>En aquests 15 anys les quatre províncies de Catalunya han experimentat canvis significatius en la
                         gestió dels residus, on la recollida selectiva ha passat del 25 %, una qüestió anecdòtica a
                         gairebé el 50 %, a un fet consolidat.</p>
+                </div>
+                <div class="chart-content">
+                    <div class="controls-content">
+                        <div class="controls">
+                            <p>Utilitza els controls per canviar l'any, el tipus de visualització i filtrar per
+                                província.
+                                Els tres valors comarcals més alts es destaquen amb etiquetes externes.</p>
+                            <label>Any: <span id="overview-year-display"></span></label>
+                            <input type="range" id="overview-year" min="2006" max="2021" value="2006"
+                                class="year-slider">
+                            <label>Tipus de visualització</label>
+                            <select id="overview-metric">
+                                <option value="comparativa">Comparativa selectiva vs no selectiva</option>
+                                <option value="total">Total residus</option>
+                                <option value="selectiva">Recollida selectiva</option>
+                                <option value="no_selectiva">Recollida no selectiva</option>
+                            </select>
+                            <label>Província</label>
+                            <select id="overview-provincia">
+                                <option value="Totes">Totes</option>
+                                <option value="Barcelona">Barcelona</option>
+                                <option value="Girona">Girona</option>
+                                <option value="Lleida">Lleida</option>
+                                <option value="Tarragona">Tarragona</option>
+                            </select>
+                        </div>
+                        <p class="info-box">Observa com evoluciona el volum de residus i la proporció de recollida
+                            selectiva
+                            al llarg dels anys. Pots filtrar per província per veure les diferències territorials.</p>
+                    </div>
+                    <div class="chart-area">
+                        <div id="chart-0-overview" class="chart"></div>
+                    </div>
+                </div>
+                <div class="text-content">
                     <p>Aquest canvi també ha vingut acompanyat d'una major consciència ambiental i esforços per reduir
                         la generació de residus a part de la millora de la gestió sostenible. Cal tenir en compte que en
                         aquests 15 anys, tot i que la població de Catalunya ha augmentat el nombre d'habitants, la
                         generació de residus s'ha mantingut constant i en alguns casos fins disminuït lleugerament.</p>
                 </div>
-                <div class="controls-content">
-                    <h3>Interacció</h3>
-                    <div class="controls">
-                        <p>Utilitza els controls per canviar l'any, el tipus de visualització i filtrar per província.
-                            Els tres valors comarcals més alts es destaquen amb etiquetes externes.</p>
-                        <label>Any: <span id="overview-year-display"></span></label>
-                        <input type="range" id="overview-year" min="2006" max="2021" value="2006" class="year-slider">
-                        <label>Tipus de visualització</label>
-                        <select id="overview-metric">
-                            <option value="comparativa">Comparativa selectiva vs no selectiva</option>
-                            <option value="total">Total residus</option>
-                            <option value="selectiva">Recollida selectiva</option>
-                            <option value="no_selectiva">Recollida no selectiva</option>
-                        </select>
-                        <label>Província</label>
-                        <select id="overview-provincia">
-                            <option value="Totes">Totes</option>
-                            <option value="Barcelona">Barcelona</option>
-                            <option value="Girona">Girona</option>
-                            <option value="Lleida">Lleida</option>
-                            <option value="Tarragona">Tarragona</option>
-                        </select>
-                    </div>
-                    <p class="info-box">Observa com evoluciona el volum de residus i la proporció de recollida selectiva
-                        al llarg dels anys. Pots filtrar per província per veure les diferències territorials.</p>
-                </div>
                 <div class="chart-content">
-                    <div id="chart-0-overview" class="chart"></div>
+                    <div class="controls-content">
+                        <div class="controls">
+                            <p>Explora l'evolució de la població per província i comarca des del 2006 fins al 2021.</p>
+                            <label>Província</label>
+                            <select id="demographic-provincia">
+                                <option value="Totes" selected>Totes les províncies</option>
+                                <option value="Barcelona">Barcelona</option>
+                                <option value="Tarragona">Tarragona</option>
+                                <option value="Lleida">Lleida</option>
+                                <option value="Girona">Girona</option>
+                            </select>
+                            <label style="margin-top: 1.5rem;">Comarques</label>
+                            <div id="demographic-comarques"
+                                style="max-height: 300px; overflow-y: auto; border: 1px solid #e0e0e0; padding: 0.8rem; border-radius: 4px;">
+                                <!-- Les comarques es carregaran dinàmicament amb JavaScript -->
+                            </div>
+                        </div>
+                        <p class="info-box" style="margin-top: 1rem;">Selecciona una província per veure la seva
+                            evolució demogràfica.</p>
+                    </div>
+                    <div class="chart-area">
+                        <div id="chart-demographic" class="chart"></div>
+                    </div>
                 </div>
                 <div class="text-content">
-                    <h3>Què mostra aquest gràfic?</h3>
-                    <p>Aquest diagrama de sectors resumeix les tones de residus per comarca en l'any seleccionat o bé
-                        compara la recollida selectiva i no selectiva. Pots explorar l'evolució canviant l'any i
-                        filtrant per província.</p>
-
-                    <h3>Com interactuar</h3>
-                    <ul>
-                        <li><strong>Any</strong>: mou el control lliscant per canviar l'any analitzat.</li>
-                        <li><strong>Tipus de visualització</strong>: tria entre total, selectiva, no selectiva o
-                            comparativa.</li>
-                        <li><strong>Província</strong>: filtra les comarques d'una província o visualitza tot Catalunya.
-                        </li>
-                    </ul>
-
-                    <h3>Consells de lectura</h3>
-                    <ul>
-                        <li>Passa el cursor sobre un sector per veure el detall i el percentatge.</li>
-                        <li>En modes de comarques, es mostren fora del pastís les 3 comarques amb valors més alts.</li>
-                        <li>Les xifres es mostren amb punt de milers i coma decimal, sempre amb dos decimals.</li>
-                    </ul>
-
                     <p class="info-box">Font: <a href="https://www.idescat.cat/pub/?id=resmc&n=6997&geo=com"
                             target="_blank" rel="noopener noreferrer">Idescat</a></p>
                 </div>
@@ -121,13 +131,16 @@
                         Nullam viverra ex nec urna bibendum convallis. Vivamus id tincidunt massa. Nulla iaculis nulla
                         sed velit viverra, non aliquam nibh varius.</p>
                 </div>
-                <div class="controls-content">
-                    <h2>Interacció</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores, modi expedita beatae quidem
-                        sunt amet inventore autem deleniti dolore accusamus eveniet aperiam quisquam perspiciatis
-                        recusandae obcaecati et eos, quas sint.</p>
+                <div class="chart-content">
+                    <div class="controls-content">
+                        <div class="controls">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores, modi expedita beatae
+                                quidem sunt amet inventore autem deleniti dolore accusamus eveniet aperiam quisquam
+                                perspiciatis recusandae obcaecati et eos, quas sint.</p>
+                        </div>
+                    </div>
+                    <div class="chart-area"></div>
                 </div>
-                <div class="chart-content"></div>
                 <div class="text-content">
                     <p>Duis ipsum diam, bibendum at ante eget, mattis condimentum diam. Ut mollis, nisl et dignissim
                         venenatis, lectus enim suscipit ipsum, sit amet posuere risus ante nec massa. Aenean sem est,
@@ -173,13 +186,16 @@
                         Nullam viverra ex nec urna bibendum convallis. Vivamus id tincidunt massa. Nulla iaculis nulla
                         sed velit viverra, non aliquam nibh varius.</p>
                 </div>
-                <div class="controls-content">
-                    <h2>Interacció</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores, modi expedita beatae quidem
-                        sunt amet inventore autem deleniti dolore accusamus eveniet aperiam quisquam perspiciatis
-                        recusandae obcaecati et eos, quas sint.</p>
+                <div class="chart-content">
+                    <div class="controls-content">
+                        <div class="controls">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores, modi expedita beatae
+                                quidem sunt amet inventore autem deleniti dolore accusamus eveniet aperiam quisquam
+                                perspiciatis recusandae obcaecati et eos, quas sint.</p>
+                        </div>
+                    </div>
+                    <div class="chart-area"></div>
                 </div>
-                <div class="chart-content"></div>
                 <div class="text-content">
                     <p>Duis ipsum diam, bibendum at ante eget, mattis condimentum diam. Ut mollis, nisl et dignissim
                         venenatis, lectus enim suscipit ipsum, sit amet posuere risus ante nec massa. Aenean sem est,
@@ -225,13 +241,16 @@
                         Nullam viverra ex nec urna bibendum convallis. Vivamus id tincidunt massa. Nulla iaculis nulla
                         sed velit viverra, non aliquam nibh varius.</p>
                 </div>
-                <div class="controls-content">
-                    <h2>Interacció</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores, modi expedita beatae quidem
-                        sunt amet inventore autem deleniti dolore accusamus eveniet aperiam quisquam perspiciatis
-                        recusandae obcaecati et eos, quas sint.</p>
+                <div class="chart-content">
+                    <div class="controls-content">
+                        <div class="controls">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores, modi expedita beatae
+                                quidem sunt amet inventore autem deleniti dolore accusamus eveniet aperiam quisquam
+                                perspiciatis recusandae obcaecati et eos, quas sint.</p>
+                        </div>
+                    </div>
+                    <div class="chart-area"></div>
                 </div>
-                <div class="chart-content"></div>
                 <div class="text-content">
                     <p>Duis ipsum diam, bibendum at ante eget, mattis condimentum diam. Ut mollis, nisl et dignissim
                         venenatis, lectus enim suscipit ipsum, sit amet posuere risus ante nec massa. Aenean sem est,
@@ -277,13 +296,16 @@
                         Nullam viverra ex nec urna bibendum convallis. Vivamus id tincidunt massa. Nulla iaculis nulla
                         sed velit viverra, non aliquam nibh varius.</p>
                 </div>
-                <div class="controls-content">
-                    <h2>Interacció</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores, modi expedita beatae quidem
-                        sunt amet inventore autem deleniti dolore accusamus eveniet aperiam quisquam perspiciatis
-                        recusandae obcaecati et eos, quas sint.</p>
+                <div class="chart-content">
+                    <div class="controls-content">
+                        <div class="controls">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores, modi expedita beatae
+                                quidem sunt amet inventore autem deleniti dolore accusamus eveniet aperiam quisquam
+                                perspiciatis recusandae obcaecati et eos, quas sint.</p>
+                        </div>
+                    </div>
+                    <div class="chart-area"></div>
                 </div>
-                <div class="chart-content"></div>
                 <div class="text-content">
                     <p>Duis ipsum diam, bibendum at ante eget, mattis condimentum diam. Ut mollis, nisl et dignissim
                         venenatis, lectus enim suscipit ipsum, sit amet posuere risus ante nec massa. Aenean sem est,
@@ -304,6 +326,7 @@
                 </div>
             </div>
         </div>
+
 
     </main>
 

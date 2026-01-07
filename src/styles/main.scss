@@ -108,11 +108,7 @@ main {
 
 .slide-content {
     display: grid;
-    grid-template-columns: 1fr 1.5fr;
-    grid-template-areas:
-        "summary summary"
-        "controls chart"
-        "text text";
+    grid-template-columns: 1fr;
     align-items: start;
     gap: 2rem;
     background: white;
@@ -120,15 +116,6 @@ main {
     padding: 2rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     border: 1px solid #e0e0e0;
-
-    @media (max-width: 968px) {
-        grid-template-columns: 1fr;
-        grid-template-areas:
-            "summary"
-            "controls"
-            "chart"
-            "text";
-    }
 }
 
 // Text content
@@ -184,21 +171,12 @@ main {
     }
 }
 
-// Grid areas for sections
 .text-content {
-    grid-area: text;
-}
-
-.controls-content {
-    grid-area: controls;
+    width: 100%;
 }
 
 .chart-content {
-    grid-area: chart;
-}
-
-.summary-content {
-    grid-area: summary;
+    width: 100%;
 }
 
 // Avoid extra space when the full-width text block is empty
@@ -210,8 +188,28 @@ main {
     display: none;
 }
 
-// Chart content
+// Chart content structure
 .chart-content {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 2rem;
+    grid-template-areas:
+        "controls chart";
+
+    @media (max-width: 968px) {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "controls"
+            "chart";
+    }
+}
+
+.controls-content {
+    grid-area: controls;
+}
+
+.chart-area {
+    grid-area: chart;
     position: relative;
     min-height: 500px;
 
@@ -355,11 +353,11 @@ footer {
 
     .text-content h2,
     .controls-content h2,
-    .summary-content h2 {
+    .text-content h2 {
         font-size: 1.5rem;
     }
 
-    .chart-content {
+    .chart-area {
         min-height: 400px;
     }
 }

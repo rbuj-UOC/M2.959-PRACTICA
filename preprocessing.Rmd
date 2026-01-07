@@ -152,9 +152,10 @@ density_ds <- fread(
     na.strings = c("", ".."), # Valors que representen NA
     data.table = FALSE # Retorna data.frame per compatibilitat
 )
-# canvia el nom de la comarca "Val d'Aran" a "Vall d'Aran"
+# canvia el nom de la comarca "Val d'Aran" a "Vall d'Aran" i elimina la columna `Dona Sum`
 density_ds <- density_ds |>
-    mutate(Comarca = ifelse(Comarca == "Val d'Aran" | Comarca == "Aran", "Vall d'Aran", Comarca))
+    mutate(Comarca = ifelse(Comarca == "Val d'Aran" | Comarca == "Aran", "Vall d'Aran", Comarca)) |>
+    select(-`Dona Sum`)
 # resum estadistic del dataset
 summary(density_ds)
 # Files que tenen NA a la columna Població
@@ -180,9 +181,10 @@ density_ds <- fread(
     na.strings = c("", ".."), # Valors que representen NA
     data.table = FALSE # Retorna data.frame per compatibilitat
 )
-# canvia el nom de la comarca "Val d'Aran" a "Vall d'Aran"
+# canvia el nom de la comarca "Val d'Aran" a "Vall d'Aran" i elimina la columna `Home Sum`
 density_ds <- density_ds |>
-    mutate(Comarca = ifelse(Comarca == "Val d'Aran" | Comarca == "Aran", "Vall d'Aran", Comarca))
+    mutate(Comarca = ifelse(Comarca == "Val d'Aran" | Comarca == "Aran", "Vall d'Aran", Comarca)) |>
+    select(-`Home Sum`)
 # resum estadistic del dataset
 summary(density_ds)
 # Files que tenen NA a la columna Població
@@ -199,14 +201,12 @@ summary(final_ds)
 
 ```{r}
 # Canvia el nom de les columnes de densitat de població
-colnames(final_ds)[colnames(final_ds) == "Dona Sum"] <- "Població.x"
 colnames(final_ds)[colnames(final_ds) == "Dona 0-15"] <- "Població.x 0-15"
 colnames(final_ds)[colnames(final_ds) == "Dona 16-24"] <- "Població.x 16-24"
 colnames(final_ds)[colnames(final_ds) == "Dona 25-44"] <- "Població.x 25-44"
 colnames(final_ds)[colnames(final_ds) == "Dona 45-64"] <- "Població.x 45-64"
 colnames(final_ds)[colnames(final_ds) == "Dona 65 i més"] <- "Població.x 64+"
 
-colnames(final_ds)[colnames(final_ds) == "Home Sum"] <- "Població.y"
 colnames(final_ds)[colnames(final_ds) == "Home 0-15"] <- "Població.y 0-15"
 colnames(final_ds)[colnames(final_ds) == "Home 16-24"] <- "Població.y 16-24"
 colnames(final_ds)[colnames(final_ds) == "Home 25-44"] <- "Població.y 25-44"
@@ -217,7 +217,6 @@ colnames(final_ds)[colnames(final_ds) == "Home 65 i més"] <- "Població.y 64+"
 final_ds <- final_ds |>
     select(
         Any, Comarca, Província, Longitud, Latitud, `Superfície km2`,
-        `Població.x`, `Població.y`,
         `Població.x 0-15`, `Població.y 0-15`,
         `Població.x 16-24`, `Població.y 16-24`,
         `Població.x 25-44`, `Població.y 25-44`,
