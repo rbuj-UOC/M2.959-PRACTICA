@@ -29,9 +29,6 @@ export function createDemographicChart(data) {
         }
     });
 
-    console.log('Mostra de dades:', data.slice(0, 3));
-    console.log('Dades per província i comarca:', dataByProvinciaComarca);
-
     // Obtenir les comarques úniques per província
     const getComarques = (provincia) => {
         return Object.keys(dataByProvinciaComarca[provincia] || {}).sort();
