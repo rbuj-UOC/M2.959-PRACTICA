@@ -21,11 +21,11 @@ Promise.all([
     const data = csvData.map(d => ({
         any: +d['Any'],
         comarca: d['Comarca'],
-        provincia: d['Província'],
         kg_per_hab_dia: +d['Total kg/hab./dia'],
-        recollida_no_selectiva_t: +d['Recollida no selectiva'],
-        recollida_selectiva_t: +d['Recollida selectiva'],
-        total_recollida_t: +d['Total recollida'],
+        provincia: d['Província'],
+        tones_recollida_no_selectiva: +d['Recollida no selectiva'],
+        tones_recollida_selectiva: +d['Recollida selectiva'],
+        tones_recollida_total: +d['Total recollida'],
     }));
 
     // Descartar valors no disponibles en càlculs específics

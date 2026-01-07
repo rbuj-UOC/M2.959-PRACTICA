@@ -42,7 +42,7 @@ export function createOverviewPieChart(data) {
         if (metric === 'total') {
             pieData = filtered.map((d, i) => ({
                 label: d.comarca,
-                value: d.total_recollida_t,
+                value: d.tones_recollida_total,
                 color: colorScale(i)
             })).filter(d => d.value > 0)
                 .sort((a, b) => b.value - a.value);
@@ -51,7 +51,7 @@ export function createOverviewPieChart(data) {
         } else if (metric === 'selectiva') {
             pieData = filtered.map((d, i) => ({
                 label: d.comarca,
-                value: d.recollida_selectiva_t,
+                value: d.tones_recollida_selectiva,
                 color: colorScale(i)
             })).filter(d => d.value > 0)
                 .sort((a, b) => b.value - a.value);
@@ -60,15 +60,15 @@ export function createOverviewPieChart(data) {
         } else if (metric === 'no_selectiva') {
             pieData = filtered.map((d, i) => ({
                 label: d.comarca,
-                value: d.recollida_no_selectiva_t,
+                value: d.tones_recollida_no_selectiva,
                 color: colorScale(i)
             })).filter(d => d.value > 0)
                 .sort((a, b) => b.value - a.value);
             const totalNoSelectiva = d3.sum(pieData, d => d.value);
             title = `Recollida no selectiva per comarca: ${formatNumber(totalNoSelectiva)} tones`;
         } else if (metric === 'comparativa') {
-            const totalSelectiva = d3.sum(filtered, d => d.recollida_selectiva_t);
-            const totalNoSelectiva = d3.sum(filtered, d => d.recollida_no_selectiva_t);
+            const totalSelectiva = d3.sum(filtered, d => d.tones_recollida_selectiva);
+            const totalNoSelectiva = d3.sum(filtered, d => d.tones_recollida_no_selectiva);
             pieData = [
                 { label: 'Recollida selectiva', value: totalSelectiva, color: '#73003c' },
                 { label: 'Recollida no selectiva', value: totalNoSelectiva, color: '#e98300' }
