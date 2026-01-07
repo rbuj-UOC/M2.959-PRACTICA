@@ -12,7 +12,7 @@
         <div class="container">
             <h1>Recollida Selectiva a Catalunya</h1>
             <nav class="slide-navigation">
-                <button class="nav-btn" data-slide="1">Slide 1</button>
+                <button class="nav-btn" data-slide="1">Visió general</button>
                 <button class="nav-btn" data-slide="2">Slide 2</button>
                 <button class="nav-btn" data-slide="3">Slide 3</button>
                 <button class="nav-btn" data-slide="4">Slide 4</button>
@@ -26,12 +26,36 @@
         <div class="slide active" data-slide="1">
             <div class="slide-content">
                 <div class="text-content">
-                    <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit (1)</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores, modi expedita beatae quidem
-                        sunt amet inventore autem deleniti dolore accusamus eveniet aperiam quisquam perspiciatis
-                        recusandae obcaecati et eos, quas sint.</p>
+                    <h2>Visió general de la recollida de residus</h2>
+                    <p>Una mirada global a les tones de residus gestionades a Catalunya. Aquest diagrama de sectors
+                        mostra els valors agregats de totes les comarques per visualitzar el volum total de residus, la
+                        recollida selectiva i la recollida no selectiva.</p>
+                    <p>Pots observar com evoluciona el volum de residus i la proporció de recollida selectiva al llarg
+                        dels anys, cap a una societat més sostenible, amb menys residus i més reciclatge.</p>
+                    <div class="controls">
+                        <label>Any: <span id="overview-year-display"></span></label>
+                        <input type="range" id="overview-year" min="2006" max="2021" value="2006" class="year-slider">
+                        <label>Tipus de visualització</label>
+                        <select id="overview-metric">
+                            <option value="comparativa">Comparativa selectiva vs no selectiva</option>
+                            <option value="total">Total residus</option>
+                            <option value="selectiva">Recollida selectiva</option>
+                            <option value="no_selectiva">Recollida no selectiva</option>
+                        </select>
+                        <label>Província</label>
+                        <select id="overview-provincia">
+                            <option value="Totes">Totes</option>
+                            <option value="Barcelona">Barcelona</option>
+                            <option value="Girona">Girona</option>
+                            <option value="Lleida">Lleida</option>
+                            <option value="Tarragona">Tarragona</option>
+                        </select>
+                    </div>
+                    <p class="info-box">Observa com evoluciona el volum de residus i la proporció de recollida selectiva
+                        al llarg dels anys. Pots filtrar per província per veure les diferències territorials.</p>
                 </div>
                 <div class="chart-content">
+                    <div id="chart-0-overview" class="chart"></div>
                 </div>
             </div>
         </div>
