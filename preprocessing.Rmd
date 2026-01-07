@@ -141,35 +141,7 @@ system("bash t15233.sh")
 setwd("..")
 ```
 
-Carrega el fitxer de densitat Total de població per comarca (Total):
-
-```{r, read-density-total}
-# Carrega el dataset de densitat de població
-density_ds <- fread(
-    "dataset/t15233-T.csv",
-    sep = ";", # Separador de columnes
-    dec = ",", # Separador decimal
-    na.strings = c("", ".."), # Valors que representen NA
-    data.table = FALSE # Retorna data.frame per compatibilitat
-)
-# canvia el nom de la comarca "Val d'Aran" a "Vall d'Aran"
-density_ds <- density_ds |>
-    mutate(Comarca = ifelse(Comarca == "Val d'Aran" | Comarca == "Aran", "Vall d'Aran", Comarca))
-# resum estadistic del dataset
-summary(density_ds)
-# Files que tenen NA a la columna Població
-density_ds[is.na(density_ds$Població), ]
-# Fusiona la densitat de població al dataset final
-final_ds <- final_ds |>
-    left_join(
-        density_ds,
-        by = c("Comarca" = "Comarca", "Any" = "Any")
-    )
-# Resum estadistic del dataset final
-summary(final_ds)
-```
-
-Carrega el fitxer de densitat de població femenina per comarca (Total):
+Carrega el fitxer de densitat de població femenina per comarca:
 
 ```{r, read-density-female}
 # Carrega el dataset de densitat de població
@@ -197,7 +169,7 @@ final_ds <- final_ds |>
 summary(final_ds)
 ```
 
-Carrega el fitxer de densitat de població masculina per comarca (Total):
+Carrega el fitxer de densitat de població masculina per comarca:
 
 ```{r, read-density-male}
 # Carrega el dataset de densitat de població
@@ -241,24 +213,16 @@ colnames(final_ds)[colnames(final_ds) == "Home 25-44"] <- "Població.y 25-44"
 colnames(final_ds)[colnames(final_ds) == "Home 45-64"] <- "Població.y 45-64"
 colnames(final_ds)[colnames(final_ds) == "Home 65 i més"] <- "Població.y 64+"
 
-colnames(final_ds)[colnames(final_ds) == "Total Sum"] <- "Població"
-colnames(final_ds)[colnames(final_ds) == "Total 0-15"] <- "Població 0-15"
-colnames(final_ds)[colnames(final_ds) == "Total 16-24"] <- "Població 16-24"
-colnames(final_ds)[colnames(final_ds) == "Total 25-44"] <- "Població 25-44"
-colnames(final_ds)[colnames(final_ds) == "Total 45-64"] <- "Població 45-64"
-colnames(final_ds)[colnames(final_ds) == "Total 65 i més"] <- "Població 64+"
-
-
 # Ordena les columnes del dataset final
 final_ds <- final_ds |>
     select(
         Any, Comarca, Província, Longitud, Latitud, `Superfície km2`,
-        `Població.x`, `Població.y`, `Població`,
-        `Població.x 0-15`, `Població.y 0-15`, `Població 0-15`,
-        `Població.x 16-24`, `Població.y 16-24`, `Població 16-24`,
-        `Població.x 25-44`, `Població.y 25-44`, `Població 25-44`,
-        `Població.x 45-64`, `Població.y 45-64`, `Població 45-64`,
-        `Població.x 64+`, `Població.y 64+`, `Població 64+`,
+        `Població.x`, `Població.y`,
+        `Població.x 0-15`, `Població.y 0-15`,
+        `Població.x 16-24`, `Població.y 16-24`,
+        `Població.x 25-44`, `Població.y 25-44`,
+        `Població.x 45-64`, `Població.y 45-64`,
+        `Població.x 64+`, `Població.y 64+`,
         everything()
     )
 ```
