@@ -109,6 +109,11 @@ main {
 .slide-content {
     display: grid;
     grid-template-columns: 1fr 1.5fr;
+    grid-template-areas:
+        "summary summary"
+        "controls chart"
+        "text text";
+    align-items: start;
     gap: 2rem;
     background: white;
     border-radius: 4px;
@@ -118,11 +123,18 @@ main {
 
     @media (max-width: 968px) {
         grid-template-columns: 1fr;
+        grid-template-areas:
+            "summary"
+            "controls"
+            "chart"
+            "text";
     }
 }
 
 // Text content
-.text-content {
+.text-content,
+.controls-content,
+.summary-content {
     h2 {
         color: $primary-color;
         font-size: 2rem;
@@ -133,7 +145,7 @@ main {
     }
 
     h3 {
-        color: $dark-color;
+        color: $primary-color;
         font-size: 1.3rem;
         margin: 1.5rem 0 0.8rem;
         font-weight: 600;
@@ -153,6 +165,16 @@ main {
         }
     }
 
+    a {
+        color: $secondary-color;
+        text-decoration: none;
+        font-weight: 600;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
     .info-box {
         background-color: #fef5e7;
         padding: 1rem;
@@ -160,6 +182,32 @@ main {
         border-radius: 4px;
         color: $dark-color;
     }
+}
+
+// Grid areas for sections
+.text-content {
+    grid-area: text;
+}
+
+.controls-content {
+    grid-area: controls;
+}
+
+.chart-content {
+    grid-area: chart;
+}
+
+.summary-content {
+    grid-area: summary;
+}
+
+// Avoid extra space when the full-width text block is empty
+.text-content:empty {
+    display: none;
+}
+
+.summary-content:empty {
+    display: none;
 }
 
 // Chart content
@@ -305,7 +353,9 @@ footer {
         padding: 0.5rem 0.8rem;
     }
 
-    .text-content h2 {
+    .text-content h2,
+    .controls-content h2,
+    .summary-content h2 {
         font-size: 1.5rem;
     }
 
