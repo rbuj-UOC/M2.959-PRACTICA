@@ -275,6 +275,28 @@ main {
         }
     }
 
+    .radio-group {
+        display: flex;
+        gap: 1rem;
+        margin: 0.8rem 0;
+        flex-wrap: wrap;
+
+        label {
+            display: flex;
+            align-items: center;
+            margin: 0;
+            cursor: pointer;
+
+            input[type="radio"] {
+                margin-right: 0.4rem;
+                cursor: pointer;
+                width: 18px;
+                height: 18px;
+                accent-color: $primary-color;
+            }
+        }
+    }
+
     input[type="range"] {
         width: 100%;
         height: 8px;
@@ -359,5 +381,85 @@ footer {
 
     .chart-area {
         min-height: 400px;
+    }
+}
+
+.map-chart {
+    .chart {
+        min-height: 710px;
+        border: 1px solid #e0e0e0;
+    }
+}
+
+// Tooltip
+.tooltip {
+    position: absolute;
+    background-color: $primary-color;
+    color: white;
+    padding: 12px 16px;
+    border-radius: 4px;
+    pointer-events: none;
+    font-size: 0.9rem;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    max-width: 250px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    .tooltip-title {
+        font-weight: 600;
+        margin-bottom: 5px;
+        font-size: 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        padding-bottom: 5px;
+    }
+
+    .tooltip-content {
+        font-size: 0.85rem;
+        line-height: 1.5;
+    }
+}
+
+// Map controls buttons
+.map-controls-buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+
+    .map-btn {
+        flex: 1;
+        min-width: 80px;
+        padding: 0.6rem 1rem;
+        background-color: $primary-color;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+            background-color: darken($primary-color, 10%);
+            box-shadow: 0 2px 6px rgba($primary-color, 0.3);
+            transform: translateY(-2px);
+        }
+
+        &:active {
+            transform: translateY(0);
+            box-shadow: 0 1px 3px rgba($primary-color, 0.2);
+        }
+
+        &:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            opacity: 0.6;
+
+            &:hover {
+                background-color: #ccc;
+                transform: none;
+                box-shadow: none;
+            }
+        }
     }
 }

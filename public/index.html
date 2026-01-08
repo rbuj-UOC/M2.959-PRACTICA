@@ -97,7 +97,53 @@
                             evolució demogràfica.</p>
                     </div>
                     <div class="chart-area">
-                        <div id="chart-demographic" class="chart"></div>
+                        <div id="chart-1-overview"" class=" chart"></div>
+                    </div>
+                </div>
+                <div class="text-content">
+                    <p>Duis efficitur tortor vel sem tempus ornare nec scelerisque ex. Morbi id nulla non nisi consequat
+                        ultrices. Nam at ex aliquet, tristique mauris eu, viverra dui. Quisque sit amet malesuada sem.
+                        Nullam viverra ex nec urna bibendum convallis. Vivamus id tincidunt massa. Nulla iaculis nulla
+                        sed velit viverra, non aliquam nibh varius.</p>
+                </div>
+                <div class="chart-content">
+                    <div class="controls-content">
+                        <div class="controls">
+                            <label>Any: <span id="map-geo-year-display"></span></label>
+                            <div class="radio-group">
+                                <label>
+                                    <input type="radio" name="map-geo-year" value="first" checked>
+                                    Primer any
+                                </label>
+                                <label>
+                                    <input type="radio" name="map-geo-year" value="last">
+                                    Últim any
+                                </label>
+                            </div>
+                            <label for="map-geo-provincia-select">Província</label>
+                            <select id="map-geo-provincia-select">
+                                <option value="totes">Totes</option>
+                                <option value="barcelona">Barcelona</option>
+                                <option value="girona">Girona</option>
+                                <option value="lleida">Lleida</option>
+                                <option value="tarragona">Tarragona</option>
+                            </select>
+                            <label for="map-geo-metric-select">Mètrica</label>
+                            <select id="map-geo-metric-select">
+                                <option value="recollida_selectiva_t">Recollida selectiva (tones)</option>
+                                <option value="recollida_no_selectiva_t">Recollida no selectiva (tones)</option>
+                                <option value="kg_per_hab_dia">Total kg/hab./dia</option>
+                                <option value="percentatge_selectiva" selected>Percentatge recollida selectiva</option>
+                            </select>
+                            <div class="map-controls-buttons">
+                                <button id="map-zoom-in" class="map-btn">+ Zoom</button>
+                                <button id="map-zoom-out" class="map-btn">- Zoom</button>
+                                <button id="map-reset" class="map-btn">Restablir</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-area map-chart">
+                        <div id="chart-2-overview" class="chart"></div>
                     </div>
                 </div>
                 <div class="text-content">

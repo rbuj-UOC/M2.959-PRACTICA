@@ -1,7 +1,7 @@
 import * as d3 from 'd3';
 
 export function createDemographicChart(data) {
-    const container = d3.select('#chart-demographic');
+    const container = d3.select('#chart-1-overview');
     const provinciaSelect = d3.select('#demographic-provincia');
     const comarquesContainer = d3.select('#demographic-comarques');
 
@@ -25,7 +25,7 @@ export function createDemographicChart(data) {
         }
         const year = d.any;
         if (!dataByProvinciaComarca[d.provincia][d.comarca][year]) {
-            dataByProvinciaComarca[d.provincia][d.comarca][year] = d.poblacio_total;
+            dataByProvinciaComarca[d.provincia][d.comarca][year] = d.poblacio;
         }
     });
 
