@@ -1,10 +1,12 @@
+@use 'sass:color';
+
 // Variables
-$primary-color: #73000a;
-$secondary-color: #e87722;
-$accent-color: #ffc107;
-$dark-color: #1a1a1a;
-$light-color: #f4f4f4;
-$text-color: #333333;
+$primary-color: #000078;
+$secondary-color: #73edff;
+$accent-color: #9999c9;
+$dark-color: #0a0a3d;
+$light-color: #d6faff;
+$text-color: #1f2430;
 
 // Reset i base
 * {
@@ -17,7 +19,7 @@ body {
     font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
     line-height: 1.6;
     color: $text-color;
-    background-color: #ffffff;
+    background: radial-gradient(circle at 20% 20%, #d6faff 0%, #d8d8ea 40%, #f0f0f0 75%);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -27,7 +29,7 @@ body {
 .page-loader {
     position: fixed;
     inset: 0;
-    background: linear-gradient(135deg, #73000a 0%, #a83219 50%, #73000a 100%);
+    background: linear-gradient(135deg, lighten($primary-color, 6%) 0%, $secondary-color 45%, lighten($primary-color, 6%) 100%);
     color: white;
     display: flex;
     flex-direction: column;
@@ -88,6 +90,7 @@ body.loading {
 
 // Estat visible quan s'ha carregat la pàgina
 body:not(.loading) {
+
     header,
     main,
     footer {
@@ -146,13 +149,15 @@ header {
 
         &:hover {
             background-color: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.6);
+            // border-color: rgba(255, 255, 255, 0.6);
+            border-color: color.adjust($light-color, $alpha: 0.6);
         }
 
         &.active {
+            color: $primary-color;
             background-color: $secondary-color;
             border-color: $secondary-color;
-            box-shadow: 0 2px 8px rgba(232, 119, 34, 0.4);
+            box-shadow: 0 2px 8px rgba($secondary-color, 0.35);
         }
     }
 }
@@ -190,11 +195,11 @@ main {
     grid-template-columns: 1fr;
     align-items: start;
     gap: 2rem;
-    background: white;
-    border-radius: 4px;
+    background: #ffffff;
+    border-radius: 6px;
     padding: 2rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    border: 1px solid #e0e0e0;
+    box-shadow: 0 6px 20px rgba($primary-color, 0.12);
+    border: 1px solid #d8d8ea;
 }
 
 // Text content
@@ -231,22 +236,23 @@ main {
         }
     }
 
-    a {
-        color: $secondary-color;
-        text-decoration: none;
-        font-weight: 600;
-
-        &:hover {
-            text-decoration: underline;
-        }
-    }
-
     .info-box {
         background-color: #fef5e7;
+        margin-top: 0.5rem;
         padding: 1rem;
         border-left: 4px solid $secondary-color;
         border-radius: 4px;
         color: $dark-color;
+
+        a {
+            color: $primary-color;
+            text-decoration: none;
+            font-weight: 600;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
     }
 }
 
@@ -308,9 +314,9 @@ main {
 .controls {
     background-color: $light-color;
     padding: 1.5rem;
-    border-radius: 4px;
+    border-radius: 6px;
     margin: 0;
-    border: 1px solid #e0e0e0;
+    border: 1px solid #d8d8ea;
 
     h3 {
         margin-top: 0;
@@ -346,7 +352,7 @@ main {
         &:focus {
             outline: none;
             border-color: $secondary-color;
-            box-shadow: 0 0 0 2px rgba(232, 119, 34, 0.2);
+            box-shadow: 0 0 0 2px rgba($secondary-color, 0.35);
         }
 
         &:hover {
@@ -403,7 +409,7 @@ main {
             &:hover {
                 background: $secondary-color;
                 transform: scale(1.15);
-                box-shadow: 0 2px 8px rgba(232, 119, 34, 0.4);
+                box-shadow: 0 2px 8px rgba($secondary-color, 0.35);
             }
         }
 
@@ -420,7 +426,7 @@ main {
             &:hover {
                 background: $secondary-color;
                 transform: scale(1.15);
-                box-shadow: 0 2px 8px rgba(232, 119, 34, 0.4);
+                box-shadow: 0 2px 8px rgba($secondary-color, 0.35);
             }
         }
     }

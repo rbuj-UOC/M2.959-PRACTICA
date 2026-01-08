@@ -70,8 +70,8 @@ export function createSlide1PieChart(data) {
             const totalSelectiva = d3.sum(filtered, d => d.tones_recollida_selectiva);
             const totalNoSelectiva = d3.sum(filtered, d => d.tones_recollida_no_selectiva);
             pieData = [
-                { label: 'Recollida selectiva', value: totalSelectiva, color: '#73003c' },
-                { label: 'Recollida no selectiva', value: totalNoSelectiva, color: '#e98300' }
+                { label: 'Recollida selectiva', value: totalSelectiva, color: '#000078' },
+                { label: 'Recollida no selectiva', value: totalNoSelectiva, color: '#73EDFF' }
             ];
             title = 'Comparativa selectiva vs no selectiva';
         }

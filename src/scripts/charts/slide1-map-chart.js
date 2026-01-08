@@ -106,7 +106,7 @@ export function createSlide1MapGeo(csvData, geojson) {
         .attr('d', path)
         .attr('class', 'comarca')
         .attr('fill', 'transparent')
-        .attr('stroke', '#73000a')
+        .attr('stroke', '#000078')
         .attr('stroke-width', 0.3);
 
     const formatPopulation = (num) => {
@@ -226,7 +226,7 @@ export function createSlide1MapGeo(csvData, geojson) {
             .attr('text-anchor', 'middle')
             .attr('font-size', '11px')
             .attr('font-weight', 'bold')
-            .attr('fill', '#73000a')
+            .attr('fill', '#000078')
             .attr('stroke', 'white')
             .attr('stroke-width', 3)
             .attr('paint-order', 'stroke');
@@ -235,7 +235,7 @@ export function createSlide1MapGeo(csvData, geojson) {
             .attr('class', 'label-value')
             .attr('text-anchor', 'middle')
             .attr('font-size', '10px')
-            .attr('fill', '#73000a')
+            .attr('fill', '#000078')
             .attr('stroke', 'white')
             .attr('stroke-width', 3)
             .attr('paint-order', 'stroke');

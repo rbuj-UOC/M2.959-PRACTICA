@@ -202,7 +202,7 @@ function drawPyramid(data, year, provincia, comarca) {
         .attr('y', d => y(d.label))
         .attr('width', d => x(0) - x(-d.male))
         .attr('height', y.bandwidth())
-        .attr('fill', '#73003c')
+        .attr('fill', '#000078')
         .attr('opacity', 0.8)
         .append('title')
         .text(d => `Homes ${d.label}: ${formatNumber(d.male)}`);
@@ -217,7 +217,7 @@ function drawPyramid(data, year, provincia, comarca) {
         .attr('y', d => y(d.label))
         .attr('width', d => x(d.female) - x(0))
         .attr('height', y.bandwidth())
-        .attr('fill', '#e98300')
+        .attr('fill', '#73EDFF')
         .attr('opacity', 0.8)
         .append('title')
         .text(d => `Dones ${d.label}: ${formatNumber(d.female)}`);
@@ -257,7 +257,7 @@ function drawPyramid(data, year, provincia, comarca) {
     legend.append('rect')
         .attr('width', 12)
         .attr('height', 12)
-        .attr('fill', '#73003c')
+        .attr('fill', '#000078')
         .attr('opacity', 0.8)
         .attr('rx', 2);
 
@@ -271,7 +271,7 @@ function drawPyramid(data, year, provincia, comarca) {
         .attr('x', 100)
         .attr('width', 12)
         .attr('height', 12)
-        .attr('fill', '#e98300')
+        .attr('fill', '#73EDFF')
         .attr('opacity', 0.8)
         .attr('rx', 2);
 

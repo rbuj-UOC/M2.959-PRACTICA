@@ -37,7 +37,7 @@ export function createSlide5ProvinciesBars(data) {
         const x0 = d3.scaleBand().domain(provs).range([0, width]).padding(0.2);
         const x1 = d3.scaleBand().domain(['sel', 'no']).range([0, x0.bandwidth()]).padding(0.1);
         const y = d3.scaleLinear().domain([0, d3.max(rows, d => Math.max(d.sel || 0, d.no || 0)) || 1]).nice().range([height, 0]);
-        const color = d3.scaleOrdinal().domain(['sel', 'no']).range(['#73003c', '#e98300']);
+        const color = d3.scaleOrdinal().domain(['sel', 'no']).range(['#000078', '#73EDFF']);
 
         svg.append('g').attr('transform', `translate(0,${height})`).call(d3.axisBottom(x0));
         svg.append('g').call(d3.axisLeft(y));

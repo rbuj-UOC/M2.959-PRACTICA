@@ -31,7 +31,7 @@ function topBar(containerSel, rows, valueAccessor, titleLabel) {
         .attr('y', d => y(d.comarca))
         .attr('width', d => x(valueAccessor(d)))
         .attr('height', y.bandwidth())
-        .attr('fill', '#e98300')
+        .attr('fill', '#73EDFF')
         .append('title')
         .text(d => `${d.comarca}: ${formatFloat(valueAccessor(d))}`);
 
