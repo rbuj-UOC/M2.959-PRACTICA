@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 
-export function createOverviewPieChart(data) {
+export function createSlide1PieChart(data) {
     const container = d3.select('#chart-0-overview');
     const yearSlider = d3.select('#overview-year');
     const yearDisplay = d3.select('#overview-year-display');

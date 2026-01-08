@@ -13,10 +13,10 @@
             <h1>Recollida Selectiva a Catalunya</h1>
             <nav class="slide-navigation">
                 <button class="nav-btn" data-slide="1">Visió general</button>
-                <button class="nav-btn" data-slide="2">Slide 2</button>
-                <button class="nav-btn" data-slide="3">Slide 3</button>
-                <button class="nav-btn" data-slide="4">Slide 4</button>
-                <button class="nav-btn" data-slide="5">Slide 5</button>
+                <button class="nav-btn" data-slide="2">Millores sostingudes</button>
+                <button class="nav-btn" data-slide="3">Patrons demogràfics</button>
+                <button class="nav-btn" data-slide="4">Pressió territorial</button>
+                <button class="nav-btn" data-slide="5">Comparatives territorials</button>
             </nav>
         </div>
     </header>
@@ -145,8 +145,8 @@
                                 <button id="map-reset" class="map-btn">Restablir</button>
                             </div>
                         </div>
-                        <p class="info-box">Cada bombolla es posiciona segons les coordenades GPS de la comarca. Passa
-                            el ratolí per sobre per veure detalls.</p>
+                        <p class="info-box">Cada bombolla es posiciona segons les coordenades de la comarca. Passa el
+                            ratolí per sobre per veure detalls.</p>
                         <p class="info-box">Pots fer zoom amb els botons o amb la roda del ratolí, i arrossegar el mapa
                             per moure't.</p>
                     </div>
@@ -165,54 +165,77 @@
         <!-- Slide 2 -->
         <div class="slide" data-slide="2">
             <div class="slide-content">
-                <div class="summary-content">
-                    <h2>Slide 2</h2>
-                    <p>Suspendisse eros tellus, luctus vel sodales ac, scelerisque ut enim. Vestibulum ornare nec metus
-                        id scelerisque. Ut et neque sodales, tincidunt metus eu, viverra arcu. Aliquam dignissim
-                        accumsan est quis placerat. Nunc vitae massa vitae enim faucibus pulvinar et quis metus.
-                        Suspendisse et odio consectetur, sodales urna sagittis, pharetra eros. Donec fermentum felis
-                        augue, nec ullamcorper enim congue ac. Aenean accumsan, mi at ultrices pharetra, risus turpis
-                        volutpat erat, a cursus sapien lorem eu mi. In ut neque porttitor, eleifend ante porta,
-                        venenatis tortor. Suspendisse pulvinar ut nulla elementum molestie. Praesent lectus dolor,
-                        venenatis et semper id, tristique et diam. Praesent nec purus elementum, aliquet enim a,
-                        pulvinar diam.</p>
-                    <p>Suspendisse consequat elit eu dolor convallis tristique. Sed vulputate enim eu neque scelerisque,
-                        nec ornare libero pellentesque. Morbi faucibus erat dui, a porta nisl scelerisque eget. Integer
-                        non ullamcorper sapien. Pellentesque gravida quam eu libero gravida bibendum a sit amet ex.
-                        Vivamus nec nulla ut dolor dapibus luctus. Vivamus pellentesque imperdiet felis vel pharetra.
-                    </p>
-                    <p>Duis efficitur tortor vel sem tempus ornare nec scelerisque ex. Morbi id nulla non nisi consequat
-                        ultrices. Nam at ex aliquet, tristique mauris eu, viverra dui. Quisque sit amet malesuada sem.
-                        Nullam viverra ex nec urna bibendum convallis. Vivamus id tincidunt massa. Nulla iaculis nulla
-                        sed velit viverra, non aliquam nibh varius.</p>
+                <div class="text-content">
+                    <h2>Millores sostingudes</h2>
+                    <p>La recollida selectiva ha avançat de manera constant al llarg dels anys. Quan mirem les
+                        tendències per província, observem un increment progressiu de la recollida selectiva per
+                        habitant i dia, mentre que el rebuig tendeix a reduir-se. Aquestes dinàmiques mostren canvis
+                        d'hàbits i una millor implantació dels sistemes de recollida als municipis.</p>
                 </div>
+
                 <div class="chart-content">
                     <div class="controls-content">
                         <div class="controls">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores, modi expedita beatae
-                                quidem sunt amet inventore autem deleniti dolore accusamus eveniet aperiam quisquam
-                                perspiciatis recusandae obcaecati et eos, quas sint.</p>
+                            <p>Visualitza l'evolució anual i filtra per província per comparar ritmes de millora.</p>
+                            <label>Província</label>
+                            <select id="sustained-provincia">
+                                <option value="Totes">Totes</option>
+                                <option value="Barcelona">Barcelona</option>
+                                <option value="Girona">Girona</option>
+                                <option value="Lleida">Lleida</option>
+                                <option value="Tarragona">Tarragona</option>
+                            </select>
                         </div>
+                        <p class="info-box">L'augment sostingut de la recollida selectiva per habitant evidencia una
+                            millor separació en origen i una major eficiència del sistema de recollida.</p>
                     </div>
-                    <div class="chart-area"></div>
+                    <div class="chart-area">
+                        <div id="chart-2-0" class="chart"></div>
+                    </div>
                 </div>
-                <div class="text-content">
-                    <p>Duis ipsum diam, bibendum at ante eget, mattis condimentum diam. Ut mollis, nisl et dignissim
-                        venenatis, lectus enim suscipit ipsum, sit amet posuere risus ante nec massa. Aenean sem est,
-                        vestibulum et tempus a, pulvinar quis lacus. In hac habitasse platea dictumst. Sed maximus neque
-                        et efficitur tincidunt. In hac habitasse platea dictumst. In feugiat neque turpis, sit amet
-                        ornare eros porta euismod. Nulla facilisi. Nulla hendrerit erat eu velit iaculis, a iaculis sem
-                        fermentum. Donec pharetra mi ac lectus molestie, sed facilisis lectus bibendum. Etiam tellus
-                        lectus, tempor sed velit non, feugiat tincidunt ante. Aenean iaculis libero ac mollis lacinia.
-                    </p>
-                    <p>Sed sem turpis, tristique sit amet laoreet fringilla, lobortis in ligula. Mauris vitae
-                        ullamcorper tortor, ut consequat ligula. Phasellus sit amet odio sit amet nisi rutrum commodo
-                        nec quis tortor. Nunc quis ligula justo. Phasellus ligula diam, rhoncus a luctus tristique,
-                        accumsan sollicitudin metus. Nulla rhoncus laoreet auctor. Praesent eu egestas velit. Donec
-                        sagittis, nisi quis interdum iaculis, libero mi lacinia odio, at maximus nulla odio a neque.
-                        Mauris non viverra nunc. Sed lorem lacus, venenatis ullamcorper ex ut, convallis porttitor
-                        lacus. Pellentesque commodo, purus eu porta commodo, ante sem ornare diam, ac sagittis metus est
-                        vel neque.</p>
+
+                <div class="chart-content">
+                    <div class="controls-content">
+                        <div class="controls">
+                            <p>Segueix l'evolució del rebuig per habitant i dia, un bon indicador de la reducció de
+                                residus no separats.</p>
+                            <label>Província</label>
+                            <select id="sustained-provincia-2">
+                                <option value="Totes">Totes</option>
+                                <option value="Barcelona">Barcelona</option>
+                                <option value="Girona">Girona</option>
+                                <option value="Lleida">Lleida</option>
+                                <option value="Tarragona">Tarragona</option>
+                            </select>
+                        </div>
+                        <p class="info-box">La tendència descendent del rebuig confirma que cada cop més fraccions són
+                            gestionades de manera separada.</p>
+                    </div>
+                    <div class="chart-area">
+                        <div id="chart-2-1" class="chart"></div>
+                    </div>
+                </div>
+
+                <div class="chart-content">
+                    <div class="controls-content">
+                        <div class="controls">
+                            <p>Consulta l'evolució del percentatge de recollida selectiva agregat per província o per al
+                                conjunt del territori.</p>
+                            <label>Província</label>
+                            <select id="sustained-provincia-3">
+                                <option value="Totes">Totes</option>
+                                <option value="Barcelona">Barcelona</option>
+                                <option value="Girona">Girona</option>
+                                <option value="Lleida">Lleida</option>
+                                <option value="Tarragona">Tarragona</option>
+                            </select>
+                        </div>
+                        <p class="info-box">Quan la fracció selectiva supera el 50 %, el sistema es consolida i s'acosta
+                            als estàndards europeus de bones pràctiques.</p>
+                    </div>
+                    <div class="chart-area">
+                        <div id="chart-2-2" class="chart"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -220,54 +243,148 @@
         <!-- Slide 3 -->
         <div class="slide" data-slide="3">
             <div class="slide-content">
-                <div class="summary-content">
-                    <h2>Slide 3</h2>
-                    <p>Suspendisse eros tellus, luctus vel sodales ac, scelerisque ut enim. Vestibulum ornare nec metus
-                        id scelerisque. Ut et neque sodales, tincidunt metus eu, viverra arcu. Aliquam dignissim
-                        accumsan est quis placerat. Nunc vitae massa vitae enim faucibus pulvinar et quis metus.
-                        Suspendisse et odio consectetur, sodales urna sagittis, pharetra eros. Donec fermentum felis
-                        augue, nec ullamcorper enim congue ac. Aenean accumsan, mi at ultrices pharetra, risus turpis
-                        volutpat erat, a cursus sapien lorem eu mi. In ut neque porttitor, eleifend ante porta,
-                        venenatis tortor. Suspendisse pulvinar ut nulla elementum molestie. Praesent lectus dolor,
-                        venenatis et semper id, tristique et diam. Praesent nec purus elementum, aliquet enim a,
-                        pulvinar diam.</p>
-                    <p>Suspendisse consequat elit eu dolor convallis tristique. Sed vulputate enim eu neque scelerisque,
-                        nec ornare libero pellentesque. Morbi faucibus erat dui, a porta nisl scelerisque eget. Integer
-                        non ullamcorper sapien. Pellentesque gravida quam eu libero gravida bibendum a sit amet ex.
-                        Vivamus nec nulla ut dolor dapibus luctus. Vivamus pellentesque imperdiet felis vel pharetra.
+                <div class="text-content">
+                    <h2>Patrons demogràfics</h2>
+                    <p>La població de Catalunya s'ha anat envellint en comparació amb els anys anteriors. El percentatge
+                        de població menor de 15 anys va augmentar fins al 2017 i, a partir d'aquell moment, ha anat
+                        disminuint. En canvi, el percentatge de població del rang de 16 a 24 anys va disminuir fins al
+                        2017 i, des de llavors, ha començat a augmentar. Pel que fa al grup de 25 a 44 anys, el
+                        percentatge s'ha reduït de manera continuada al llarg d'aquests 15 anys, mentre que la població
+                        major de 44 anys ha anat creixent.
                     </p>
-                    <p>Duis efficitur tortor vel sem tempus ornare nec scelerisque ex. Morbi id nulla non nisi consequat
-                        ultrices. Nam at ex aliquet, tristique mauris eu, viverra dui. Quisque sit amet malesuada sem.
-                        Nullam viverra ex nec urna bibendum convallis. Vivamus id tincidunt massa. Nulla iaculis nulla
-                        sed velit viverra, non aliquam nibh varius.</p>
+                    <p>Aquesta evolució es pot observar clarament en les piràmides de població. Tanmateix, per
+                        determinar si es tracta d'un fenomen general o localitzat, cal analitzar si els moviments
+                        laterals són similars en totes les bombolles dels diagrames de bombolles.</p>
+                    <p>Un cop constatat que el canvi és generalitzat, amb un punt d'inflexió al voltant de l'any 2017,
+                        quan les comarques inverteixen el sentit del desplaçament lateral, el pas següent és examinar si
+                        hi ha moviments verticals i si aquests estan influenciats per la població o pel rang d'edat. A
+                        primer cop d'ull, s'observa que el moviment vertical és més ràpid en les bombolles més petites,
+                        és a dir, en comarques amb menys població. Això suggereix que les polítiques de reciclatge
+                        s'implementen amb més rapidesa en territoris menys poblats que no pas en aquells amb una
+                        població més elevada.</p>
+                    <p>Com en una bancada de peixos, on els exemplars més petits es mouen amb més agilitat, els
+                        moviments verticals i horitzontals són més ràpids en les comarques amb menys població. El
+                        moviment oblic ascendent en el rang d'edat de 46 a 64 anys exemplifica la progressió del
+                        reciclatge. En canvi, en el grup de 25 a 44 anys, el moviment oblic és cap a l'esquerra i no cap
+                        a la dreta, ja que el percentatge de població en aquest rang està disminuint.</p>
                 </div>
+
+                <!-- Piràmide de població (primera gràfica) -->
                 <div class="chart-content">
                     <div class="controls-content">
                         <div class="controls">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores, modi expedita beatae
-                                quidem sunt amet inventore autem deleniti dolore accusamus eveniet aperiam quisquam
-                                perspiciatis recusandae obcaecati et eos, quas sint.</p>
+                            <p>Visualitza la distribució de la població per rang d'edats i per sexe.</p>
+                            <label>Any: <span id="population-pyramid-year-display"></span></label>
+                            <input type="range" id="population-pyramid-year" min="2006" max="2021" value="2006"
+                                class="year-slider">
+                            <label>Província</label>
+                            <select id="population-pyramid-provincia">
+                                <option value="Totes">Totes</option>
+                                <option value="Barcelona">Barcelona</option>
+                                <option value="Girona">Girona</option>
+                                <option value="Lleida">Lleida</option>
+                                <option value="Tarragona">Tarragona</option>
+                            </select>
+                            <label>Comarca</label>
+                            <select id="population-pyramid-comarca">
+                                <option value="Totes">Totes</option>
+                            </select>
                         </div>
+                        <p class="info-box">La piràmide de població mostra l'estructura d'edats i les diferències de
+                            gènere que influeixen en els hàbits de consum i separació de residus.</p>
                     </div>
-                    <div class="chart-area"></div>
+                    <div class="chart-area">
+                        <div id="chart-3-population-pyramid" class="chart"></div>
+                    </div>
                 </div>
-                <div class="text-content">
-                    <p>Duis ipsum diam, bibendum at ante eget, mattis condimentum diam. Ut mollis, nisl et dignissim
-                        venenatis, lectus enim suscipit ipsum, sit amet posuere risus ante nec massa. Aenean sem est,
-                        vestibulum et tempus a, pulvinar quis lacus. In hac habitasse platea dictumst. Sed maximus neque
-                        et efficitur tincidunt. In hac habitasse platea dictumst. In feugiat neque turpis, sit amet
-                        ornare eros porta euismod. Nulla facilisi. Nulla hendrerit erat eu velit iaculis, a iaculis sem
-                        fermentum. Donec pharetra mi ac lectus molestie, sed facilisis lectus bibendum. Etiam tellus
-                        lectus, tempor sed velit non, feugiat tincidunt ante. Aenean iaculis libero ac mollis lacinia.
-                    </p>
-                    <p>Sed sem turpis, tristique sit amet laoreet fringilla, lobortis in ligula. Mauris vitae
-                        ullamcorper tortor, ut consequat ligula. Phasellus sit amet odio sit amet nisi rutrum commodo
-                        nec quis tortor. Nunc quis ligula justo. Phasellus ligula diam, rhoncus a luctus tristique,
-                        accumsan sollicitudin metus. Nulla rhoncus laoreet auctor. Praesent eu egestas velit. Donec
-                        sagittis, nisi quis interdum iaculis, libero mi lacinia odio, at maximus nulla odio a neque.
-                        Mauris non viverra nunc. Sed lorem lacus, venenatis ullamcorper ex ut, convallis porttitor
-                        lacus. Pellentesque commodo, purus eu porta commodo, ante sem ornare diam, ac sagittis metus est
-                        vel neque.</p>
+
+                <!-- Rang d'edats 0-15 -->
+                <div class="chart-content">
+                    <div class="controls-content">
+                        <div class="controls">
+                            <p>Els patrons demogràfics influeixen directament en el comportament de separació de
+                                residus..</p>
+                            <label>Any: <span id="age0-15-year-display"></span></label>
+                            <input type="range" id="age0-15-year" min="2006" max="2021" value="2006"
+                                class="year-slider">
+                            <label>Mètrica</label>
+                            <select id="demo-patterns-metric">
+                                <option value="selectiva">Recollida selectiva kg/hab./dia</option>
+                                <option value="no_selectiva">Rebuig kg/hab./dia</option>
+                                <option value="total">Total kg/hab./dia</option>
+                                <option value="percent_selectiva">Percentatge recollida selectiva</option>
+                            </select>
+                        </div>
+                        <p class="info-box"><strong>Rang 0-15 anys:</strong> La presència de nens i adolescents pot
+                            influir en els hàbits familiars de separació.</p>
+                    </div>
+                    <div class="chart-area">
+                        <div id="chart-3-age0-15" class="chart"></div>
+                    </div>
+                </div>
+
+                <!-- Rang d'edats 16-24 -->
+                <div class="chart-content">
+                    <div class="controls-content">
+                        <div class="controls">
+                            <label>Any: <span id="age16-24-year-display"></span></label>
+                            <input type="range" id="age16-24-year" min="2006" max="2021" value="2006"
+                                class="year-slider">
+                        </div>
+                        <p class="info-box"><strong>Rang 16-24 anys:</strong> Els joves adults mostren dinàmiques de
+                            consum i separació específiques.</p>
+                    </div>
+                    <div class="chart-area">
+                        <div id="chart-3-age16-24" class="chart"></div>
+                    </div>
+                </div>
+
+                <!-- Rang d'edats 25-44 -->
+                <div class="chart-content">
+                    <div class="controls-content">
+                        <div class="controls">
+                            <label>Any: <span id="age25-44-year-display"></span></label>
+                            <input type="range" id="age25-44-year" min="2006" max="2021" value="2006"
+                                class="year-slider">
+                        </div>
+                        <p class="info-box"><strong>Rang 25-44 anys:</strong> Els adults en edat laboral representen la
+                            major part de la població activa.</p>
+                    </div>
+                    <div class="chart-area">
+                        <div id="chart-3-age25-44" class="chart"></div>
+                    </div>
+                </div>
+
+                <!-- Rang d'edats 45-64 -->
+                <div class="chart-content">
+                    <div class="controls-content">
+                        <div class="controls">
+                            <label>Any: <span id="age45-64-year-display"></span></label>
+                            <input type="range" id="age45-64-year" min="2006" max="2021" value="2006"
+                                class="year-slider">
+                        </div>
+                        <p class="info-box"><strong>Rang 45-64 anys:</strong> Els adults madurs solen tenir hàbits més
+                            consolidats de separació.</p>
+                    </div>
+                    <div class="chart-area">
+                        <div id="chart-3-age45-64" class="chart"></div>
+                    </div>
+                </div>
+
+                <!-- Rang d'edats 64+ -->
+                <div class="chart-content">
+                    <div class="controls-content">
+                        <div class="controls">
+                            <label>Any: <span id="age64plus-year-display"></span></label>
+                            <input type="range" id="age64plus-year" min="2006" max="2021" value="2006"
+                                class="year-slider">
+                        </div>
+                        <p class="info-box"><strong>Rang 64+ anys:</strong> Una major presència de població gran pot
+                            associar-se a dinàmiques específiques de consum i separació.</p>
+                    </div>
+                    <div class="chart-area">
+                        <div id="chart-3-age64plus" class="chart"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -275,54 +392,102 @@
         <!-- Slide 4 -->
         <div class="slide" data-slide="4">
             <div class="slide-content">
-                <div class="summary-content">
-                    <h2>Slide 4</h2>
-                    <p>Suspendisse eros tellus, luctus vel sodales ac, scelerisque ut enim. Vestibulum ornare nec metus
-                        id scelerisque. Ut et neque sodales, tincidunt metus eu, viverra arcu. Aliquam dignissim
-                        accumsan est quis placerat. Nunc vitae massa vitae enim faucibus pulvinar et quis metus.
-                        Suspendisse et odio consectetur, sodales urna sagittis, pharetra eros. Donec fermentum felis
-                        augue, nec ullamcorper enim congue ac. Aenean accumsan, mi at ultrices pharetra, risus turpis
-                        volutpat erat, a cursus sapien lorem eu mi. In ut neque porttitor, eleifend ante porta,
-                        venenatis tortor. Suspendisse pulvinar ut nulla elementum molestie. Praesent lectus dolor,
-                        venenatis et semper id, tristique et diam. Praesent nec purus elementum, aliquet enim a,
-                        pulvinar diam.</p>
-                    <p>Suspendisse consequat elit eu dolor convallis tristique. Sed vulputate enim eu neque scelerisque,
-                        nec ornare libero pellentesque. Morbi faucibus erat dui, a porta nisl scelerisque eget. Integer
-                        non ullamcorper sapien. Pellentesque gravida quam eu libero gravida bibendum a sit amet ex.
-                        Vivamus nec nulla ut dolor dapibus luctus. Vivamus pellentesque imperdiet felis vel pharetra.
+                <div class="text-content">
+                    <h2>Pressió territorial</h2>
+                    <p>En la gràfica on analitzem dues mètriques en relació amb la densitat de població, l'eliminació
+                        dels valors atípics permet obtenir una visió més nítida de les tendències generals. S'hi
+                        observa, d'una banda, un descens inicial en la generació de residus seguit d'un lleuger repunt.
+                        Pel que fa al percentatge de recollida selectiva, la tendència és diferent: es detecta una
+                        millora sostinguda i generalitzada, amb un increment progressiu del percentatge de recollida.
                     </p>
-                    <p>Duis efficitur tortor vel sem tempus ornare nec scelerisque ex. Morbi id nulla non nisi consequat
-                        ultrices. Nam at ex aliquet, tristique mauris eu, viverra dui. Quisque sit amet malesuada sem.
-                        Nullam viverra ex nec urna bibendum convallis. Vivamus id tincidunt massa. Nulla iaculis nulla
-                        sed velit viverra, non aliquam nibh varius.</p>
+                    <p>En les gràfiques següents es poden observar els canvis en la generació de residus i en la
+                        recollida selectiva. Tot i que en la primera gràfica semblava que no hi havia canvis en la
+                        redistribució de les comarques i que aquestes es movien de manera síncrona, aquí es fa evident
+                        que el canvi és progressiu i que afecta primer unes comarques abans que d'altres, i amb
+                        intensitats diferents. Aquest comportament és especialment notable en el cas de la recollida
+                        selectiva.</p>
+                    <p>La densitat de població i l'extensió territorial condicionen de manera directa la logística de la
+                        recollida i la generació de residus. Analitzar la relació entre densitat i intensitat de residus
+                        permet identificar on cal optimitzar rutes, contenidors i freqüències de servei.</p>
                 </div>
+
                 <div class="chart-content">
                     <div class="controls-content">
                         <div class="controls">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores, modi expedita beatae
-                                quidem sunt amet inventore autem deleniti dolore accusamus eveniet aperiam quisquam
-                                perspiciatis recusandae obcaecati et eos, quas sint.</p>
+                            <p>Observa la relació entre densitat de població i residus per habitant i dia.</p>
+                            <label>Any: <span id="pressure-year-display"></span></label>
+                            <input type="range" id="pressure-year" min="2006" max="2021" value="2006"
+                                class="year-slider">
+                            <label>Província</label>
+                            <select id="pressure-provincia">
+                                <option value="Totes">Totes</option>
+                                <option value="Barcelona">Barcelona</option>
+                                <option value="Girona">Girona</option>
+                                <option value="Lleida">Lleida</option>
+                                <option value="Tarragona">Tarragona</option>
+                            </select>
+                            <label>Mètrica</label>
+                            <select id="pressure-metric">
+                                <option value="kg_per_hab_dia">Total kg/hab./dia</option>
+                                <option value="percentatge_selectiva">Percentatge recollida selectiva</option>
+                            </select>
                         </div>
+                        <p class="info-box">Els entorns més densos poden presentar més generació concentrada, però també
+                            majors oportunitats d'eficiència en la recollida porta a porta i en la proximitat als punts
+                            de recollida.</p>
                     </div>
-                    <div class="chart-area"></div>
+                    <div class="chart-area">
+                        <div id="chart-4-0" class="chart"></div>
+                    </div>
                 </div>
-                <div class="text-content">
-                    <p>Duis ipsum diam, bibendum at ante eget, mattis condimentum diam. Ut mollis, nisl et dignissim
-                        venenatis, lectus enim suscipit ipsum, sit amet posuere risus ante nec massa. Aenean sem est,
-                        vestibulum et tempus a, pulvinar quis lacus. In hac habitasse platea dictumst. Sed maximus neque
-                        et efficitur tincidunt. In hac habitasse platea dictumst. In feugiat neque turpis, sit amet
-                        ornare eros porta euismod. Nulla facilisi. Nulla hendrerit erat eu velit iaculis, a iaculis sem
-                        fermentum. Donec pharetra mi ac lectus molestie, sed facilisis lectus bibendum. Etiam tellus
-                        lectus, tempor sed velit non, feugiat tincidunt ante. Aenean iaculis libero ac mollis lacinia.
-                    </p>
-                    <p>Sed sem turpis, tristique sit amet laoreet fringilla, lobortis in ligula. Mauris vitae
-                        ullamcorper tortor, ut consequat ligula. Phasellus sit amet odio sit amet nisi rutrum commodo
-                        nec quis tortor. Nunc quis ligula justo. Phasellus ligula diam, rhoncus a luctus tristique,
-                        accumsan sollicitudin metus. Nulla rhoncus laoreet auctor. Praesent eu egestas velit. Donec
-                        sagittis, nisi quis interdum iaculis, libero mi lacinia odio, at maximus nulla odio a neque.
-                        Mauris non viverra nunc. Sed lorem lacus, venenatis ullamcorper ex ut, convallis porttitor
-                        lacus. Pellentesque commodo, purus eu porta commodo, ante sem ornare diam, ac sagittis metus est
-                        vel neque.</p>
+
+                <div class="chart-content">
+                    <div class="controls-content">
+                        <div class="controls">
+                            <p>Identifica les comarques amb més rebuig per habitant i dia per prioritzar intervencions.
+                            </p>
+                            <label>Any: <span id="pressure-year-display-2"></span></label>
+                            <input type="range" id="pressure-year-2" min="2006" max="2021" value="2006"
+                                class="year-slider">
+                            <label>Província</label>
+                            <select id="pressure-provincia-2">
+                                <option value="Totes">Totes</option>
+                                <option value="Barcelona">Barcelona</option>
+                                <option value="Girona">Girona</option>
+                                <option value="Lleida">Lleida</option>
+                                <option value="Tarragona">Tarragona</option>
+                            </select>
+                        </div>
+                        <p class="info-box">Les diferències territorials assenyalen on la prevenció i la sensibilització
+                            poden tenir més impacte.</p>
+                    </div>
+                    <div class="chart-area">
+                        <div id="chart-4-1" class="chart"></div>
+                    </div>
+                </div>
+
+                <div class="chart-content">
+                    <div class="controls-content">
+                        <div class="controls">
+                            <p>Consulta quines comarques lideren la recollida selectiva per habitant i dia.</p>
+                            <label>Any: <span id="pressure-year-display-3"></span></label>
+                            <input type="range" id="pressure-year-3" min="2006" max="2021" value="2006"
+                                class="year-slider">
+                            <label>Província</label>
+                            <select id="pressure-provincia-3">
+                                <option value="Totes">Totes</option>
+                                <option value="Barcelona">Barcelona</option>
+                                <option value="Girona">Girona</option>
+                                <option value="Lleida">Lleida</option>
+                                <option value="Tarragona">Tarragona</option>
+                            </select>
+                        </div>
+                        <p class="info-box">Les bones pràctiques sovint es concentren en comarques amb models de
+                            recollida adaptats i participació ciutadana elevada.</p>
+                    </div>
+                    <div class="chart-area">
+                        <div id="chart-4-2" class="chart"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -330,58 +495,65 @@
         <!-- Slide 5 -->
         <div class="slide" data-slide="5">
             <div class="slide-content">
-                <div class="summary-content">
-                    <h2>Slide 5</h2>
-                    <p>Suspendisse eros tellus, luctus vel sodales ac, scelerisque ut enim. Vestibulum ornare nec metus
-                        id scelerisque. Ut et neque sodales, tincidunt metus eu, viverra arcu. Aliquam dignissim
-                        accumsan est quis placerat. Nunc vitae massa vitae enim faucibus pulvinar et quis metus.
-                        Suspendisse et odio consectetur, sodales urna sagittis, pharetra eros. Donec fermentum felis
-                        augue, nec ullamcorper enim congue ac. Aenean accumsan, mi at ultrices pharetra, risus turpis
-                        volutpat erat, a cursus sapien lorem eu mi. In ut neque porttitor, eleifend ante porta,
-                        venenatis tortor. Suspendisse pulvinar ut nulla elementum molestie. Praesent lectus dolor,
-                        venenatis et semper id, tristique et diam. Praesent nec purus elementum, aliquet enim a,
-                        pulvinar diam.</p>
-                    <p>Suspendisse consequat elit eu dolor convallis tristique. Sed vulputate enim eu neque scelerisque,
-                        nec ornare libero pellentesque. Morbi faucibus erat dui, a porta nisl scelerisque eget. Integer
-                        non ullamcorper sapien. Pellentesque gravida quam eu libero gravida bibendum a sit amet ex.
-                        Vivamus nec nulla ut dolor dapibus luctus. Vivamus pellentesque imperdiet felis vel pharetra.
-                    </p>
-                    <p>Duis efficitur tortor vel sem tempus ornare nec scelerisque ex. Morbi id nulla non nisi consequat
-                        ultrices. Nam at ex aliquet, tristique mauris eu, viverra dui. Quisque sit amet malesuada sem.
-                        Nullam viverra ex nec urna bibendum convallis. Vivamus id tincidunt massa. Nulla iaculis nulla
-                        sed velit viverra, non aliquam nibh varius.</p>
+                <div class="text-content">
+                    <h2>Comparatives territorials</h2>
+                    <p>Entendre la realitat del territori permet interpretar amb més profunditat les dinàmiques locals.
+                        Hem vist que l'increment de la recollida selectiva es produeix de manera desigual segons la
+                        comarca. Les comarques amb menys població sovint presenten comportaments diferents de les més
+                        poblades: en municipis petits, els canvis tendeixen a ser més ràpids i intensos, mentre que en
+                        territoris més poblats els processos són més lents i graduals.</p>
+                    <p>Quan extrapolem aquest comportament a escala provincial, s'hi detecten patrons similars que
+                        ajuden a comprendre millor les dinàmiques territorials. Això permet formular diverses hipòtesis
+                        que relacionin els diagrames de caixa amb aquests comportaments. Tot i que moltes d'aquestes
+                        hipòtesis poden ser vàlides, cal considerar factors externs com el tipus de teixit empresarial
+                        de cada província o les condicions econòmiques que poden influir en el desplegament de la
+                        recollida selectiva. A més, la implantació d'aquest sistema comporta sovint una despesa inicial
+                        elevada, ja que cal renovar materials i adaptar serveis, i l'incompliment pot derivar en
+                        sancions econòmiques.</p>
+                    <p>La comparació entre províncies i comarques és útil per detectar oportunitats de millora i
+                        compartir experiències d'èxit. Les diferències observades responen a factors demogràfics,
+                        urbanístics i organitzatius que poden orientar el disseny de noves polítiques públiques.</p>
                 </div>
+
                 <div class="chart-content">
                     <div class="controls-content">
                         <div class="controls">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores, modi expedita beatae
-                                quidem sunt amet inventore autem deleniti dolore accusamus eveniet aperiam quisquam
-                                perspiciatis recusandae obcaecati et eos, quas sint.</p>
+                            <label>Any: <span id="comparisons-year-display"></span></label>
+                            <input type="range" id="comparisons-year" min="2006" max="2021" value="2006"
+                                class="year-slider">
                         </div>
+                        <p class="info-box">Les diferències entre províncies reflecteixen realitats territorials
+                            diverses i el ritme d'implantació dels models de recollida.</p>
                     </div>
-                    <div class="chart-area"></div>
+                    <div class="chart-area">
+                        <div id="chart-5-provincies-bars" class="chart"></div>
+                    </div>
                 </div>
-                <div class="text-content">
-                    <p>Duis ipsum diam, bibendum at ante eget, mattis condimentum diam. Ut mollis, nisl et dignissim
-                        venenatis, lectus enim suscipit ipsum, sit amet posuere risus ante nec massa. Aenean sem est,
-                        vestibulum et tempus a, pulvinar quis lacus. In hac habitasse platea dictumst. Sed maximus neque
-                        et efficitur tincidunt. In hac habitasse platea dictumst. In feugiat neque turpis, sit amet
-                        ornare eros porta euismod. Nulla facilisi. Nulla hendrerit erat eu velit iaculis, a iaculis sem
-                        fermentum. Donec pharetra mi ac lectus molestie, sed facilisis lectus bibendum. Etiam tellus
-                        lectus, tempor sed velit non, feugiat tincidunt ante. Aenean iaculis libero ac mollis lacinia.
-                    </p>
-                    <p>Sed sem turpis, tristique sit amet laoreet fringilla, lobortis in ligula. Mauris vitae
-                        ullamcorper tortor, ut consequat ligula. Phasellus sit amet odio sit amet nisi rutrum commodo
-                        nec quis tortor. Nunc quis ligula justo. Phasellus ligula diam, rhoncus a luctus tristique,
-                        accumsan sollicitudin metus. Nulla rhoncus laoreet auctor. Praesent eu egestas velit. Donec
-                        sagittis, nisi quis interdum iaculis, libero mi lacinia odio, at maximus nulla odio a neque.
-                        Mauris non viverra nunc. Sed lorem lacus, venenatis ullamcorper ex ut, convallis porttitor
-                        lacus. Pellentesque commodo, purus eu porta commodo, ante sem ornare diam, ac sagittis metus est
-                        vel neque.</p>
+
+                <div class="chart-content">
+                    <div class="controls-content">
+                        <div class="controls">
+                            <label>Mètrica</label>
+                            <select id="violin-metric">
+                                <option value="poblacio">Població</option>
+                                <option value="densitat">Densitat demogràfica (hab/km²)</option>
+                                <option value="superficie">Superfície (km²)</option>
+                                <option value="tones_selectiva">Tones recollida selectiva</option>
+                                <option value="tones_no_selectiva">Tones recollida no selectiva</option>
+                            </select>
+                            <label id="violin-year-label">Any: <span id="violin-year-display"></span></label>
+                            <input type="range" id="violin-year" min="2006" max="2021" value="2021" class="year-slider">
+                        </div>
+                        <p class="info-box">Els diagrames de caixa mostren la distribució dels valors per cada província
+                            amb mediana, quartils i valors atípics. El control d'any només està actiu per als valors
+                            temporals.</p>
+                    </div>
+                    <div class="chart-area">
+                        <div id="chart-5-boxplots" class="chart"></div>
+                    </div>
                 </div>
             </div>
         </div>
-
 
     </main>
 

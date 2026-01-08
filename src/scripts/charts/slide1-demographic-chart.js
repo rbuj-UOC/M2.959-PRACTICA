@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 
-export function createDemographicChart(data) {
+export function createSlide1DemographicChart(data) {
     const container = d3.select('#chart-1-overview');
     const provinciaSelect = d3.select('#demographic-provincia');
     const comarquesContainer = d3.select('#demographic-comarques');

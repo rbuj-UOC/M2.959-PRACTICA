@@ -35,7 +35,7 @@ const metricOptions = {
     }
 };
 
-export function createMapGeo(csvData, geojson) {
+export function createSlide1MapGeo(csvData, geojson) {
     const container = d3.select('#chart-2-overview');
     if (container.empty()) return;
 
@@ -59,12 +59,13 @@ export function createMapGeo(csvData, geojson) {
 
     const bbox = container.node().getBoundingClientRect();
     const width = bbox.width || 900;
-    const height = Math.max(520, Math.min(740, width * 0.7));
+    const height = 710;
 
     const svg = container.append('svg')
         .attr('width', '100%')
-        .attr('height', height)
-        .attr('viewBox', `0 0 ${width} ${height}`);
+        .attr('height', '100%')
+        .attr('viewBox', `0 0 ${width} ${height}`)
+        .attr('preserveAspectRatio', 'xMidYMid meet');
 
     const g = svg.append('g');
     const mapLayer = g.append('g');
@@ -305,12 +306,11 @@ export function createMapGeo(csvData, geojson) {
     window.addEventListener('resize', () => {
         const newBox = container.node().getBoundingClientRect();
         const newWidth = newBox.width || width;
-        const newHeight = Math.max(520, Math.min(740, newWidth * 0.7));
-        svg.attr('viewBox', `0 0 ${newWidth} ${newHeight}`)
-            .attr('height', newHeight);
+        const newHeight = 850;
+        svg.attr('viewBox', `0 0 ${newWidth} ${newHeight}`);
 
         projection
-            .scale(5000 * newWidth / width)
+            .scale(initialScale * newWidth / width)
             .translate([newWidth / 2, newHeight / 2]);
 
         mapLayer.selectAll('path').attr('d', path);
