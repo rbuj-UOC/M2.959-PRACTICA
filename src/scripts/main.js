@@ -24,6 +24,14 @@ const BASE_URL = window.location.origin.includes('rbuj-uoc.github.io')
 
 console.log('Aplicació iniciada');
 
+const finishLoading = () => {
+    document.body.classList.remove('loading');
+    const loader = document.getElementById('page-loader');
+    if (loader) {
+        loader.classList.add('hidden');
+    }
+};
+
 // Carregar les dades
 Promise.all([
     d3.csv(`${BASE_URL}/data/recollida-selectiva-comarques-2006-2021.csv`),
@@ -96,6 +104,9 @@ Promise.all([
 
     console.log('Dades carregades i gràfiques inicialitzades');
 
+    finishLoading();
+
 }).catch(error => {
     console.error('Error carregant les dades:', error);
+    finishLoading();
 });

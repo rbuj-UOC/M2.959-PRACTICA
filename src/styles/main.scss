@@ -23,6 +23,85 @@ body {
     flex-direction: column;
 }
 
+// Pantalla de càrrega per evitar parpelleigs sense estil
+.page-loader {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #73000a 0%, #a83219 50%, #73000a 100%);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    z-index: 2000;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+
+    p {
+        font-size: 1rem;
+        letter-spacing: 0.5px;
+    }
+}
+
+.page-loader.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.loader-spinner {
+    width: 56px;
+    height: 56px;
+    border: 4px solid rgba(255, 255, 255, 0.25);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+// Oculta el contingut fins que tot estigui llest
+body.loading {
+    overflow: hidden;
+
+    header,
+    main,
+    footer {
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.2s ease 0.1s, visibility 0.2s ease 0.1s;
+    }
+
+    .page-loader {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+// Estat visible quan s'ha carregat la pàgina
+body:not(.loading) {
+    header,
+    main,
+    footer {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .page-loader {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+    }
+}
+
 .container {
     max-width: 1400px;
     margin: 0 auto;
