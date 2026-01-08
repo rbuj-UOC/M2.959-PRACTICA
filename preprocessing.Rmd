@@ -42,8 +42,8 @@ recollida_ds <- recollida_ds |>
     mutate(Nom = ifelse(Nom == "Aran" | Nom == "Val d'Aran", "Vall d'Aran", Nom))
 # canvia el nom de la columna `Nom` a `Comarca`
 colnames(recollida_ds)[colnames(recollida_ds) == "Nom"] <- "Comarca"
-# Elimina la columna `Codi` i la columna `Total`
-recollida_ds <- recollida_ds |> select(-Codi, -Total)
+# Elimina les columnes `Codi`, `Total` i `Total kg/hab./dia`
+recollida_ds <- recollida_ds |> select(-Codi, -Total, -`Total kg/hab./dia`)
 # Resum estadistic del dataset
 summary(recollida_ds)
 ```

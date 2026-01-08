@@ -101,14 +101,18 @@
                     </div>
                 </div>
                 <div class="text-content">
-                    <p>Duis efficitur tortor vel sem tempus ornare nec scelerisque ex. Morbi id nulla non nisi consequat
-                        ultrices. Nam at ex aliquet, tristique mauris eu, viverra dui. Quisque sit amet malesuada sem.
-                        Nullam viverra ex nec urna bibendum convallis. Vivamus id tincidunt massa. Nulla iaculis nulla
-                        sed velit viverra, non aliquam nibh varius.</p>
+                    <p>El percentatge de reciclatge ha augmentat molt i algunes comarques han fet progressos
+                        significatius en la reducció de residus. No totes les comarques han reduit la quantitat de
+                        residus o la quantitat de rebuig, tampoc han augmentat de forma heterogènia la quantitat de
+                        reciclatge. Encara hi ha marge de millora en moltes zones.</p>
                 </div>
                 <div class="chart-content">
                     <div class="controls-content">
                         <div class="controls">
+                            <p>Consulta les dades geogràfiques per any, província i mètrica. El color de la bombolla
+                                indica la població mentre que el diàmetre indica el valor de la mètrica. Esbrina quina
+                                comarca té el valor més alt i compara-ho amb les comarques del seu voltant. Observa
+                                com canvia la mida de les bombolles en canviar l'any. </p>
                             <label>Any: <span id="map-geo-year-display"></span></label>
                             <div class="radio-group">
                                 <label>
@@ -130,8 +134,8 @@
                             </select>
                             <label for="map-geo-metric-select">Mètrica</label>
                             <select id="map-geo-metric-select">
-                                <option value="recollida_selectiva_t">Recollida selectiva (tones)</option>
-                                <option value="recollida_no_selectiva_t">Recollida no selectiva (tones)</option>
+                                <option value="recollida_selectiva_t">Reciclatge diari kg/hab</option>
+                                <option value="recollida_no_selectiva_t">Rebuig diari kg/hab</option>
                                 <option value="kg_per_hab_dia">Total kg/hab./dia</option>
                                 <option value="percentatge_selectiva" selected>Percentatge recollida selectiva</option>
                             </select>
@@ -141,6 +145,10 @@
                                 <button id="map-reset" class="map-btn">Restablir</button>
                             </div>
                         </div>
+                        <p class="info-box">Cada bombolla es posiciona segons les coordenades GPS de la comarca. Passa
+                            el ratolí per sobre per veure detalls.</p>
+                        <p class="info-box">Pots fer zoom amb els botons o amb la roda del ratolí, i arrossegar el mapa
+                            per moure't.</p>
                     </div>
                     <div class="chart-area map-chart">
                         <div id="chart-2-overview" class="chart"></div>

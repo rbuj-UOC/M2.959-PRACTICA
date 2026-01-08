@@ -11,14 +11,14 @@ const formatNumber = (num, decimals = 2) => {
 
 const metricOptions = {
     recollida_selectiva_t: {
-        label: 'Recollida selectiva (tones)',
-        accessor: d => d.tones_recollida_selectiva,
-        format: v => Number.isFinite(v) ? `${formatNumber(v, 2)} t` : 'N/D'
+        label: 'Reciclatge kg/hab',
+        accessor: d => d.kg_selectiva_per_hab_dia,
+        format: v => Number.isFinite(v) ? `${formatNumber(v, 2)} kg` : 'N/D'
     },
     recollida_no_selectiva_t: {
-        label: 'Recollida no selectiva (tones)',
-        accessor: d => d.tones_recollida_no_selectiva,
-        format: v => Number.isFinite(v) ? `${formatNumber(v, 2)} t` : 'N/D'
+        label: 'Rebuig kg/hab',
+        accessor: d => d.kg_no_selectiva_per_hab_dia,
+        format: v => Number.isFinite(v) ? `${formatNumber(v, 2)} kg` : 'N/D'
     },
     kg_per_hab_dia: {
         label: 'Total kg/hab./dia',
