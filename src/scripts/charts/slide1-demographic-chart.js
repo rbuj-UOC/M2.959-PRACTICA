@@ -120,6 +120,14 @@ export function createSlide1DemographicChart(data) {
         // Neteja
         container.html('');
 
+        const title = provincia === 'Totes'
+            ? 'Evolució demogràfica (Catalunya, 2006-2021)'
+            : `Evolució demogràfica (${provincia}, 2006-2021)`;
+
+        container.append('h4')
+            .attr('class', 'chart-title')
+            .text(title);
+
         // SVG
         const svg = container
             .append('svg')

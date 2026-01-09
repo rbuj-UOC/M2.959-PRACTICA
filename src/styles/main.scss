@@ -193,7 +193,7 @@ main {
     display: grid;
     grid-template-columns: 1fr;
     align-items: start;
-    gap: 2rem;
+    gap: 1rem;
     background: #ffffff;
     border-radius: 6px;
     padding: 2rem;
@@ -217,6 +217,13 @@ main {
     h3 {
         color: $primary-color;
         font-size: 1.3rem;
+        margin: 1.5rem 0 0.8rem;
+        font-weight: 600;
+    }
+
+    h4 {
+        color: $primary-color;
+        font-size: 1.2rem;
         margin: 1.5rem 0 0.8rem;
         font-weight: 600;
     }
@@ -326,6 +333,14 @@ main {
             height: auto;
         }
     }
+}
+
+.chart-title {
+    margin: 0 0 0.75rem;
+    text-align: center;
+    color: $primary-color;
+    font-size: 1.1rem;
+    font-weight: 700;
 }
 
 // Controls
