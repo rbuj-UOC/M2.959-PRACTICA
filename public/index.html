@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recollida Selectiva a Catalunya</title>
+    <meta name="description"
+        content="Visualització interactiva sobre l'evolució de la recollida selectiva a Catalunya entre 2006 i 2021, analitzant dades demogràfiques i territorials.">
 </head>
 
 <body class="loading">
@@ -47,17 +49,17 @@
                             <p>Utilitza els controls per canviar l'any, el tipus de visualització i filtrar per
                                 província.
                                 Els tres valors comarcals més alts es destaquen amb etiquetes externes.</p>
-                            <label>Any: <span id="overview-year-display"></span></label>
+                            <label for="overview-year">Any: <span id="overview-year-display"></span></label>
                             <input type="range" id="overview-year" min="2006" max="2021" value="2006"
                                 class="year-slider">
-                            <label>Tipus de visualització</label>
+                            <label for="overview-metric">Tipus de visualització</label>
                             <select id="overview-metric">
                                 <option value="comparativa">Comparativa selectiva vs no selectiva</option>
                                 <option value="total">Total residus</option>
                                 <option value="selectiva">Recollida selectiva</option>
                                 <option value="no_selectiva">Recollida no selectiva</option>
                             </select>
-                            <label>Província</label>
+                            <label for="overview-provincia">Província</label>
                             <select id="overview-provincia">
                                 <option value="Totes">Totes</option>
                                 <option value="Barcelona">Barcelona</option>
@@ -88,7 +90,7 @@
                     <div class="controls-content">
                         <div class="controls">
                             <p>Explora l'evolució de la població per província i comarca des del 2006 fins al 2021.</p>
-                            <label>Província</label>
+                            <label for="demographic-provincia">Província</label>
                             <select id="demographic-provincia">
                                 <option value="Totes" selected>Totes les províncies</option>
                                 <option value="Barcelona">Barcelona</option>
@@ -192,7 +194,7 @@
                     <div class="controls-content">
                         <div class="controls">
                             <p>Visualitza l'evolució anual i filtra per província per comparar ritmes de millora.</p>
-                            <label>Província</label>
+                            <label for="sustained-provincia">Província</label>
                             <select id="sustained-provincia">
                                 <option value="Totes">Totes</option>
                                 <option value="Barcelona">Barcelona</option>
@@ -214,7 +216,7 @@
                         <div class="controls">
                             <p>Segueix l'evolució del rebuig per habitant i dia, un bon indicador de la reducció de
                                 residus no separats.</p>
-                            <label>Província</label>
+                            <label for="sustained-provincia-2">Província</label>
                             <select id="sustained-provincia-2">
                                 <option value="Totes">Totes</option>
                                 <option value="Barcelona">Barcelona</option>
@@ -236,7 +238,7 @@
                         <div class="controls">
                             <p>Consulta l'evolució del percentatge de recollida selectiva agregat per província o per al
                                 conjunt del territori.</p>
-                            <label>Província</label>
+                            <label for="sustained-provincia-3">Província</label>
                             <select id="sustained-provincia-3">
                                 <option value="Totes">Totes</option>
                                 <option value="Barcelona">Barcelona</option>
@@ -274,10 +276,11 @@
                     <div class="controls-content">
                         <div class="controls">
                             <p>Visualitza la distribució de la població per rang d'edats i per sexe.</p>
-                            <label>Any: <span id="population-pyramid-year-display"></span></label>
+                            <label for="population-pyramid-year">Any: <span
+                                    id="population-pyramid-year-display"></span></label>
                             <input type="range" id="population-pyramid-year" min="2006" max="2021" value="2006"
                                 class="year-slider">
-                            <label>Província</label>
+                            <label for="population-pyramid-provincia">Província</label>
                             <select id="population-pyramid-provincia">
                                 <option value="Totes">Totes</option>
                                 <option value="Barcelona">Barcelona</option>
@@ -285,7 +288,7 @@
                                 <option value="Lleida">Lleida</option>
                                 <option value="Tarragona">Tarragona</option>
                             </select>
-                            <label>Comarca</label>
+                            <label for="population-pyramid-comarca">Comarca</label>
                             <select id="population-pyramid-comarca">
                                 <option value="Totes">Totes</option>
                             </select>
@@ -319,10 +322,10 @@
                         <div class="controls">
                             <p>Els patrons demogràfics influeixen directament en el comportament de separació de
                                 residus..</p>
-                            <label>Any: <span id="age0-15-year-display"></span></label>
+                            <label for="age0-15-year">Any: <span id="age0-15-year-display"></span></label>
                             <input type="range" id="age0-15-year" min="2006" max="2021" value="2006"
                                 class="year-slider">
-                            <label>Mètrica</label>
+                            <label for="demo-patterns-metric">Mètrica</label>
                             <select id="demo-patterns-metric">
                                 <option value="selectiva">Recollida selectiva kg/hab./dia</option>
                                 <option value="no_selectiva">Rebuig kg/hab./dia</option>
@@ -342,7 +345,7 @@
                 <div class="chart-content">
                     <div class="controls-content">
                         <div class="controls">
-                            <label>Any: <span id="age16-24-year-display"></span></label>
+                            <label for="age16-24-year">Any: <span id="age16-24-year-display"></span></label>
                             <input type="range" id="age16-24-year" min="2006" max="2021" value="2006"
                                 class="year-slider">
                         </div>
@@ -358,7 +361,7 @@
                 <div class="chart-content">
                     <div class="controls-content">
                         <div class="controls">
-                            <label>Any: <span id="age25-44-year-display"></span></label>
+                            <label for="age25-44-year">Any: <span id="age25-44-year-display"></span></label>
                             <input type="range" id="age25-44-year" min="2006" max="2021" value="2006"
                                 class="year-slider">
                         </div>
@@ -374,7 +377,7 @@
                 <div class="chart-content">
                     <div class="controls-content">
                         <div class="controls">
-                            <label>Any: <span id="age45-64-year-display"></span></label>
+                            <label for="age45-64-year">Any: <span id="age45-64-year-display"></span></label>
                             <input type="range" id="age45-64-year" min="2006" max="2021" value="2006"
                                 class="year-slider">
                         </div>
@@ -390,7 +393,7 @@
                 <div class="chart-content">
                     <div class="controls-content">
                         <div class="controls">
-                            <label>Any: <span id="age64plus-year-display"></span></label>
+                            <label for="age64plus-year">Any: <span id="age64plus-year-display"></span></label>
                             <input type="range" id="age64plus-year" min="2006" max="2021" value="2006"
                                 class="year-slider">
                         </div>
@@ -423,10 +426,10 @@
                     <div class="controls-content">
                         <div class="controls">
                             <p>Observa la relació entre densitat de població i residus per habitant i dia.</p>
-                            <label>Any: <span id="pressure-year-display"></span></label>
+                            <label for="pressure-year">Any: <span id="pressure-year-display"></span></label>
                             <input type="range" id="pressure-year" min="2006" max="2021" value="2006"
                                 class="year-slider">
-                            <label>Província</label>
+                            <label for="pressure-provincia">Província</label>
                             <select id="pressure-provincia">
                                 <option value="Totes">Totes</option>
                                 <option value="Barcelona">Barcelona</option>
@@ -434,7 +437,7 @@
                                 <option value="Lleida">Lleida</option>
                                 <option value="Tarragona">Tarragona</option>
                             </select>
-                            <label>Mètrica</label>
+                            <label for="pressure-metric">Mètrica</label>
                             <select id="pressure-metric">
                                 <option value="kg_per_hab_dia">Total kg/hab./dia</option>
                                 <option value="percentatge_selectiva">Percentatge recollida selectiva</option>
@@ -465,10 +468,10 @@
                         <div class="controls">
                             <p>Identifica les comarques amb més rebuig per habitant i dia per prioritzar intervencions.
                             </p>
-                            <label>Any: <span id="pressure-year-display-2"></span></label>
+                            <label for="pressure-year-2">Any: <span id="pressure-year-display-2"></span></label>
                             <input type="range" id="pressure-year-2" min="2006" max="2021" value="2006"
                                 class="year-slider">
-                            <label>Província</label>
+                            <label for="pressure-provincia-2">Província</label>
                             <select id="pressure-provincia-2">
                                 <option value="Totes">Totes</option>
                                 <option value="Barcelona">Barcelona</option>
@@ -489,10 +492,10 @@
                     <div class="controls-content">
                         <div class="controls">
                             <p>Consulta quines comarques lideren la recollida selectiva per habitant i dia.</p>
-                            <label>Any: <span id="pressure-year-display-3"></span></label>
+                            <label for="pressure-year-3">Any: <span id="pressure-year-display-3"></span></label>
                             <input type="range" id="pressure-year-3" min="2006" max="2021" value="2006"
                                 class="year-slider">
-                            <label>Província</label>
+                            <label for="pressure-provincia-3">Província</label>
                             <select id="pressure-provincia-3">
                                 <option value="Totes">Totes</option>
                                 <option value="Barcelona">Barcelona</option>
@@ -538,7 +541,7 @@
                 <div class="chart-content">
                     <div class="controls-content">
                         <div class="controls">
-                            <label>Any: <span id="comparisons-year-display"></span></label>
+                            <label for="comparisons-year">Any: <span id="comparisons-year-display"></span></label>
                             <input type="range" id="comparisons-year" min="2006" max="2021" value="2006"
                                 class="year-slider">
                         </div>
@@ -559,7 +562,7 @@
                 <div class="chart-content">
                     <div class="controls-content">
                         <div class="controls">
-                            <label>Mètrica</label>
+                            <label for="violin-metric">Mètrica</label>
                             <select id="violin-metric">
                                 <option value="poblacio">Població</option>
                                 <option value="densitat">Densitat demogràfica (hab/km²)</option>
@@ -567,7 +570,8 @@
                                 <option value="tones_selectiva">Tones recollida selectiva</option>
                                 <option value="tones_no_selectiva">Tones recollida no selectiva</option>
                             </select>
-                            <label id="violin-year-label">Any: <span id="violin-year-display"></span></label>
+                            <label id="violin-year-label" for="violin-year">Any: <span
+                                    id="violin-year-display"></span></label>
                             <input type="range" id="violin-year" min="2006" max="2021" value="2021" class="year-slider">
                         </div>
                         <p class="info-box">Els diagrames de caixa mostren la distribució dels valors per cada província
