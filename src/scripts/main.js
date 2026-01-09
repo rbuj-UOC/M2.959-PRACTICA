@@ -63,8 +63,6 @@ Promise.all([
             // calcula les tones totals de recollida
             tones_recollida_total: d.tones_recollida_selectiva + d.tones_recollida_no_selectiva,
             // calcula la població total
-            poblacio_masculina: d.poblacio_masculina_0_15 + d.poblacio_masculina_16_24 + d.poblacio_masculina_25_44 + d.poblacio_masculina_45_64 + d.poblacio_masculina_64_120,
-            poblacio_femenina: d.poblacio_femenina_0_15 + d.poblacio_femenina_16_24 + d.poblacio_femenina_25_44 + d.poblacio_femenina_45_64 + d.poblacio_femenina_64_120,
             poblacio: d.poblacio_masculina_0_15 + d.poblacio_masculina_16_24 + d.poblacio_masculina_25_44 + d.poblacio_masculina_45_64 + d.poblacio_masculina_64_120 + d.poblacio_femenina_0_15 + d.poblacio_femenina_16_24 + d.poblacio_femenina_25_44 + d.poblacio_femenina_45_64 + d.poblacio_femenina_64_120,
             // càlcul kg_per_hab_dia
             kg_per_hab_dia: (d.tones_recollida_selectiva + d.tones_recollida_no_selectiva) * 1000 / ((d.poblacio_masculina_0_15 + d.poblacio_masculina_16_24 + d.poblacio_masculina_25_44 + d.poblacio_masculina_45_64 + d.poblacio_masculina_64_120 + d.poblacio_femenina_0_15 + d.poblacio_femenina_16_24 + d.poblacio_femenina_25_44 + d.poblacio_femenina_45_64 + d.poblacio_femenina_64_120) * (Number.isFinite(d.any) && d.any % 4 === 0 ? 366 : 365)),
