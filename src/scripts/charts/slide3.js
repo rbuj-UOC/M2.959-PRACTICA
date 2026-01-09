@@ -1,5 +1,22 @@
 import * as d3 from 'd3';
 
+const getTooltip = () => {
+    let tooltip = d3.select('body').select('.tooltip');
+    if (tooltip.empty()) {
+        tooltip = d3.select('body')
+            .append('div')
+            .attr('class', 'tooltip');
+    }
+    return tooltip;
+};
+
+const hideTooltip = () => {
+    getTooltip()
+        .style('opacity', 0)
+        .style('left', '-9999px')
+        .style('top', '-9999px');
+};
+
 function formatNumber(num) {
     if (!Number.isFinite(num)) return '0';
     return num.toLocaleString('ca-ES');
@@ -43,14 +60,8 @@ function scatter(containerSel, data, allData, xAccessor, yAccessor, xLabel, yLab
         .domain(['Barcelona', 'Girona', 'Lleida', 'Tarragona'])
         .range(['#E31B23', '#FFC702', '#7AB800', '#006699']); // Vermell, Groc, Verd, Blau - Paleta UOC
 
-    // Creació del tooltip
-    let tooltip = d3.select('body').select('.tooltip');
-    if (tooltip.empty()) {
-        tooltip = d3.select('body')
-            .append('div')
-            .attr('class', 'tooltip')
-            .style('opacity', 0);
-    }
+    const tooltip = getTooltip();
+    tooltip.style('opacity', 0);
 
     svg.selectAll('circle')
         .data(data)
@@ -78,9 +89,7 @@ function scatter(containerSel, data, allData, xAccessor, yAccessor, xLabel, yLab
                     </div>
                 `);
         })
-        .on('mouseleave', () => {
-            tooltip.style('opacity', 0);
-        });
+        .on('mouseleave', hideTooltip);
 
     // Per trobar i etiquetar el punt amb el percentatge més alt
     let maxIndex = -1;
@@ -406,7 +415,11 @@ export function createSlide3(data) {
 
     function handleSlideChange(ev) {
         isActive = ev?.detail?.slide === 3;
-        if (isActive) renderAll();
+        if (isActive) {
+            renderAll();
+        } else {
+            hideTooltip();
+        }
     }
 
     window.addEventListener('slideChanged', handleSlideChange);
@@ -440,4 +453,5 @@ export function createSlide3(data) {
     provCtrl.property('value', 'Totes');
     metricCtrl.property('value', 'selectiva');
     updateComarques();
+    hideTooltip();
 }

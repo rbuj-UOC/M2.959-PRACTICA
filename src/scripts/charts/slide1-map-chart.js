@@ -94,10 +94,21 @@ export function createSlide1MapGeo(csvData, geojson) {
     // Desar la transformació inicial per al botó de restablir
     const initialTransform = d3.zoomIdentity;
 
-    const tooltip = d3.select('body')
-        .append('div')
-        .attr('class', 'tooltip')
-        .style('opacity', 0);
+    // Reutilitza un tooltip global per evitar duplicats que quedin visibles en canviar de diapositiva
+    let tooltip = d3.select('body').select('.tooltip');
+    if (tooltip.empty()) {
+        tooltip = d3.select('body')
+            .append('div')
+            .attr('class', 'tooltip');
+    }
+    tooltip.style('opacity', 0);
+
+    // Evitem que quedi un tooltip penjat quan es canvia de diapositiva o es força un re-render
+    const hideTooltip = () => {
+        tooltip.style('opacity', 0)
+            .style('left', '-9999px')
+            .style('top', '-9999px');
+    };
 
     // Dibuixar el mapa de Catalunya
     mapLayer.selectAll('path')
@@ -178,9 +189,7 @@ export function createSlide1MapGeo(csvData, geojson) {
             </div>
           `);
             })
-            .on('mouseleave', () => {
-                tooltip.style('opacity', 0);
-            });
+            .on('mouseleave', hideTooltip);
 
         bubblesEnter.transition()
             .duration(500)
@@ -276,6 +285,19 @@ export function createSlide1MapGeo(csvData, geojson) {
 
     metricSelect.on('change', update);
     provSelect.on('change', update);
+
+    // Amaga el tooltip quan es canvia de diapositiva per evitar requadres persistents
+    const onSlideChange = (event) => {
+        const currentSlide = event.detail?.slide;
+        if (currentSlide !== 1) {
+            hideTooltip();
+        }
+    };
+
+    window.addEventListener('slideChanged', onSlideChange);
+
+    // Assegura que el tooltip també s'oculta en iniciar (per si venim d'una pàgina on ja existia)
+    hideTooltip();
 
     // Botons per fer zoom i restablir el mapa
     const zoomInBtn = d3.select('#map-zoom-in');

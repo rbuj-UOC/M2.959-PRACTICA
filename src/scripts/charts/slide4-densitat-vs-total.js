@@ -1,5 +1,22 @@
 import * as d3 from 'd3';
 
+const getTooltip = () => {
+    let tooltip = d3.select('body').select('.tooltip');
+    if (tooltip.empty()) {
+        tooltip = d3.select('body')
+            .append('div')
+            .attr('class', 'tooltip');
+    }
+    return tooltip;
+};
+
+const hideTooltip = () => {
+    getTooltip()
+        .style('opacity', 0)
+        .style('left', '-9999px')
+        .style('top', '-9999px');
+};
+
 function formatFloat(v, d = 2) {
     return Number.isFinite(v) ? v.toLocaleString('ca-ES', { minimumFractionDigits: d, maximumFractionDigits: d }) : 'N/D';
 }
@@ -51,14 +68,8 @@ function scatterDensity(containerSel, rows, xAcc, yAcc, xLabel, yLabel, xDomain,
         .domain(['Barcelona', 'Girona', 'Lleida', 'Tarragona'])
         .range(['#E31B23', '#FFC702', '#7AB800', '#006699']); // Vermell, Groc, Verd, Blau - Paleta UOC
 
-    // Crea o selecciona el tooltip
-    let tooltip = d3.select('body').select('.tooltip');
-    if (tooltip.empty()) {
-        tooltip = d3.select('body')
-            .append('div')
-            .attr('class', 'tooltip')
-            .style('opacity', 0);
-    }
+    const tooltip = getTooltip();
+    tooltip.style('opacity', 0);
 
     svg.selectAll('circle')
         .data(validRows)
@@ -86,9 +97,7 @@ function scatterDensity(containerSel, rows, xAcc, yAcc, xLabel, yLabel, xDomain,
                     </div>
                 `);
         })
-        .on('mouseleave', () => {
-            tooltip.style('opacity', 0);
-        });
+        .on('mouseleave', hideTooltip);
 }
 
 export function createSlide4DensitatVsTotal(data) {
@@ -149,7 +158,11 @@ export function createSlide4DensitatVsTotal(data) {
 
     function handleSlideChange(ev) {
         isActive = ev?.detail?.slide === 4;
-        if (isActive) render();
+        if (isActive) {
+            render();
+        } else {
+            hideTooltip();
+        }
     }
 
     window.addEventListener('slideChanged', handleSlideChange);
@@ -160,4 +173,5 @@ export function createSlide4DensitatVsTotal(data) {
     yearCtrl.property('value', 2006);
     provCtrl.property('value', 'Totes');
     metricCtrl.property('value', 'kg_per_hab_dia');
+    hideTooltip();
 }
