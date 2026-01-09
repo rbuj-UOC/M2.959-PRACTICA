@@ -71,6 +71,7 @@ export function createSlide1MapGeo(csvData, geojson) {
     const mapLayer = g.append('g');
     const bubbleLayer = g.append('g');
     const labelLayer = g.append('g');
+    const legendLayer = svg.append('g').attr('class', 'legend-layer');
 
     // Configurar la projecció per encabir Catalunya
     const initialCenter = [1.7, 41.8];
@@ -272,6 +273,110 @@ export function createSlide1MapGeo(csvData, geojson) {
                 return coords ? coords[1] - sizeScale(metric.accessor(d)) + 4 : 0;
             })
             .text(d => metric.format(metric.accessor(d)));
+
+        // Crear o actualitzar la llegenda de colors (població)
+        const legendWidth = 300;
+        const legendHeight = 75;
+        const legendX = width - legendWidth - 20;
+        const legendY = height - legendHeight - 20;
+
+        // Definir un gradient per a la llegenda
+        const defs = svg.select('defs').empty() ? svg.append('defs') : svg.select('defs');
+        const gradientId = 'population-gradient';
+        let gradient = defs.select(`#${gradientId}`);
+        if (gradient.empty()) {
+            gradient = defs.append('linearGradient')
+                .attr('id', gradientId)
+                .attr('x1', '0%')
+                .attr('y1', '0%')
+                .attr('x2', '100%')
+                .attr('y2', '0%');
+        }
+
+        // Actualitzar els stops del gradient
+        gradient.selectAll('stop').remove();
+        for (let i = 0; i <= 100; i += 10) {
+            const fraction = i / 100;
+            gradient.append('stop')
+                .attr('offset', `${i}%`)
+                .attr('stop-color', colorScale(colorDomain[0] + (colorDomain[1] - colorDomain[0]) * fraction));
+        }
+
+        // Actualitzar o crear el grup de la llegenda
+        let legendGroup = legendLayer.selectAll('g.legend-group').data([null]);
+        legendGroup = legendGroup.enter()
+            .append('g')
+            .attr('class', 'legend-group')
+            .merge(legendGroup)
+            .attr('transform', `translate(${legendX}, ${legendY})`);
+
+        // Afegir un fons blanc per a la llegenda
+        let legendBg = legendGroup.selectAll('rect.legend-bg').data([null]);
+        legendBg.enter()
+            .append('rect')
+            .attr('class', 'legend-bg')
+            .attr('width', legendWidth)
+            .attr('height', legendHeight)
+            .attr('fill', 'white')
+            .attr('stroke', '#ccc')
+            .attr('stroke-width', 1)
+            .attr('rx', 4)
+            .merge(legendBg);
+
+        // Afegir la barra de gradient
+        let legendBar = legendGroup.selectAll('rect.legend-bar').data([null]);
+        legendBar.enter()
+            .append('rect')
+            .attr('class', 'legend-bar')
+            .attr('x', 10)
+            .attr('y', 10)
+            .attr('width', legendWidth - 20)
+            .attr('height', 20)
+            .attr('fill', `url(#${gradientId})`)
+            .attr('stroke', '#999')
+            .attr('stroke-width', 0.5)
+            .merge(legendBar);
+
+        // Afegir les etiquetes de la llegenda
+        const minLabel = formatNumber(colorDomain[0], 0);
+        const maxLabel = formatNumber(colorDomain[1], 0);
+
+        let minText = legendGroup.selectAll('text.legend-min').data([null]);
+        minText.enter()
+            .append('text')
+            .attr('class', 'legend-min')
+            .attr('x', 10)
+            .attr('y', 50)
+            .attr('font-size', '11px')
+            .attr('fill', '#333')
+            .merge(minText)
+            .text(minLabel);
+
+        let maxText = legendGroup.selectAll('text.legend-max').data([null]);
+        maxText.enter()
+            .append('text')
+            .attr('class', 'legend-max')
+            .attr('x', legendWidth - 10)
+            .attr('y', 50)
+            .attr('font-size', '11px')
+            .attr('fill', '#333')
+            .attr('text-anchor', 'end')
+            .merge(maxText)
+            .text(maxLabel);
+
+        // Afegir l'etiqueta del títol
+        // let legendTitle = legendGroup.selectAll('text.legend-title').data([null]);
+        // legendTitle.enter()
+        //     .append('text')
+        //     .attr('class', 'legend-title')
+        //     .attr('x', legendWidth / 2)
+        //     .attr('y', 5)
+        //     .attr('font-size', '12px')
+        //     .attr('font-weight', 'bold')
+        //     .attr('fill', '#000078')
+        //     .attr('text-anchor', 'middle')
+        //     .merge(legendTitle)
+        //     .text('Població (habitants)');
     };
 
     update();
