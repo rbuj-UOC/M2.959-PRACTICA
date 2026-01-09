@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 
-export function createSlide5ProvinciesViolin(data) {
+export function createSlide5ProvinciesBoxplot(data) {
     const container = d3.select('#chart-5-boxplots');
     const metricSelect = d3.select('#violin-metric');
     const yearSlider = d3.select('#violin-year');
@@ -9,8 +9,8 @@ export function createSlide5ProvinciesViolin(data) {
 
     // Configurar el control d'any - inicialment deshabilitat per mètriques constants
     yearSlider.property('disabled', true);
-    yearSlider.property('value', 2021);
-    yearDisplay.text(2021);
+    yearSlider.property('value', 2006);
+    yearDisplay.text(2006);
 
     const metrics = {
         'poblacio': {

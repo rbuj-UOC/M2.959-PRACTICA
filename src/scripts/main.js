@@ -15,7 +15,7 @@ import { createSlide4DensitatVsTotal } from './charts/slide4-densitat-vs-total.j
 import { createSlide4TopRebuig } from './charts/slide4-top-rebuig.js';
 import { createSlide4TopSelectiva } from './charts/slide4-top-selectiva.js';
 import { createSlide5ProvinciesBars } from './charts/slide5-provincies-bars.js';
-import { createSlide5ProvinciesViolin } from './charts/slide5-provincies-violin.js';
+import { createSlide5ProvinciesBoxplot } from './charts/slide5-provincies-boxplot.js';
 
 // Prefix base per a desplegament a GitHub Pages
 const BASE_URL = window.location.origin.includes('rbuj-uoc.github.io')
@@ -98,7 +98,7 @@ Promise.all([
 
     // Diapositiva 5: Comparatives territorials
     createSlide5ProvinciesBars(data);
-    createSlide5ProvinciesViolin(data);
+    createSlide5ProvinciesBoxplot(data);
 
     console.log('Dades carregades i gràfiques inicialitzades');
 
