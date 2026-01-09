@@ -45,23 +45,28 @@ function drawLine(containerSel, seriesMap, selectedProvincia) {
     const x = d3.scaleLinear().domain(d3.extent(allYears)).range([0, width]);
     const y = d3.scaleLinear().domain([0, 100]).range([height, 0]);
 
-    const color = d3.scaleOrdinal(d3.schemeTableau10).domain(provs);
+    const color = d3.scaleOrdinal(d3.schemeTableau10).domain(provs).range(['#E31B23', '#FFC702', '#7AB800', '#006699']);
     const line = d3.line().x(d => x(d.year)).y(d => y(d.value));
 
     svg.append('g').attr('transform', `translate(0,${height})`).call(d3.axisBottom(x).tickFormat(d3.format('d')));
     svg.append('g').call(d3.axisLeft(y));
-    svg.append('text').attr('x', -height / 2).attr('y', -44).attr('transform', 'rotate(-90)').attr('text-anchor', 'middle').attr('fill', '#333').text('Percentatge selectiva (%)');
+    svg.append('text').attr('x', -height / 2).attr('y', -44).attr('transform', 'rotate(-90)').attr('text-anchor', 'middle').attr('fill', '#000078').text('Percentatge selectiva (%)');
 
     dataSeries.forEach(s => {
         svg.append('path').datum(s.values).attr('fill', 'none').attr('stroke', color(s.key)).attr('stroke-width', 2).attr('d', line);
     });
 
-    const legend = svg.append('g').attr('transform', `translate(0, -6)`);
-    provs.forEach((k, i) => {
-        const g = legend.append('g').attr('transform', `translate(${i * 160},0)`);
-        g.append('rect').attr('width', 12).attr('height', 12).attr('fill', color(k)).attr('rx', 2);
-        g.append('text').attr('x', 18).attr('y', 10).style('font-size', '12px').text(k);
-    });
+    // Afegir llegenda centrada a la part superior
+    if (selectedProvincia === 'Totes') {
+        const legendWidth = provs.length * 160;
+        const legendX = (width - legendWidth) / 2;
+        const legend = svg.append('g').attr('transform', `translate(${legendX}, -6)`);
+        provs.forEach((k, i) => {
+            const g = legend.append('g').attr('transform', `translate(${i * 160},0)`);
+            g.append('rect').attr('width', 12).attr('height', 12).attr('fill', color(k)).attr('rx', 2);
+            g.append('text').attr('x', 18).attr('y', 10).style('font-size', '12px').text(k);
+        });
+    }
 }
 
 export function createSlide2PercentSelectivaLine(data) {
@@ -70,7 +75,7 @@ export function createSlide2PercentSelectivaLine(data) {
     let isActive = false;
 
     function render() {
-        drawLine('#chart-2-2', byProvPctSel, provSel.property('value') || 'Totes');
+        drawLine('#chart-sustained-percentage', byProvPctSel, provSel.property('value') || 'Totes');
     }
 
     function renderIfActive() {

@@ -57,7 +57,8 @@ function drawLineSeries(containerSel, seriesMap, selectedProvincia, yLabel) {
         .range([height, 0]);
 
     const color = d3.scaleOrdinal(d3.schemeTableau10)
-        .domain(provs);
+        .domain(provs)
+        .range(['#E31B23', '#FFC702', '#7AB800', '#006699']);
 
     const line = d3.line()
         .x(d => x(d.year))
@@ -75,7 +76,7 @@ function drawLineSeries(containerSel, seriesMap, selectedProvincia, yLabel) {
         .attr('y', -40)
         .attr('transform', 'rotate(-90)')
         .attr('text-anchor', 'middle')
-        .attr('fill', '#333')
+        .attr('fill', '#000078')
         .text(yLabel);
 
     const seriesG = svg.selectAll('.serie')
@@ -98,6 +99,18 @@ function drawLineSeries(containerSel, seriesMap, selectedProvincia, yLabel) {
         .attr('fill', d => color(d.key))
         .append('title')
         .text(d => `${d.key} • ${d.year}: ${formatFloat(d.value)} kg/hab/dia`);
+
+    // Afegir llegenda centrada a la part superior
+    if (selectedProvincia === 'Totes') {
+        const legendWidth = provs.length * 160;
+        const legendX = (width - legendWidth) / 2;
+        const legend = svg.append('g').attr('transform', `translate(${legendX}, -6)`);
+        provs.forEach((k, i) => {
+            const g = legend.append('g').attr('transform', `translate(${i * 160},0)`);
+            g.append('rect').attr('width', 12).attr('height', 12).attr('fill', color(k)).attr('rx', 2);
+            g.append('text').attr('x', 18).attr('y', 10).style('font-size', '12px').text(k);
+        });
+    }
 }
 
 export function createSlide2RebuigLine(data) {
@@ -106,7 +119,7 @@ export function createSlide2RebuigLine(data) {
     let isActive = false;
 
     function render() {
-        drawLineSeries('#chart-2-1', byProvKgNo, provSel.property('value') || 'Totes', 'Rebuig kg/hab./dia');
+        drawLineSeries('#chart-sustained-no-selective', byProvKgNo, provSel.property('value') || 'Totes', 'Rebuig kg/hab./dia');
     }
 
     function renderIfActive() {

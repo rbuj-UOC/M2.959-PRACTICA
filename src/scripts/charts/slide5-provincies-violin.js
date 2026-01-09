@@ -91,18 +91,34 @@ export function createSlide5ProvinciesViolin(data) {
 
         // Trobar el rang global de valors
         const allValues = dataByProvincia.flatMap(d => d.values);
-        const yMin = d3.min(allValues) || 0;
-        const yMax = d3.max(allValues) || 100;
+        const yMin = d3.min(allValues);
+        const yMax = d3.max(allValues);
 
-        const y = d3.scaleLinear()
-            .domain([yMin * 0.95, yMax * 1.05])
-            .range([height, 0])
-            .nice();
+        // Escala Y: logarítmica per a 'poblacio' i 'densitat' amb ticks en potències de 10; lineal per a la resta
+        const useLogY = selectedMetric === 'poblacio' || selectedMetric === 'densitat';
+        let y;
+        if (useLogY) {
+            const minVal = (Number.isFinite(yMin) && yMin > 0) ? yMin : 1;
+            const maxVal = (Number.isFinite(yMax) && yMax > 0) ? yMax : 10;
+            let lowerPow = Math.pow(10, Math.floor(Math.log10(minVal)));
+            let upperPow = Math.pow(10, Math.ceil(Math.log10(maxVal)));
+            if (!(upperPow > lowerPow)) upperPow = lowerPow * 10;
+            y = d3.scaleLog()
+                .domain([lowerPow, upperPow])
+                .range([height, 0]);
+        } else {
+            const y0 = Number.isFinite(yMin) ? yMin : 0;
+            const y1 = Number.isFinite(yMax) ? yMax : 100;
+            y = d3.scaleLinear()
+                .domain([y0 * 0.95, y1 * 1.05])
+                .range([height, 0])
+                .nice();
+        }
 
         // Color scale
         const colorScale = d3.scaleOrdinal()
             .domain(provincies)
-            .range(['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728']);
+            .range(['#E31B23', '#FFC702', '#7AB800', '#006699']); // Barcelona (vermell), Girona (groc), Lleida (verd), Tarragona (blau) - Paleta UOC
 
         // Dibuixar cada boxplot
         dataByProvincia.forEach(({ provincia, values }) => {
@@ -132,7 +148,7 @@ export function createSlide5ProvinciesViolin(data) {
                 .attr('x2', boxX)
                 .attr('y1', y(q1))
                 .attr('y2', y(lowerWhisker))
-                .attr('stroke', '#333')
+                .attr('stroke', '#000078')
                 .attr('stroke-width', 1.5);
 
             // Cap inferior del whisker
@@ -141,7 +157,7 @@ export function createSlide5ProvinciesViolin(data) {
                 .attr('x2', boxX + boxWidth / 4)
                 .attr('y1', y(lowerWhisker))
                 .attr('y2', y(lowerWhisker))
-                .attr('stroke', '#333')
+                .attr('stroke', '#000078')
                 .attr('stroke-width', 1.5);
 
             // Línia superior del whisker
@@ -150,7 +166,7 @@ export function createSlide5ProvinciesViolin(data) {
                 .attr('x2', boxX)
                 .attr('y1', y(q3))
                 .attr('y2', y(upperWhisker))
-                .attr('stroke', '#333')
+                .attr('stroke', '#000078')
                 .attr('stroke-width', 1.5);
 
             // Cap superior del whisker
@@ -159,7 +175,7 @@ export function createSlide5ProvinciesViolin(data) {
                 .attr('x2', boxX + boxWidth / 4)
                 .attr('y1', y(upperWhisker))
                 .attr('y2', y(upperWhisker))
-                .attr('stroke', '#333')
+                .attr('stroke', '#000078')
                 .attr('stroke-width', 1.5);
 
             // Caixa (Q1-Q3)
@@ -170,7 +186,7 @@ export function createSlide5ProvinciesViolin(data) {
                 .attr('height', y(q1) - y(q3))
                 .attr('fill', colorScale(provincia))
                 .attr('opacity', 0.7)
-                .attr('stroke', '#333')
+                .attr('stroke', '#000078')
                 .attr('stroke-width', 2);
 
             // Mediana
@@ -179,7 +195,7 @@ export function createSlide5ProvinciesViolin(data) {
                 .attr('x2', boxX + boxWidth / 2)
                 .attr('y1', y(median))
                 .attr('y2', y(median))
-                .attr('stroke', '#333')
+                .attr('stroke', '#000078')
                 .attr('stroke-width', 3);
 
             // Outliers
@@ -193,7 +209,7 @@ export function createSlide5ProvinciesViolin(data) {
                 .attr('r', 3)
                 .attr('fill', colorScale(provincia))
                 .attr('opacity', 0.6)
-                .attr('stroke', '#333')
+                .attr('stroke', '#000078')
                 .attr('stroke-width', 1);
         });
 
@@ -204,8 +220,25 @@ export function createSlide5ProvinciesViolin(data) {
             .selectAll('text')
             .attr('font-size', '12px');
 
-        svg.append('g')
-            .call(d3.axisLeft(y).tickFormat(metricInfo.format));
+        const formatLocale = (v) => {
+            if (!Number.isFinite(v)) return '';
+            const opts = selectedMetric === 'densitat'
+                ? { minimumFractionDigits: 1, maximumFractionDigits: 1 }
+                : { maximumFractionDigits: 0 };
+            return v.toLocaleString('ca-ES', opts);
+        };
+
+        if (useLogY) {
+            const [d0, d1] = y.domain();
+            const e0 = Math.round(Math.log10(d0));
+            const e1 = Math.round(Math.log10(d1));
+            const tickVals = d3.range(e0, e1 + 1).map(e => Math.pow(10, e));
+            svg.append('g')
+                .call(d3.axisLeft(y).tickValues(tickVals).tickFormat(formatLocale));
+        } else {
+            svg.append('g')
+                .call(d3.axisLeft(y).tickFormat(formatLocale));
+        }
 
         // Etiquetes dels eixos
         svg.append('text')
@@ -213,7 +246,7 @@ export function createSlide5ProvinciesViolin(data) {
             .attr('y', height + 45)
             .attr('text-anchor', 'middle')
             .attr('font-size', '14px')
-            .attr('fill', '#333')
+            .attr('fill', '#000078')
             .text('Província');
 
         svg.append('text')
@@ -222,7 +255,7 @@ export function createSlide5ProvinciesViolin(data) {
             .attr('y', -60)
             .attr('text-anchor', 'middle')
             .attr('font-size', '14px')
-            .attr('fill', '#333')
+            .attr('fill', '#000078')
             .text(metricInfo.label);
 
         // Títol
@@ -232,7 +265,7 @@ export function createSlide5ProvinciesViolin(data) {
             .attr('text-anchor', 'middle')
             .attr('font-size', '16px')
             .attr('font-weight', 'bold')
-            .attr('fill', '#333')
+            .style('fill', '#000078')
             .text(`Distribució de ${metricInfo.label} per província`);
     }
 

@@ -35,8 +35,10 @@ function topBar(containerSel, rows, valueAccessor, titleLabel) {
         .append('title')
         .text(d => `${d.comarca}: ${formatFloat(valueAccessor(d))}`);
 
+    const tickFormat = (v) => Number.isFinite(v) ? v.toLocaleString('ca-ES', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) : '';
+
     svg.append('g').call(d3.axisLeft(y));
-    svg.append('g').attr('transform', `translate(0,${y.range()[1]})`).call(d3.axisBottom(x).ticks(5));
+    svg.append('g').attr('transform', `translate(0,${y.range()[1]})`).call(d3.axisBottom(x).ticks(5).tickFormat(tickFormat));
     svg.append('text').attr('x', 0).attr('y', -6).style('font-weight', '600').text(titleLabel);
 }
 

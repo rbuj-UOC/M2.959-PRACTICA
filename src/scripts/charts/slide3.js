@@ -36,10 +36,12 @@ function scatter(containerSel, data, allData, xAccessor, yAccessor, xLabel, yLab
     svg.append('g').attr('transform', `translate(0,${height})`).call(d3.axisBottom(x));
     svg.append('g').call(d3.axisLeft(y));
 
-    svg.append('text').attr('x', width / 2).attr('y', height + 36).attr('text-anchor', 'middle').attr('fill', '#333').text(xLabel);
-    svg.append('text').attr('x', -height / 2).attr('y', -44).attr('transform', 'rotate(-90)').attr('text-anchor', 'middle').attr('fill', '#333').text(yLabel);
+    svg.append('text').attr('x', width / 2).attr('y', height + 36).attr('text-anchor', 'middle').attr('fill', '#000078').text(xLabel);
+    svg.append('text').attr('x', -height / 2).attr('y', -44).attr('transform', 'rotate(-90)').attr('text-anchor', 'middle').attr('fill', '#000078').text(yLabel);
 
-    const color = d3.scaleOrdinal(d3.schemeTableau10);
+    const color = d3.scaleOrdinal()
+        .domain(['Barcelona', 'Girona', 'Lleida', 'Tarragona'])
+        .range(['#E31B23', '#FFC702', '#7AB800', '#006699']); // Vermell, Groc, Verd, Blau - Paleta UOC
 
     // Creació del tooltip
     let tooltip = d3.select('body').select('.tooltip');
@@ -107,7 +109,7 @@ function scatter(containerSel, data, allData, xAccessor, yAccessor, xLabel, yLab
             .attr('text-anchor', 'middle')
             .style('font-size', '12px')
             .style('font-weight', 'bold')
-            .attr('fill', '#333')
+            .attr('fill', '#000078')
             .style('pointer-events', 'none')
             .text(maxData.comarca);
 
@@ -239,7 +241,7 @@ function drawPyramid(data, year, provincia, comarca) {
         .attr('x', width / 2)
         .attr('y', height + 32)
         .attr('text-anchor', 'middle')
-        .attr('fill', '#333')
+        .attr('fill', '#000078')
         .text('Població');
 
     svg.append('text')
@@ -247,7 +249,7 @@ function drawPyramid(data, year, provincia, comarca) {
         .attr('y', -48)
         .attr('transform', 'rotate(-90)')
         .attr('text-anchor', 'middle')
-        .attr('fill', '#333')
+        .attr('fill', '#000078')
         .text('Rang d\'edats');
 
     // Llegenda

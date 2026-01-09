@@ -133,7 +133,7 @@ export function createSlide1PieChart(data) {
                     .style('font-size', '14px')
                     .style('fill', '#fff')
                     .style('font-weight', 'bold')
-                    .style('text-shadow', '1px 1px 2px rgba(0,0,0,0.8)')
+                    .style('text-shadow', '1px 1px 2px rgba(0,0,0,120.8)')
                     .text(d => {
                         const pct = (d.data.value / d3.sum(pieData, p => p.value)) * 100;
                         return `${formatNumber(pct)}%`;
@@ -147,7 +147,7 @@ export function createSlide1PieChart(data) {
                 .style('font-size', '14px')
                 .style('fill', '#fff')
                 .style('font-weight', 'bold')
-                .style('text-shadow', '1px 1px 2px rgba(0,0,0,0.8)')
+                .style('text-shadow', '1px 1px 2px rgba(0,0,0,120.8)')
                 .text(d => {
                     const pct = (d.data.value / d3.sum(pieData, p => p.value)) * 100;
                     return `${formatNumber(pct)}%`;
@@ -161,7 +161,7 @@ export function createSlide1PieChart(data) {
             .attr('text-anchor', 'middle')
             .style('font-size', '18px')
             .style('font-weight', 'bold')
-            .style('fill', '#73000a')
+            .style('fill', '#000078')
             .text(title);
 
         // Subtítol amb info del període
@@ -172,7 +172,7 @@ export function createSlide1PieChart(data) {
             .attr('y', 50)
             .attr('text-anchor', 'middle')
             .style('font-size', '14px')
-            .style('fill', '#666')
+            .style('fill', '#878787')
             .text(`${provinciaText} - ${numComarques} comarques (${selectedYear})`);
 
         // Etiquetes externes per les 3 comarques amb més valor (només per mètriques de comarques)
@@ -187,7 +187,7 @@ export function createSlide1PieChart(data) {
                 .attr('dy', '0.35em')
                 .style('font-size', '12px')
                 .style('font-weight', '600')
-                .style('fill', '#333')
+                .style('fill', '#000078')
                 .text(d => `${d.data.label}: ${formatNumber(d.data.value)} t`);
         }
 
@@ -217,7 +217,7 @@ export function createSlide1PieChart(data) {
                         .attr('y', 12)
                         .text(`${d.label}: ${formatNumber(d.value)} t`)
                         .style('font-size', '11px')
-                        .style('fill', '#333');
+                        .style('fill', '#000078');
                 });
             }
         }

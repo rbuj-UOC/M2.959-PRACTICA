@@ -44,10 +44,12 @@ function scatterDensity(containerSel, rows, xAcc, yAcc, xLabel, yLabel, xDomain,
     svg.append('g').attr('transform', `translate(0,${height})`).call(d3.axisBottom(x).ticks(6, '~g'));
     svg.append('g').call(d3.axisLeft(y));
 
-    svg.append('text').attr('x', width / 2).attr('y', height + 36).attr('text-anchor', 'middle').attr('fill', '#333').text(xLabel);
-    svg.append('text').attr('x', -height / 2).attr('y', -48).attr('transform', 'rotate(-90)').attr('text-anchor', 'middle').attr('fill', '#333').text(yLabel);
+    svg.append('text').attr('x', width / 2).attr('y', height + 36).attr('text-anchor', 'middle').attr('fill', '#000078').text(xLabel);
+    svg.append('text').attr('x', -height / 2).attr('y', -48).attr('transform', 'rotate(-90)').attr('text-anchor', 'middle').attr('fill', '#000078').text(yLabel);
 
-    const color = d3.scaleOrdinal(d3.schemeTableau10);
+    const color = d3.scaleOrdinal()
+        .domain(['Barcelona', 'Girona', 'Lleida', 'Tarragona'])
+        .range(['#E31B23', '#FFC702', '#7AB800', '#006699']); // Vermell, Groc, Verd, Blau - Paleta UOC
 
     // Crea o selecciona el tooltip
     let tooltip = d3.select('body').select('.tooltip');

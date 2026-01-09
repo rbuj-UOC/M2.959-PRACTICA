@@ -152,7 +152,7 @@ export function createSlide1DemographicChart(data) {
             .append('text')
             .attr('x', width / 2)
             .attr('y', 30)
-            .attr('fill', '#333')
+            .attr('fill', '#000078')
             .attr('text-anchor', 'middle')
             .text('Any');
 
@@ -163,7 +163,7 @@ export function createSlide1DemographicChart(data) {
             .attr('transform', 'rotate(-90)')
             .attr('x', -height / 2)
             .attr('y', -45)
-            .attr('fill', '#333')
+            .attr('fill', '#000078')
             .attr('text-anchor', 'middle')
             .text('Població');
 

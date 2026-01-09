@@ -42,7 +42,7 @@ export function createSlide5ProvinciesBars(data) {
         svg.append('g').attr('transform', `translate(0,${height})`).call(d3.axisBottom(x0));
         svg.append('g').call(d3.axisLeft(y));
 
-        svg.append('text').attr('x', -height / 2).attr('y', -48).attr('transform', 'rotate(-90)').attr('text-anchor', 'middle').attr('fill', '#333').text('kg/hab./dia');
+        svg.append('text').attr('x', -height / 2).attr('y', -48).attr('transform', 'rotate(-90)').attr('text-anchor', 'middle').attr('fill', '#000078').text('kg/hab./dia');
 
         const g = svg.selectAll('g.group').data(rows).enter().append('g').attr('class', 'group').attr('transform', d => `translate(${x0(d.provincia)},0)`);
 
