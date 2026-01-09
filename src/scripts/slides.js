@@ -12,6 +12,8 @@ export function initSlideNavigation() {
         const targetSlide = document.querySelector(`.slide[data-slide="${slideNumber}"]`);
         if (targetSlide) {
             targetSlide.classList.add('active');
+            // Moure el cursor a l'inici de la diapositiva
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         // Actualitzar botons actius
