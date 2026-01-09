@@ -1,7 +1,7 @@
 import * as d3 from 'd3';
 
 export function createSlide1PieChart(data) {
-    const container = d3.select('#chart-0-overview');
+    const container = d3.select('#chart-pie-chart');
     const yearSlider = d3.select('#overview-year');
     const yearDisplay = d3.select('#overview-year-display');
     const metricSelect = d3.select('#overview-metric');

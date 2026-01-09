@@ -36,7 +36,7 @@ const metricOptions = {
 };
 
 export function createSlide1MapGeo(csvData, geojson) {
-    const container = d3.select('#chart-2-overview');
+    const container = d3.select('#chart-map-chart');
     if (container.empty()) return;
 
     const yearRadios = d3.selectAll('input[name="map-geo-year"]');

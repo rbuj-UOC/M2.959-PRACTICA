@@ -1,7 +1,7 @@
 import * as d3 from 'd3';
 
 export function createSlide1DemographicChart(data) {
-    const container = d3.select('#chart-1-overview');
+    const container = d3.select('#chart-demographic-chart');
     const provinciaSelect = d3.select('#demographic-provincia');
     const comarquesContainer = d3.select('#demographic-comarques');
 
@@ -113,9 +113,15 @@ export function createSlide1DemographicChart(data) {
         }
 
         // Dimensions
-        const margin = { top: 20, right: 30, bottom: 30, left: 60 };
-        const width = container.node().clientWidth - margin.left - margin.right;
-        const height = 400 - margin.top - margin.bottom;
+        const width = container.node().clientWidth - 90;
+        const columnWidth = 200;
+        const columnsPerRow = Math.floor(width / columnWidth) || 1;
+        const legendRows = provincia === 'Totes' ? 0 : Math.ceil(chartData.length / columnsPerRow);
+        const legendHeight = legendRows * 20 + (legendRows > 0 ? 20 : 0);
+        const margin = { top: 20, right: 30, bottom: 30 + legendHeight, left: 60 };
+        const actualWidth = width - margin.left - margin.right;
+        const baseHeight = provincia === 'Totes' ? 400 : 600;
+        const height = baseHeight - margin.top - margin.bottom;
 
         // Neteja
         container.html('');
@@ -131,7 +137,7 @@ export function createSlide1DemographicChart(data) {
         // SVG
         const svg = container
             .append('svg')
-            .attr('width', width + margin.left + margin.right)
+            .attr('width', actualWidth + margin.left + margin.right)
             .attr('height', height + margin.top + margin.bottom)
             .append('g')
             .attr('transform', `translate(${margin.left},${margin.top})`);
@@ -139,7 +145,7 @@ export function createSlide1DemographicChart(data) {
         // Escales
         const xScale = d3.scaleLinear()
             .domain(d3.extent(years))
-            .range([0, width]);
+            .range([0, actualWidth]);
 
         const yMax = d3.max(chartData, d => d3.max(d.values, v => v.population));
         const yScale = d3.scaleLinear()
@@ -158,7 +164,7 @@ export function createSlide1DemographicChart(data) {
             .attr('transform', `translate(0,${height})`)
             .call(d3.axisBottom(xScale).tickFormat(d3.format('d')))
             .append('text')
-            .attr('x', width / 2)
+            .attr('x', actualWidth / 2)
             .attr('y', 30)
             .attr('fill', '#000078')
             .attr('text-anchor', 'middle')
@@ -185,24 +191,30 @@ export function createSlide1DemographicChart(data) {
                 .attr('d', line);
         });
 
-        // Llegenda a sota de l'eix X, alineada verticalment
-        const legend = svg.selectAll('.legend')
-            .data(chartData)
-            .enter()
-            .append('g')
-            .attr('class', 'legend')
-            .attr('transform', (d, i) => `translate(0, ${height + 50 + i * 20})`);
+        // Llegenda a sota de l'eix X (només si no és "Totes")
+        if (provincia !== 'Totes') {
+            const legend = svg.selectAll('.legend')
+                .data(chartData)
+                .enter()
+                .append('g')
+                .attr('class', 'legend')
+                .attr('transform', (d, i) => {
+                    const col = i % columnsPerRow;
+                    const row = Math.floor(i / columnsPerRow);
+                    return `translate(${col * columnWidth}, ${height + 50 + row * 20})`;
+                });
 
-        legend.append('rect')
-            .attr('width', 10)
-            .attr('height', 10)
-            .attr('fill', (d, i) => colors(i));
+            legend.append('rect')
+                .attr('width', 10)
+                .attr('height', 10)
+                .attr('fill', (d, i) => colors(i));
 
-        legend.append('text')
-            .attr('x', 15)
-            .attr('y', 8)
-            .attr('font-size', '12px')
-            .text(d => d.comarca);
+            legend.append('text')
+                .attr('x', 15)
+                .attr('y', 8)
+                .attr('font-size', '12px')
+                .text(d => d.comarca);
+        }
     }
 
     // Inicialitzar amb "Totes"
