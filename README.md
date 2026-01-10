@@ -25,7 +25,7 @@ source .venv/bin/activate
 ### Execució del codi
 
 ```sh
-(.venv) $ python3 scraper.py
+(.venv) $ python3 1-web-scraper.py
 ```
 
 ## Preprocessament i anàlisis de les dades
@@ -99,13 +99,13 @@ conda config --set env_prompt '({name}) '
 Per obtenir l'informe en format pdf, executeu la següent ordre:
 
 ```sh
-Rscript -e "rmarkdown::render('data-preprocessing.Rmd', output_format = 'pdf_document')"
+Rscript -e "rmarkdown::render('2-data-preprocessing.Rmd', output_format = 'pdf_document')"
 ```
 
 o bé, aquesta altra ordre per obtenir l'enforme en format html:
 
 ```sh
-Rscript -e "rmarkdown::render('data-preprocessing.Rmd', output_format = 'html_document')"
+Rscript -e "rmarkdown::render('2-data-preprocessing.Rmd', output_format = 'html_document')"
 ```
 
 > [!TIP]
@@ -118,13 +118,13 @@ Rscript -e "rmarkdown::render('data-preprocessing.Rmd', output_format = 'html_do
 Per obtenir l'informe en format pdf, executeu la següent ordre:
 
 ```sh
-Rscript -e "rmarkdown::render('data-analysis.Rmd', output_format = 'pdf_document')"
+Rscript -e "rmarkdown::render('3-data-analysis.Rmd', output_format = 'pdf_document')"
 ```
 
 o bé, aquesta altra ordre per obtenir l'enforme en format html:
 
 ```sh
-Rscript -e "rmarkdown::render('data-analysis.Rmd', output_format = 'html_document')"
+Rscript -e "rmarkdown::render('3-data-analysis.Rmd', output_format = 'html_document')"
 ```
 
 ## Pàgina web
