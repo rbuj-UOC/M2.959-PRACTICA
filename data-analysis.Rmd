@@ -1,0 +1,528 @@
+---
+title: Anàlisi de Dades - Tests d'Hipòtesis
+author: "Robert Buj"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+    warning = FALSE, error = FALSE, message = FALSE, echo = FALSE,
+    fig.align = "center"
+)
+# Carrega les biblioteques necessàries
+suppressPackageStartupMessages({
+    library(car)
+    library(corrplot)
+    library(dplyr)
+    library(ggplot2)
+    library(data.table)
+    library(lmtest)
+    library(nortest)
+    library(tidyr)
+})
+```
+
+## Carregar les dades
+
+```{r load-data}
+# Carrega el dataset
+dataset <- fread(
+    "data/recollida-selectiva-comarques-2006-2021.csv",
+    sep = ",",
+    dec = ".",
+    data.table = FALSE
+)
+
+dataset <- dataset |>
+    mutate(
+        # Variable recollida total (en tones)
+        `Recollida total` = `Recollida selectiva` + `Recollida no selectiva`,
+        # Percentatge de recollida selectiva
+        `Recollida selectiva %` = (`Recollida selectiva` / `Recollida total`) * 100,
+        # Població femenina total
+        `Població.x` = `Població.y 0-15` + `Població.x 16-24` + `Població.y 25-44` + `Població.x 45-64` + `Població.y 64+`,
+        # Població masculina total
+        `Població.y` = `Població.x 0-15` + `Població.y 16-24` + `Població.x 25-44` + `Població.y 45-64` + `Població.x 64+`,
+        # Població total
+        `Poblacio` = `Població.x` + `Població.y`,
+        # Densitat de Població (habitants per km²)
+        `Densitat de població hab/km2` = `Poblacio` / `Superfície km2`,
+        # Percentatge de fracció resta
+        `Fracció resta %` = (`Recollida no selectiva` / `Recollida total`) * 100,
+        # Variable per agrupar per província (pla territorial)
+        Província = factor(Província),
+        Comarca = factor(Comarca)
+    ) |>
+    filter(!is.na(`Recollida selectiva %`))
+
+# Resum estadístic bàsic de les dades carregades
+summary(dataset)
+```
+
+```{r helpers}
+# Funció segura per al test de normalitat (evita errors de mida <3 o >5000)
+safe_normality_test <- function(x) {
+    x <- stats::na.omit(x)
+    n <- length(x)
+    if (n < 3) {
+        return(list(p.value = NA_real_, method = "No es pot provar: n<3"))
+    }
+    if (n > 5000) {
+        res <- nortest::ad.test(x)
+        return(list(p.value = res$p.value, method = "Anderson-Darling (n>5000)"))
+    }
+    res <- shapiro.test(x)
+    list(p.value = res$p.value, method = "Shapiro-Wilk")
+}
+
+# Funció segura per a la correlació (evita errors per mostres petites o NA)
+safe_cor_test <- function(x, y, method = "spearman") {
+    df <- data.frame(x = x, y = y)
+    df <- df[complete.cases(df), ]
+    n <- nrow(df)
+    if (n < 3) {
+        return(list(estimate = NA_real_, p.value = NA_real_, n = n, method = paste0("No es pot provar: n=", n)))
+    }
+    res <- cor.test(df$x, df$y, method = method)
+    list(estimate = res$estimate, p.value = res$p.value, n = n, method = res$method)
+}
+```
+
+## Pregunta 1: Variació de residus per comarques i relació amb densitat de població
+
+**Pregunta de recerca:** Com varia la generació de residus per comarques al llarg dels anys i quina relació té amb la densitat de població?
+
+```{r pregunta1-corr-all-years}
+# Matriu de correlació
+num_df <- dataset |>
+    select(
+        `Recollida selectiva`, `Recollida no selectiva`, `Recollida total`,
+        `Densitat de població hab/km2`,
+    )
+
+corr_mat <- suppressWarnings(cor(num_df, use = "pairwise.complete.obs"))
+
+# Gràfica de la matriu de correlació amb corrplot
+corrplot(corr_mat,
+    method = "number", type = "upper", tl.col = "black", tl.srt = 45,
+    title = "Matriu de Correlació",
+    mar = c(0, 0, 1, 0)
+)
+```
+
+### Test d'hipòtesis: 2021 vs 2006
+
+**Pregunta de recerca:** La mitjana del percentatge de recollida selectiva de l'any 2021 és millor que la mitjana de l'any 2006?
+
+**Hipòtesis:**
+
+- H0: $\mu_{2021} = \mu_{2006}$  (la mitjana del 2021 es igual a la del 2006)
+- H1: $\mu_{2021} > \mu_{2006}$ (la mitjana del 2021 és superior)
+
+```{r pregunta1-hypothesis-2006-2021}
+# Dades per als anys 2006 i 2021
+data_comp <- dataset |>
+    filter(Any %in% c(2006, 2021)) |>
+    select(Any, Comarca, `Recollida selectiva %`) |>
+    drop_na()
+
+data_2006 <- data_comp |>
+    filter(Any == 2006) |>
+    pull(`Recollida selectiva %`)
+data_2021 <- data_comp |>
+    filter(Any == 2021) |>
+    pull(`Recollida selectiva %`)
+
+comunes <- intersect(
+    data_comp |> filter(Any == 2006) |> pull(Comarca),
+    data_comp |> filter(Any == 2021) |> pull(Comarca)
+)
+
+cat("Comarques 2006:", length(unique(data_comp$Comarca[data_comp$Any == 2006])), "\n")
+cat("Comarques 2021:", length(unique(data_comp$Comarca[data_comp$Any == 2021])), "\n")
+cat("Comarques comunes:", length(comunes), "\n\n")
+
+if (length(comunes) > 0) {
+    # Test t aparellat (mateixes comarques)
+    data_paired <- data_comp |>
+        filter(Comarca %in% comunes) |>
+        select(Any, Comarca, `Recollida selectiva %`) |>
+        tidyr::pivot_wider(
+            names_from = Any,
+            values_from = `Recollida selectiva %`,
+            names_prefix = "Any_"
+        ) |>
+        drop_na()
+
+    test_res <- t.test(
+        data_paired$Any_2021,
+        data_paired$Any_2006,
+        paired = TRUE,
+        alternative = "greater"
+    )
+
+    diffs <- data_paired$Any_2021 - data_paired$Any_2006
+    cohens_d <- mean(diffs) / sd(diffs)
+
+    cat("Test t aparellat (n =", nrow(data_paired), ")\n")
+    cat("  t =", round(test_res$statistic, 3), "\n")
+    cat("  df =", test_res$parameter, "\n")
+    cat("  p-value =", round(test_res$p.value, 4), "\n")
+    cat("  Mitjana diferències (2021-2006) =", round(mean(diffs), 2), "%\n")
+} else {
+    # Test t independent (Welch)
+    test_res <- t.test(
+        data_2021,
+        data_2006,
+        paired = FALSE,
+        var.equal = FALSE,
+        alternative = "greater"
+    )
+
+    pooled_sd <- sqrt(((length(data_2006) - 1) * sd(data_2006)^2 +
+        (length(data_2021) - 1) * sd(data_2021)^2) /
+        (length(data_2006) + length(data_2021) - 2))
+    cohens_d <- (mean(data_2021) - mean(data_2006)) / pooled_sd
+
+    cat("Test t independent (Welch)\n")
+    cat("  t =", round(test_res$statistic, 3), "\n")
+    cat("  df =", round(test_res$parameter, 2), "\n")
+    cat("  p-value =", round(test_res$p.value, 4), "\n")
+}
+
+alpha <- 0.05
+if (!is.na(test_res$p.value) && test_res$p.value < alpha) {
+    cat("Rebutgem H0: la mitjana del 2021 és superior a la del 2006.\n")
+} else {
+    cat("No rebutgem H0: no hi ha prou evidència que la mitjana del 2021 superi la del 2006.\n")
+}
+```
+
+## Pregunta 2: Millores en recollida selectiva i patrons demogràfics (2006-2021)
+
+**Pregunta de recerca:** Hi ha algun rang demogràfic associat amb el % de recollida selectiva?
+
+```{r pregunta2-normality}
+predictors <- c(
+    "Població.x 0-15", "Població.y 0-15",
+    "Població.x 16-24", "Població.y 16-24",
+    "Població.x 25-44", "Població.y 25-44",
+    "Població.x 45-64", "Població.y 45-64",
+    "Població.x 64+", "Població.y 64+"
+)
+
+reg_ds <- dataset |>
+    select(Any, `Recollida selectiva %`, all_of(predictors), Comarca) |>
+    drop_na()
+
+cat("Observacions després de neteja de NA:", nrow(reg_ds), "\n")
+cat("Nombre de comarques úniques:", length(unique(reg_ds$Comarca)), "\n")
+```
+
+```{r pregunta2-paired-test}
+# Model de regressió lineal: Recollida selectiva % ~ Any + variables demogràfiques
+preds_formula <- c(
+    "`Població.x 0-15`", "`Població.y 0-15`",
+    "`Població.x 16-24`", "`Població.y 16-24`",
+    "`Població.x 25-44`", "`Població.y 25-44`",
+    "`Població.x 45-64`", "`Població.y 45-64`",
+    "`Població.x 64+`", "`Població.y 64+`"
+)
+
+form_str <- paste("`Recollida selectiva %` ~ Any + ", paste(preds_formula, collapse = " + "))
+model_reg <- lm(as.formula(form_str), data = reg_ds)
+
+summary_reg <- summary(model_reg)
+print(summary_reg)
+```
+
+```{r pregunta2-demographic-analysis}
+# Taula de significança de coeficients
+coef_tab <- as.data.frame(summary(model_reg)$coefficients)
+coef_tab$Predictor <- rownames(coef_tab)
+rownames(coef_tab) <- NULL
+coef_tab <- coef_tab |>
+    dplyr::rename(Estimate = `Estimate`, Std.Error = `Std. Error`, t.value = `t value`, p.value = `Pr(>|t|)`) |>
+    dplyr::arrange(p.value)
+
+# Excloure l'intercept per a la classificació
+coef_tab_no_intercept <- coef_tab |>
+    dplyr::filter(Predictor != "(Intercept)")
+
+knitr::kable(
+    coef_tab_no_intercept,
+    align = "l",
+    caption = "Significança (p-value) dels predictors en el model de regressió"
+)
+```
+
+## Pregunta 3: Pressió territorial i fracció resta
+
+**Pregunta de recerca:** La pressió territorial (habitants/km²) està correlacionada amb tones més altes de fracció resta?
+
+```{r pregunta3}
+# Matriu de correlació
+corr_vars <- dataset |>
+    select(
+        `Densitat de població hab/km2`,
+        `Recollida selectiva`,
+        `Recollida no selectiva`,
+        `Recollida total`
+    )
+corr_mat2 <- suppressWarnings(cor(corr_vars, use = "pairwise.complete.obs"))
+
+# Gràfica de la matriu de correlació amb corrplot
+corrplot(corr_mat2,
+    method = "number", type = "upper", tl.col = "black", tl.srt = 45,
+    title = "Matriu de Correlació - Pressió Territorial i Fracció Resta",
+    mar = c(0, 0, 1, 0)
+)
+```
+
+## Pregunta 4: Diferències per província (Pla Territorial) - ANOVA d'un factor (any 2021)
+
+```{r pregunta4-intro}
+data_anova1 <- dataset |>
+    filter(Any == 2021) |>
+    select(Província, `Recollida selectiva %`) |>
+    drop_na()
+ggplot(data_anova1, aes(x = Província, y = `Recollida selectiva %`)) +
+    geom_boxplot(fill = "lightblue") +
+    labs(
+        title = "Distribució del percentatge de recollida selectiva per província (2021)",
+        x = "Província",
+        y = "Percentatge de Recollida Selectiva (%)"
+    ) +
+    theme_minimal()
+```
+
+```{r}
+data_anova2 <- dataset |>
+    filter(Any == 2021) |>
+    mutate(
+        `Recollida total per habitant` = (`Recollida total` / `Poblacio`) * 1000
+    ) |>
+    select(Província, `Recollida total per habitant`) |>
+    drop_na()
+ggplot(data_anova2, aes(x = Província, y = `Recollida total per habitant`)) +
+    geom_boxplot(fill = "lightgreen") +
+    labs(
+        title = "Distribució de la recollida total per habitants per província (2021)",
+        x = "Província",
+        y = "Recollida Total per Habitants (kg/habitant)"
+    ) +
+    theme_minimal()
+```
+
+### 4.1. Percentatge de recollida selectiva per província
+
+**Pregunta de recerca:** Hi ha diferències en la mitjana del percentatge de recollida selectiva segons la província?
+
+**Hipòtesis:**
+
+- H0: $\mu_{Província_1} = \mu_{Província_2} = \ldots = \mu_{Província_k}$ (les mitjanes del percentatge de recollida selectiva són iguals per a totes les províncies)
+- H1: Almenys una mitjana de província és diferent
+
+```{r pregunta4-anova1-data-prep}
+cat("Nombre d'observacions:", nrow(data_anova1), "\n")
+cat("Nombre de províncies:", length(unique(data_anova1$Província)), "\n\n")
+
+# Estadístics descriptius per província
+stats_by_provincia <- data_anova1 |>
+    group_by(Província) |>
+    summarise(
+        n = n(),
+        Media = mean(`Recollida selectiva %`, na.rm = TRUE),
+        SD = sd(`Recollida selectiva %`, na.rm = TRUE),
+        Min = min(`Recollida selectiva %`, na.rm = TRUE),
+        Max = max(`Recollida selectiva %`, na.rm = TRUE),
+        .groups = "drop"
+    )
+
+knitr::kable(stats_by_provincia, caption = "Estadístics del percentatge de recollida selectiva per província (2021)")
+```
+
+```{r pregunta4-anova1-normality}
+# Test de normalitat per a cada grup
+cat("Tests de normalitat per a cada província:\n\n")
+normalitat_per_provincia <- data_anova1 |>
+    group_by(Província) |>
+    summarise(
+        n = n(),
+        p.value = safe_normality_test(`Recollida selectiva %`)$p.value,
+        method = safe_normality_test(`Recollida selectiva %`)$method,
+        .groups = "drop"
+    )
+
+knitr::kable(normalitat_per_provincia, caption = "Tests de normalitat per província")
+
+# Interpretació
+for (i in seq_len(nrow(normalitat_per_provincia))) {
+    prov <- normalitat_per_provincia$Província[i]
+    p_val <- normalitat_per_provincia$p.value[i]
+    if (!is.na(p_val)) {
+        if (p_val > 0.05) {
+            cat(prov, ": Dades normals (p =", round(p_val, 4), ")\n")
+        } else {
+            cat(prov, ": Dades NO normals (p =", round(p_val, 4), ")\n")
+        }
+    }
+}
+```
+
+```{r pregunta4-anova1-homogeneity}
+# Test de igualtat de variàncies (Levene)
+cat("\nTest de Levene per a igualtat de variàncies:\n")
+levene_test1 <- car::leveneTest(`Recollida selectiva %` ~ Província, data = data_anova1)
+print(levene_test1)
+
+if (levene_test1$`Pr(>F)`[1] > 0.05) {
+    cat("\nVariàncies iguals (p =", round(levene_test1$`Pr(>F)`[1], 4), ")\n")
+} else {
+    cat("\nVariàncies NO iguals (p =", round(levene_test1$`Pr(>F)`[1], 4), ")\n")
+}
+```
+
+```{r pregunta4-anova1-test}
+# Test ANOVA d'un factor
+cat("ANOVA d'un factor - Percentatge de recollida selectiva per província:\n\n")
+anova1 <- aov(`Recollida selectiva %` ~ Província, data = data_anova1)
+anova1_summary <- summary(anova1)
+print(anova1_summary)
+
+# Extreu els resultats
+f_statistic1 <- anova1_summary[[1]]$`F value`[1]
+p_value1 <- anova1_summary[[1]]$`Pr(>F)`[1]
+df_between1 <- anova1_summary[[1]]$`Df`[1]
+df_within1 <- anova1_summary[[1]]$`Df`[2]
+
+cat("\nResum dels resultats:\n")
+cat("  F =", round(f_statistic1, 3), "\n")
+cat("  df (entre) =", df_between1, "\n")
+cat("  df (dins) =", df_within1, "\n")
+cat("  p-value =", round(p_value1, 4), "\n\n")
+
+alpha <- 0.05
+if (p_value1 < alpha) {
+    cat("Conclusió: Rebutgem H0. Hi ha diferències significatives en el percentatge de recollida selectiva entre les províncies (p =", round(p_value1, 4), ").\n")
+} else {
+    cat("Conclusió: No rebutgem H0. No hi ha prou evidència de diferències significatives en el percentatge de recollida selectiva entre les províncies (p =", round(p_value1, 4), ").\n")
+}
+```
+
+```{r pregunta4-anova1-posthoc}
+# Test post-hoc de Tukey si rebutgem H0
+if (p_value1 < 0.05) {
+    cat("\nTest post-hoc de Tukey (HSD):\n\n")
+    tukey1 <- TukeyHSD(anova1)
+    print(tukey1)
+}
+```
+
+### 4.2. Recollida total per habitant per província
+
+**Pregunta de recerca:** Hi ha diferències en la mitjana de recollida total per habitant segons la província?
+
+**Hipòtesis:**
+
+- H0: $\mu_{Província_1} = \mu_{Província_2} = \ldots = \mu_{Província_k}$ (les mitjanes de recollida total per habitant són iguals per a totes les províncies)
+- H1: Almenys una mitjana de província és diferent
+
+```{r pregunta4-anova2-data-prep}
+cat("Nombre d'observacions:", nrow(data_anova2), "\n")
+cat("Nombre de províncies:", length(unique(data_anova2$Província)), "\n\n")
+
+# Estadístics descriptius per província
+stats_by_provincia2 <- data_anova2 |>
+    group_by(Província) |>
+    summarise(
+        n = n(),
+        Media = mean(`Recollida total per habitant`, na.rm = TRUE),
+        SD = sd(`Recollida total per habitant`, na.rm = TRUE),
+        Min = min(`Recollida total per habitant`, na.rm = TRUE),
+        Max = max(`Recollida total per habitant`, na.rm = TRUE),
+        .groups = "drop"
+    )
+
+knitr::kable(stats_by_provincia2, caption = "Estadístics de recollida total per habitant per província (2021)")
+```
+
+```{r pregunta4-anova2-normality}
+# Test de normalitat per a cada grup
+cat("Tests de normalitat per a cada província:\n\n")
+normalitat_per_provincia2 <- data_anova2 |>
+    group_by(Província) |>
+    summarise(
+        n = n(),
+        p.value = safe_normality_test(`Recollida total per habitant`)$p.value,
+        method = safe_normality_test(`Recollida total per habitant`)$method,
+        .groups = "drop"
+    )
+
+knitr::kable(normalitat_per_provincia2, caption = "Tests de normalitat per província")
+
+# Interpretació
+for (i in seq_len(nrow(normalitat_per_provincia2))) {
+    prov <- normalitat_per_provincia2$Província[i]
+    p_val <- normalitat_per_provincia2$p.value[i]
+    if (!is.na(p_val)) {
+        if (p_val > 0.05) {
+            cat(prov, ": Dades normals (p =", round(p_val, 4), ")\n")
+        } else {
+            cat(prov, ": Dades NO normals (p =", round(p_val, 4), ")\n")
+        }
+    }
+}
+```
+
+```{r pregunta4-anova2-homogeneity}
+# Test de igualtat de variàncies (Levene)
+cat("\nTest de Levene per a igualtat de variàncies:\n")
+levene_test2 <- car::leveneTest(`Recollida total per habitant` ~ Província, data = data_anova2)
+print(levene_test2)
+
+if (levene_test2$`Pr(>F)`[1] > 0.05) {
+    cat("\nVariàncies iguals (p =", round(levene_test2$`Pr(>F)`[1], 4), ")\n")
+} else {
+    cat("\nVariàncies NO iguals (p =", round(levene_test2$`Pr(>F)`[1], 4), ")\n")
+}
+```
+
+```{r pregunta4-anova2-test}
+# Test ANOVA d'un factor
+cat("ANOVA d'un factor - Recollida total per habitant per província:\n\n")
+anova2 <- aov(`Recollida total per habitant` ~ Província, data = data_anova2)
+anova2_summary <- summary(anova2)
+print(anova2_summary)
+
+# Extreu els resultats
+f_statistic2 <- anova2_summary[[1]]$`F value`[1]
+p_value2 <- anova2_summary[[1]]$`Pr(>F)`[1]
+df_between2 <- anova2_summary[[1]]$`Df`[1]
+df_within2 <- anova2_summary[[1]]$`Df`[2]
+
+cat("\nResum dels resultats:\n")
+cat("  F =", round(f_statistic2, 3), "\n")
+cat("  df (entre) =", df_between2, "\n")
+cat("  df (dins) =", df_within2, "\n")
+cat("  p-value =", round(p_value2, 4), "\n\n")
+
+alpha <- 0.05
+if (p_value2 < alpha) {
+    cat("Conclusió: Rebutgem H0. Hi ha diferències significatives en la recollida total per habitant entre les províncies (p =", round(p_value2, 4), ").\n")
+} else {
+    cat("Conclusió: No rebutgem H0. No hi ha prou evidència de diferències significatives en la recollida total per habitant entre les províncies (p =", round(p_value2, 4), ").\n")
+}
+```
+
+```{r pregunta4-anova2-posthoc}
+# Test post-hoc de Tukey si rebutgem H0
+if (p_value2 < 0.05) {
+    cat("\nTest post-hoc de Tukey (HSD):\n\n")
+    tukey2 <- TukeyHSD(anova2)
+    print(tukey2)
+}
+```
+
+## Conclusions finals

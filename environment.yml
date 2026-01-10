@@ -5,10 +5,13 @@ channels:
   - defaults
 dependencies:
   - r-base=4.5.2
+  - r-car
+  - r-corrplot
   - r-data.table
   - r-dplyr
   - r-ggplot2
   - r-kableextra
   - r-knitr
   - r-languageserver
+  - r-nortest
   - r-rmarkdown

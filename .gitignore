@@ -356,9 +356,12 @@ __marimo__/
 
 # R specific ignores
 
-preprocessing.html
-preprocessing.log
-preprocessing.pdf
+data-analysis.html
+data-analysis.log
+data-analysis.pdf
+data-preprocessing.html
+data-preprocessing.log
+data-preprocessing.pdf
 .conda/
 
 # History files

@@ -28,10 +28,12 @@ source .venv/bin/activate
 (.venv) $ python3 scraper.py
 ```
 
-## Preprocessament de les dades
+## Preprocessament i anàlisis de les dades
 
-El fitxer preprocessing.Rmd preprocessa les dades i genera el conjunt de dates
-[recollida-selectiva-comarques-2006-2021.csv](./data/recollida-selectiva-comarques-2006-2021.csv)
+El fitxer `data-preprocessing.Rmd` preprocessa les dades i genera el conjunt de dates
+[recollida-selectiva-comarques-2006-2021.csv](./data/recollida-selectiva-comarques-2006-2021.csv).
+
+L'anàlisi inicial de les dades es fa amb el fitxer `data-analysis.Rmd`.
 
 ### Creació de l'entorn virtual amb conda
 
@@ -53,8 +55,8 @@ amb les següents ordres:
 ```sh
 conda create --prefix=./.conda
 conda activate ./.conda
-conda install r-base=4.5.2 r-data.table r-dplyr r-ggplot2 r-kableextra r-knitr \
-    r-languageserver r-rmarkdown
+conda install r-base=4.5.2 r-corrplot r-car r-data.table r-dplyr r-ggplot2 \
+   r-kableextra r-knitr r-languageserver r-nortest r-rmarkdown
 ```
 
 > [!TIP]
@@ -97,19 +99,33 @@ conda config --set env_prompt '({name}) '
 Per obtenir l'informe en format pdf, executeu la següent ordre:
 
 ```sh
-Rscript -e "rmarkdown::render('preprocessing.Rmd', output_format = 'pdf_document')"
+Rscript -e "rmarkdown::render('data-preprocessing.Rmd', output_format = 'pdf_document')"
 ```
 
 o bé, aquesta altra ordre per obtenir l'enforme en format html:
 
 ```sh
-Rscript -e "rmarkdown::render('preprocessing.Rmd', output_format = 'html_document')"
+Rscript -e "rmarkdown::render('data-preprocessing.Rmd', output_format = 'html_document')"
 ```
 
 > [!TIP]
 > En MacOS, per renderitzar el fitxer R Markdown a PDF, cal instal·lar
 > [MacTeX](https://www.tug.org/mactex/) i [pandoc](https://pandoc.org/). pandoc
 > es pot instal·lar amb Homebrew:
+
+### Execució de l'anàlisis de les dades
+
+Per obtenir l'informe en format pdf, executeu la següent ordre:
+
+```sh
+Rscript -e "rmarkdown::render('data-analysis.Rmd', output_format = 'pdf_document')"
+```
+
+o bé, aquesta altra ordre per obtenir l'enforme en format html:
+
+```sh
+Rscript -e "rmarkdown::render('data-analysis.Rmd', output_format = 'html_document')"
+```
 
 ## Pàgina web
 
